@@ -1,8 +1,51 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, forms
-from .models import shippingAdd, Product
+from .models import shippingAdd, Product, Seller, contactSeller, contactBuyer, Coupons
 
+class addCoupon(forms.ModelForm):
+    class Meta:
+        model = Coupons
+        fields = ['Seller', 'code' , 'discount_amount', 'title', 'status']
+        widgets = {
+            'code': forms.TextInput(attrs={'class': 'form-control'}),
+            'discount_amount': forms.TextInput(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'status': forms.Select()
+        }
+
+class ContactSellerForm(forms.ModelForm):
+    class Meta:
+        model = contactSeller
+        fields = ['User', 'title' , 'body_text', 'first_name', 'last_name', 'email', 'receiver']
+        widgets = {
+            'User': forms.TextInput(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class ContactBuyerForm(forms.ModelForm):
+    class Meta:
+        model = contactBuyer
+        fields = ['User', 'title' , 'body_text', 'first_name', 'last_name', 'email', 'receiver']
+        widgets = {
+            'User': forms.TextInput(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class UpdateSellerForm(forms.ModelForm):
+    class Meta:
+        model = Seller
+        fields = ['store_name', 'store_category' ]
+        widgets = {
+            'store_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'store_category': forms.Select(attrs={'class': 'form-control'}),
+        }
 
 class UpdateUserForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))

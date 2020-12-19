@@ -690,7 +690,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <h3>PERSONAL DETAIL</h3>
-                                        <form class="theme-form" method="POST" enctype="multipart/form-data">
+                    <form class="theme-form" method="POST" enctype="multipart/form-data">
                                                   {% csrf_token %}
                             <div class="form-row">
                                 <div class="col-md-6">
@@ -722,6 +722,24 @@
                                 <div class="col-md-6">
                                     <label for="review">Repeat Password</label>
                                         {{ form.password2 }}
+                                </div>
+                            </div>
+                                {% if request.GET.next %}
+                            <input type="hidden" name="next" value="{{ request.GET.next }}" />
+                                    {% endif %}
+                             <input type="submit" value="Update" class="btn btn-solid"/>
+                    </form>
+
+                     <form class="theme-form" method="POST" enctype="multipart/form-data">
+                                                  {% csrf_token %}
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="email">Store Name</label>
+                                        {{ form2.store_name }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email">Store Category</label>
+                                        {{ form2.store_category }}
                                 </div>
                             </div>
                                 {% if request.GET.next %}

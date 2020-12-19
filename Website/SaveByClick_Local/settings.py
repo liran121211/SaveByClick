@@ -28,7 +28,7 @@ DEBUG = True
 # Find out what the IP addresses are at run time
 # This is necessary because otherwise Gunicorn will reject the connections
 
-ALLOWED_HOSTS = ['savebyclick.online', '*']
+ALLOWED_HOSTS = ['savebyclick.online', '87.68.188.69']
 
 
 # Application definition
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_project.middleware.OnlineNowMiddleware',
 ]
 
 ROOT_URLCONF = 'django_project.urls'
@@ -128,6 +129,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'django_project/static/imageUploads')
 LOGOUT_REDIRECT_URL = "/"
 MEDIA_URL = '/imageUploads/'
+
 
 #-------------------------------CkEditor----------------------------
 customColorPalette = [

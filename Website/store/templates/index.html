@@ -77,13 +77,13 @@
                             <div class="header-contact">
                                 <ul>
                                     <li>Welcome To Our Store | SaveByClick</li>
-                                    <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 08-0000000</li>
+                                    <li><i class="fa fa-phone" aria-hidden="true"></i>Online Users: {{ countOnlineUsers }} </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-lg-6 text-right">
                             <ul class="header-dropdown">
-                                <li class="mobile-wishlist"><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                <li class="mobile-wishlist"><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>
                                 </li>
                                 <li class="onhover-dropdown mobile-account"> <i class="fa fa-user" aria-hidden="true"></i>
                                     My Account
@@ -336,7 +336,7 @@
     <!-- header start -->
     <header class="header-tools marketplace">
         <center><div style="background-color:#3e5067;" data-msg-iteration="7-36" class="container-fluid news-line-body">
-		<div class="message_title d-none d-md-block" style="color: rgb(252, 148, 3); font-weight: 600; font-size: 18px;">The Site Is Under Construction</div>
+		<div class="message_title d-none d-md-block" style="color: rgb(252, 148, 3); font-weight: 600; font-size: 18px;">The Site Is Under Construction </div>
 		<div style="color:#ffffff;" class="text">Estimated release date on: 02/01/2021 </div></div></center>
 	</div>
         <div class="mobile-fix-option"></div>
@@ -347,13 +347,13 @@
                         <div class="header-contact">
                             <ul>
                                 <li>Welcome To Our Store | SaveByClick</li>
-                                <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 08-0000000</li>
+                                <li><i class="fa fa-phone" aria-hidden="true"></i>Online Users: {{ countOnlineUsers }} </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 text-right">
                         <ul class="header-dropdown">
-                            <li class="mobile-wishlist"><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                            <li class="mobile-wishlist"><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>
                             </li>
                             <li class="onhover-dropdown mobile-account"> <i class="fa fa-user" aria-hidden="true"></i>
                                 {% if user.is_authenticated %}
@@ -366,9 +366,10 @@
                                         <li><a href="profile/" data-lng="es">My Profile</a></li>
                                     <li><a href="logoutnow/" data-lng="es">Logout</a></li>
                                         {% endif %}
+                                         </ul>
                                 {% else %}
                                     My Account
-                                        </ul>
+
                                 <ul class="onhover-show-div">
                                     <li><a href="login/" data-lng="en">Login</a></li>
                                     <li><a href="register/" data-lng="en">Sign Up</a></li>
@@ -398,126 +399,18 @@
                                                     aria-hidden="true"></i> Back</div>
                                         </div>
                                         <ul id="sub-menu" class="sm pixelstrap sm-vertical">
-                                            <li> <a href="#">clothing</a>
-                                                <ul class="mega-menu clothing-menu">
-                                                    <li>
-                                                        <div class="row m-0">
-                                                            <div class="col-xl-4">
-                                                                <div class="link-section">
-                                                                    <h5>women's fashion</h5>
-                                                                    <ul>
-                                                                        <li><a href="#">dresses</a></li>
-                                                                        <li><a href="#">skirts</a></li>
-                                                                        <li><a href="#">westarn wear</a></li>
-                                                                        <li><a href="#">ethic wear</a></li>
-                                                                        <li><a href="#">sport wear</a></li>
-                                                                    </ul>
-                                                                    <h5>men's fashion</h5>
-                                                                    <ul>
-                                                                        <li><a href="#">sports wear</a></li>
-                                                                        <li><a href="#">western wear</a></li>
-                                                                        <li><a href="#">ethic wear</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-4">
-                                                                <div class="link-section">
-                                                                    <h5>accessories</h5>
-                                                                    <ul>
-                                                                        <li><a href="#">fashion jewellery</a></li>
-                                                                        <li><a href="#">caps and hats</a></li>
-                                                                        <li><a href="#">precious jewellery</a></li>
-                                                                        <li><a href="#">necklaces</a></li>
-                                                                        <li><a href="#">earrings</a></li>
-                                                                        <li><a href="#">wrist wear</a></li>
-                                                                        <li><a href="#">ties</a></li>
-                                                                        <li><a href="#">cufflinks</a></li>
-                                                                        <li><a href="#">pockets squares</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-4">
-                                                                <a href="#" class="mega-menu-banner"><img
-                                                                        src="{% static 'assets/images/mega-menu/fashion.jpg' %}"
-                                                                        alt="" class="img-fluid blur-up lazyload"></a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li> <a href="#">bags</a>
-                                                <ul>
-                                                    <li><a href="#">shopper bags</a></li>
-                                                    <li><a href="#">laptop bags</a></li>
-                                                    <li><a href="#">clutches</a></li>
-                                                    <li> <a href="#">purses</a>
-                                                        <ul>
-                                                            <li><a href="#">purses</a></li>
-                                                            <li><a href="#">wallets</a></li>
-                                                            <li><a href="#">leathers</a></li>
-                                                            <li><a href="#">satchels</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li> <a href="#">footwear</a>
-                                                <ul>
-                                                    <li><a href="#">sport shoes</a></li>
-                                                    <li><a href="#">formal shoes</a></li>
-                                                    <li><a href="#">casual shoes</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">watches</a></li>
-                                            <li> <a href="#">Accessories</a>
-                                                <ul>
-                                                    <li><a href="#">fashion jewellery</a></li>
-                                                    <li><a href="#">caps and hats</a></li>
-                                                    <li><a href="#">precious jewellery</a></li>
-                                                    <li> <a href="#">more..</a>
-                                                        <ul>
-                                                            <li><a href="#">necklaces</a></li>
-                                                            <li><a href="#">earrings</a></li>
-                                                            <li><a href="#">wrist wear</a></li>
-                                                            <li> <a href="#">accessories</a>
-                                                                <ul>
-                                                                    <li><a href="#">ties</a></li>
-                                                                    <li><a href="#">cufflinks</a></li>
-                                                                    <li><a href="#">pockets squares</a></li>
-                                                                    <li><a href="#">helmets</a></li>
-                                                                    <li><a href="#">scarves</a></li>
-                                                                    <li> <a href="#">more...</a>
-                                                                        <ul>
-                                                                            <li><a href="#">accessory gift sets</a></li>
-                                                                            <li><a href="#">travel accessories</a></li>
-                                                                            <li><a href="#">phone cases</a></li>
-                                                                        </ul>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li><a href="#">belts & more</a></li>
-                                                            <li><a href="#">wearable</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">house of design</a></li>
-                                            <li> <a href="#">beauty & personal care</a>
-                                                <ul>
-                                                    <li><a href="#">makeup</a></li>
-                                                    <li><a href="#">skincare</a></li>
-                                                    <li><a href="#">premium beaty</a></li>
-                                                    <li> <a href="#">more</a>
-                                                        <ul>
-                                                            <li><a href="#">fragrances</a></li>
-                                                            <li><a href="#">luxury beauty</a></li>
-                                                            <li><a href="#">hair care</a></li>
-                                                            <li><a href="#">tools & brushes</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">home & decor</a></li>
-                                            <li><a href="#">kitchen</a></li>
+                                            <li> <a href="hot-deals"><p style="color:orangered">HOT DEALS</p></a></li>
+                                            <li> <a href="#">Motors</a></li>
+                                            <li> <a href="#">Books, Movies & Music</a></li>
+                                            <li> <a href="#">Electronics</a></li>
+                                            <li><a href="#">Collectibles & Art</a></li>
+                                            <li> <a href="#">Fashion</a></li>
+                                            <li><a href="#">Home & Garden</a></li>
+                                            <li> <a href="#">Sporting Goods</a></li>
+                                            <li><a href="#">Toys & Hobbies</a></li>
+                                            <li><a href="#">Business & Industrial</a></li>
+                                            <li><a href="#">Health & Beauty</a></li>
+                                            <li><a href="#">Others</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -1064,15 +957,14 @@
 
     <!-- Paragraph-->
     <div class="title1 section-t-space">
-        <h4>special offer</h4>
-        <h2 class="title-inner1">today's deal</h2>
+        <h4>Find The Hottest Products</h4>
+        <h2 class="title-inner1">Most Viewd</h2>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <div class="product-para">
-                    <p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+                    <p class="text-center"> <!-----some text (hidden feature) --->
                 </div>
             </div>
         </div>
@@ -1085,6 +977,7 @@
         <div class="container">
             <div class="row game-product grid-products">
                 {% for product in product_list %}
+                    {% if product.views > 99998 %} <!----subject to update by choice --->
                 <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
                     <div class="img-wrapper">
                         <div class="front">
@@ -1111,6 +1004,7 @@
                         <h4>${{ product.price }}</h4>
                     </div>
                 </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
@@ -1121,14 +1015,14 @@
     <!-- Parallax banner -->
     <section class="p-0">
         <div class="full-banner parallax text-center p-right">
-            <img src="{% static 'assets/images/parallax/28.jpg' %}" alt="" class="bg-img blur-up lazyload' %}">
+            <img src="{% static 'imageUploads/ECOMMERCE_WALLPAPER.jpg' %}" alt="" class="bg-img blur-up lazyload' %}">
             <div class="container">
                 <div class="row">
                     <div class="col">
                         <div class="banner-contain">
-                            <h2>sale</h2>
-                            <h3>fashion trends</h3>
-                            <h4>special offer</h4>
+                            <h2>Shop Now</h2>
+                            <h3>Keep Your Privacy Safe</h3>
+                            <h4>Thousands Of Products For Sale!</h4>
                         </div>
                     </div>
                 </div>
@@ -1761,72 +1655,72 @@
                     <h2 class="title-borderless"># instagram</h2>
                     <div class="slide-7 no-arrow slick-instagram">
                         <div>
-                            <a href="#">
-                                <div class="instagram-box"> <img src="{% static 'assets/images/slider/2.jpg' %}" class="bg-img"
+                            <a href="https://www.instagram.com/p/CHYhCuRHglH/">
+                                <div class="instagram-box"> <img src="{% static 'imageUploads/INSTA1.jpg' %}" class="bg-img"
                                         alt="Avatar" style="width:100%">
                                     <div class="overlay"><i class="fa fa-instagram" aria-hidden="true"></i></div>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#">
-                                <div class="instagram-box"> <img src="{% static 'assets/images/slider/3.jpg' %}" class="bg-img"
+                            <a href="https://www.instagram.com/p/CIBm3pGnrC3/">
+                                <div class="instagram-box"> <img src="{% static 'imageUploads/INSTA2.jpg' %}" class="bg-img"
                                         alt="Avatar" style="width:100%">
                                     <div class="overlay"><i class="fa fa-instagram" aria-hidden="true"></i></div>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#">
-                                <div class="instagram-box"> <img src="{% static 'assets/images/slider/4.jpg' %}" class="bg-img"
+                            <a href="https://www.instagram.com/p/CHuGO4PgPxb/">
+                                <div class="instagram-box"> <img src="{% static 'imageUploads/INSTA3.jpg' %}" class="bg-img"
                                         alt="Avatar" style="width:100%">
                                     <div class="overlay"><i class="fa fa-instagram" aria-hidden="true"></i></div>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#">
-                                <div class="instagram-box"> <img src="{% static 'assets/images/slider/9.jpg' %}" class="bg-img"
+                            <a href="https://www.instagram.com/p/CGE5z56ntFd/">
+                                <div class="instagram-box"> <img src="{% static 'imageUploads/INSTA4.jpg' %}" class="bg-img"
                                         alt="Avatar" style="width:100%">
                                     <div class="overlay"><i class="fa fa-instagram" aria-hidden="true"></i></div>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#">
-                                <div class="instagram-box"> <img src="{% static 'assets/images/slider/6.jpg' %}" class="bg-img"
+                            <a href="https://www.trainiacfit.com/blog/top-fitness-hashtags-instagram">
+                                <div class="instagram-box"> <img src="{% static 'imageUploads/INSTA5.jpg' %}" class="bg-img"
                                         alt="Avatar" style="width:100%">
                                     <div class="overlay"><i class="fa fa-instagram" aria-hidden="true"></i></div>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#">
-                                <div class="instagram-box"> <img src="{% static 'assets/images/slider/7.jpg' %}" class="bg-img"
+                            <a href="https://www.instagram.com/p/CHG1B3wHXcZ/">
+                                <div class="instagram-box"> <img src="{% static 'imageUploads/INSTA6.jpg' %}" class="bg-img"
                                         alt="Avatar" style="width:100%">
                                     <div class="overlay"><i class="fa fa-instagram" aria-hidden="true"></i></div>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#">
-                                <div class="instagram-box"> <img src="{% static 'assets/images/slider/8.jpg' %}" class="bg-img"
+                            <a href="https://www.instagram.com/p/CHOLE9QD0hD/">
+                                <div class="instagram-box"> <img src="{% static 'imageUploads/INSTA7.jpg' %}" class="bg-img"
                                         alt="Avatar" style="width:100%">
                                     <div class="overlay"><i class="fa fa-instagram" aria-hidden="true"></i></div>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#">
-                                <div class="instagram-box"> <img src="{% static 'assets/images/slider/9.jpg' %}" class="bg-img"
+                            <a href="https://www.instagram.com/p/CHxdVRTFbsB/">
+                                <div class="instagram-box"> <img src="{% static 'imageUploads/INSTA8.jpg' %}" class="bg-img"
                                         alt="Avatar" style="width:100%">
                                     <div class="overlay"><i class="fa fa-instagram" aria-hidden="true"></i></div>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#">
-                                <div class="instagram-box"> <img src="{% static 'assets/images/slider/2.jpg' %}" class="bg-img"
+                            <a href="https://www.instagram.com/p/BOTMH6ZhVo4/">
+                                <div class="instagram-box"> <img src="{% static 'imageUploads/INSTA9.jpg' %}" class="bg-img"
                                         alt="Avatar" style="width:100%">
                                     <div class="overlay"><i class="fa fa-instagram" aria-hidden="true"></i></div>
                                 </div>
@@ -2836,6 +2730,17 @@
 
     <!-- Cart js-->
     <script src="{% static 'assets/js/cart.js' %}"></script>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K2FD0EWMNW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K2FD0EWMNW');
+</script>
 
     <script>
         $(window).on('load', function () {

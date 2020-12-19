@@ -705,23 +705,23 @@
                             <ul>
                                        {% if user_info.is_staff == False and user_info.is_superuser == False  %}
                                 <li class="active"><a href="/profile">Account Info</a></li>
-                                <li><a href="#">Address Book</a></li>
-                                <li><a href="#">My Orders</a></li>
-                                <li><a href="#">My Wishlist</a></li>
-                                <li><a href="#">Newsletter</a></li>
-                                <li><a href="/update-info">Update Information</a></li>
-                                <li><a href="#">Change Password</a></li>
+                                <li><a href="../update-shipping">Address Book</a></li>
+                                <li><a href="my-orders">My Orders</a></li>
+                                <li><a href="../wishlist">My Wishlist</a></li>
+                                <li><a href="inbox">My Inbox</a></li>
+                                <li><a href="../update-info">Update Information</a></li>
                                 <li><a href="activity">Activity Log</a></li>
-                                <li class="last"><a href="#">Log Out</a></li>
+                                <li class="last"><a href="../logoutnow">Log Out</a></li>
                                 {% endif %}
                                 {% if user_info.is_staff == False and user_info.is_superuser == True  %}
                                 <li class="active"><a href="/profile">Account Info</a></li>
                                 <li><a href="#">Warehouse Address</a></li>
-                                <li><a href="#">My Sells</a></li>
-                                <li><a href="/update-info">Update Information</a></li>
-                                <li><a href="#">Change Password</a></li>
+                                <li><a href="my-products">My Products</a></li>
+                                <li><a href="coupons">My Coupons</a></li>
+                                <li><a href="update-info">Update Information</a></li>
+                                <li><a href="inbox">My Inbox</a></li>
                                 <li><a href="activity">Activity Log</a></li>
-                                <li class="last"><a href="#">Log Out</a></li>
+                                <li class="last"><a href="../logoutnow">Log Out</a></li>
                                 {% endif %}
                             </ul>
                         </div>

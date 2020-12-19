@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% load static %}
+{% block content %}
 <html lang="en">
 
 <head>
@@ -8,31 +10,34 @@
     <meta name="description" content="multikart">
     <meta name="keywords" content="multikart">
     <meta name="author" content="multikart">
-    <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
-    <link rel="shortcut icon" href="../assets/images/favicon/1.png" type="image/x-icon">
+    <link rel="icon" href="{% static 'assets/images/favicon/1.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon/1.png' %}" type="image/x-icon">
     <title>Multikart - Multi-purpopse E-commerce Html Template</title>
 
     <!--Google font-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 
     <!-- Icons -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/fontawesome.css' %}">
 
     <!--Slick slider css-->
-    <link rel="stylesheet" type="text/css" href="../assets/css/slick.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/slick.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/slick-theme.css' %}">
 
     <!-- Animate icon -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/animate.css' %}">
 
     <!-- Themify icon -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/themify-icons.css' %}">
 
     <!-- Bootstrap css -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.css' %}">
 
     <!-- Theme css -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" media="screen" id="color">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/color1.css' %}" media="screen" id="color">
+
+      <!-- jsgrid css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/jsgrid.css' %}">
 
 </head>
 
@@ -58,19 +63,18 @@
                             <li class="mobile-wishlist"><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
                             </li>
                             <li class="onhover-dropdown mobile-account">
-                                <i class="fa fa-user" aria-hidden="true"></i> My Account
+                                {% if user.is_authenticated %}
+                                     {{ user.first_name }}'s Profile
+                                    <ul class="onhover-show-div">
+                                     <li><a href="/profile" data-lng="es">My Profile</a></li>
+                                    <li><a href="../logoutnow/" data-lng="es">Logout</a></li>
+                                {% else %}
+                                    My Account
                                 <ul class="onhover-show-div">
-                                    <li>
-                                        <a href="#" data-lng="en">
-                                            Login
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" data-lng="es">
-                                            Logout
-                                        </a>
-                                    </li>
+                                    <li><a href="../login/" data-lng="en">Login</a></li>
+                                    <li><a href="../register/" data-lng="en">Sign Up</a></li>
                                 </ul>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
@@ -138,7 +142,7 @@
                                                             </div>
                                                             <div class="col-xl-4">
                                                                 <a href="#" class="mega-menu-banner"><img
-                                                                        src="../assets/images/mega-menu/fashion.jpg"
+                                                                        src="{% static 'assets/images/mega-menu/fashion.jpg' %}"
                                                                         alt="" class="img-fluid blur-up lazyload"></a>
                                                             </div>
                                                         </div>
@@ -228,7 +232,7 @@
                                 </div>
                             </div>
                             <div class="brand-logo">
-                                <a href="index.html"> <img src="../assets/images/icon/logo.png"
+                                <a href="/"> <img src="{% static 'assets/images/icon/logo.png' %}"
                                         class="img-fluid blur-up lazyload" alt=""></a>
                             </div>
                         </div>
@@ -250,9 +254,9 @@
                                                 <li>
                                                     <a href="#">new demos <span class="new-tag">new</span></a>
                                                     <ul>
-                                                        <li><a target="_blank"
-                                                                href="marketplace-demo.html">marketplace</a></li>
                                                         <li><a target="_blank" href="tools.html">tools</a></li>
+                                                        <li><a target="_blank"
+                                                                href="http://google.com">marketplace</a></li>
                                                         <li><a target="_blank" href="game.html">game</a></li>
                                                         <li><a target="_blank" href="gym-product.html">gym</a></li>
                                                         <li><a target="_blank" href="marijuana.html">marijuana</a></li>
@@ -560,7 +564,7 @@
                                 <div class="icon-nav">
                                     <ul>
                                         <li class="onhover-div mobile-search">
-                                            <div><img src="../assets/images/icon/search.png" onclick="openSearch()"
+                                            <div><img src="{% static 'assets/images/icon/search.png' %}" onclick="openSearch()"
                                                     class="img-fluid blur-up lazyload" alt="">
                                                 <i class="ti-search" onclick="openSearch()"></i></div>
                                             <div id="search-overlay" class="search-overlay">
@@ -588,7 +592,7 @@
                                             </div>
                                         </li>
                                         <li class="onhover-div mobile-setting">
-                                            <div><img src="../assets/images/icon/setting.png"
+                                            <div><img src="{% static 'assets/images/icon/setting.png' %}"
                                                     class="img-fluid blur-up lazyload" alt="">
                                                 <i class="ti-settings"></i></div>
                                             <div class="show-div setting">
@@ -607,14 +611,14 @@
                                             </div>
                                         </li>
                                         <li class="onhover-div mobile-cart">
-                                            <div><img src="../assets/images/icon/cart.png"
+                                            <div><img src="{% static 'assets/images/icon/cart.png' %}"
                                                     class="img-fluid blur-up lazyload" alt="">
                                                 <i class="ti-shopping-cart"></i></div>
                                             <ul class="show-div shopping-cart">
                                                 <li>
                                                     <div class="media">
                                                         <a href="#"><img class="mr-3"
-                                                                src="../assets/images/fashion/product/1.jpg"
+                                                                src="{% static 'assets/images/fashion/product/1.jpg' %}"
                                                                 alt="Generic placeholder image"></a>
                                                         <div class="media-body">
                                                             <a href="#">
@@ -630,7 +634,7 @@
                                                 <li>
                                                     <div class="media">
                                                         <a href="#"><img class="mr-3"
-                                                                src="../assets/images/fashion/product/2.jpg"
+                                                                src="{% static 'assets/images/fashion/product/2.jpg' %}"
                                                                 alt="Generic placeholder image"></a>
                                                         <div class="media-body">
                                                             <a href="#">
@@ -674,152 +678,124 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="page-title">
-                        <h2>faq</h2>
+                        <h2>Dashboard</h2>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">faq</li>
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                         </ol>
                     </nav>
                 </div>
             </div>
         </div>
     </div>
-    <!-- breadcrumb end -->
+    <!-- breadcrumb End -->
 
 
-    <!--section start-->
-    <section class="faq-section section-b-space">
+    <!-- section start -->
+    <section class="section-b-space">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="accordion theme-accordion" id="accordionExample">
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <h5 class="mb-0"><button class="btn btn-link" type="button" data-toggle="collapse"
-                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">How
-                                        can I downgrade to an earlier version of Dummy Content?</button></h5>
-                            </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                                data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <p>it look like readable English. Many desktop publishing packages and web page
-                                        editors now use Lorem Ipsum as their default model text, and a search for 'lorem
-                                        ipsum' will uncover many web sites still in their infancy. Various versions have
-                                        evolved over the years,All the Lorem Ipsum generators on the Internet tend to
-                                        repeat predefined chunks as necessary, making this the first true generator on
-                                        the Internet. It uses a dictionary of over 200 Latin words, combined with a
-                                        handful of model sentence structures</p>
-                                </div>
-                            </div>
+                <div class="col-lg-3">
+                    <div class="account-sidebar"><a class="popup-btn">my account</a></div>
+                    <div class="dashboard-left">
+                        <div class="collection-mobile-back"><span class="filter-back"><i class="fa fa-angle-left"
+                                    aria-hidden="true"></i> back</span></div>
+ <div class="block-content">
+                            <ul>
+                                {% if user_info.is_staff == False and user_info.is_superuser == False  %}
+                                <li class="active"><a href="/profile">Account Info</a></li>
+                                <li><a href="#">Address Book</a></li>
+                                <li><a href="#">My Orders</a></li>
+                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="#">Newsletter</a></li>
+                                <li><a href="/update-info">Update Information</a></li>
+                                <li><a href="#">Change Password</a></li>
+                                <li><a href="activity">Activity Log</a></li>
+                                <li class="last"><a href="../logoutnow">Log Out</a></li>
+                                {% elif user_info.is_staff == False and user_info.is_superuser == True  %}
+                                <li class="active"><a href="../">Account Info</a></li>
+                                <li><a href="../../update-shipping">Warehouse Address</a></li>
+                                <li><a href="../my-products">My Products</a></li>
+                                <li><a href="../../update-info">Update Information</a></li>
+                                <li><a href="../inbox">My Inbox</a></li>
+                                <li><a href="../activity">Activity Log</a></li>
+                                <li class="last"><a href="../../logoutnow">Log Out</a></li>
+                                {% endif %}
+                            </ul>
                         </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="dashboard-right">
+                        <div class="dashboard">
+                           <center><h3>Message: </h3></center>
+                           <div class="container-fluid">
+                <div class="row product-adding">
+                    {% if user_info.is_staff == False and user_info.is_superuser == True  %}
+                               <p hidden>
+                            {{ form.media }}
+                            {{ form }}
+                             </p>
                         <div class="card">
-                            <div class="card-header" id="headingTwo">
-                                <h5 class="mb-0"><button class="btn btn-link collapsed" type="button"
-                                        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-                                        aria-controls="collapseTwo">How can I upgrade from Shopify 2.5 to shopify
-                                        3?</button></h5>
+                            <div class="card-body">
+                                        <label class="col-form-label pt-0"><span>*</span> Buyer Name:</label>
+                                        <input class="form-control" type="text" required="" value= "{{ details_seller.first_name }} {{ details_seller.last_name }}" disabled = True>
+                                    <div class="form-group">
+                                        <label class="col-form-label pt-0"><span>*</span> Message: </label>
+                                        <p></p><textarea rows="13" cols="120" disabled = True>{{ details_seller.body_text }}</textarea>
+                                         <p></p>
+                                        <center><h3> Reply Message: </h3></center>
+                                         <form method="POST" enctype="multipart/form-data" >
+                                        {% csrf_token %}
+                                <label class="col-form-label pt-0"><span>*</span> Title:</label>
+                                        {{ form.title }}
+                                 <label class="col-form-label pt-0"><span>*</span> Message: </label>
+                                  <p hidden>
+                                      {{ form.User }}
+                                      {{ form.receiver }}
+                                      {{ form.first_name }}
+                                      {{ form.last_name }}
+                                      {{ form.email }}
+                                  </p>
+                                {{ form.body_text }}
+                                        {% if request.GET.next %}
+                            <input type="hidden" name="next" value="{{ request.GET.next }}" />
+                                    {% endif %}
+                                        <p></p>
+                                     <div class="product-buttons text-center">
+                                         <input type="submit" value="Reply" class="btn btn-solid"/>
+                                        </div>
+                                 </form>
+
+
                             </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                                data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <p>it look like readable English. Many desktop publishing packages and web page
-                                        editors now use Lorem Ipsum as their default model text, and a search for 'lorem
-                                        ipsum' will uncover many web sites still in their infancy. Various versions have
-                                        evolved over the years,All the Lorem Ipsum generators on the Internet tend to
-                                        repeat predefined chunks as necessary, making this the first true generator on
-                                        the Internet. It uses a dictionary of over 200 Latin words, combined with a
-                                        handful of model sentence structures</p>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-xl-6">
                         </div>
-                        <div class="card">
-                            <div class="card-header" id="headingThree">
-                                <h5 class="mb-0"><button class="btn btn-link collapsed" type="button"
-                                        data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
-                                        aria-controls="collapseThree">Under what license are Regular Labs extensions
-                                        released?</button></h5>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                                data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <p>it look like readable English. Many desktop publishing packages and web page
-                                        editors now use Lorem Ipsum as their default model text, and a search for 'lorem
-                                        ipsum' will uncover many web sites still in their infancy. Various versions have
-                                        evolved over the years,All the Lorem Ipsum generators on the Internet tend to
-                                        repeat predefined chunks as necessary, making this the first true generator on
-                                        the Internet. It uses a dictionary of over 200 Latin words, combined with a
-                                        handful of model sentence structures</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingFour">
-                                <h5 class="mb-0"><button class="btn btn-link collapsed" type="button"
-                                        data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
-                                        aria-controls="collapseFour">What is the Regular Labs Library?</button></h5>
-                            </div>
-                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
-                                data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <p>it look like readable English. Many desktop publishing packages and web page
-                                        editors now use Lorem Ipsum as their default model text, and a search for 'lorem
-                                        ipsum' will uncover many web sites still in their infancy. Various versions have
-                                        evolved over the years,All the Lorem Ipsum generators on the Internet tend to
-                                        repeat predefined chunks as necessary, making this the first true generator on
-                                        the Internet. It uses a dictionary of over 200 Latin words, combined with a
-                                        handful of model sentence structures</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingFive">
-                                <h5 class="mb-0"><button class="btn btn-link collapsed" type="button"
-                                        data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
-                                        aria-controls="collapseFive">Can I turn on/off some blocks on the page?</button>
-                                </h5>
-                            </div>
-                            <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
-                                data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <p>it look like readable English. Many desktop publishing packages and web page
-                                        editors now use Lorem Ipsum as their default model text, and a search for 'lorem
-                                        ipsum' will uncover many web sites still in their infancy. Various versions have
-                                        evolved over the years,All the Lorem Ipsum generators on the Internet tend to
-                                        repeat predefined chunks as necessary, making this the first true generator on
-                                        the Internet. It uses a dictionary of over 200 Latin words, combined with a
-                                        handful of model sentence structures</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingSix">
-                                <h5 class="mb-0"><button class="btn btn-link collapsed" type="button"
-                                        data-toggle="collapse" data-target="#collapseSix" aria-expanded="false"
-                                        aria-controls="collapseSix">What is included in the theme package?</button></h5>
-                            </div>
-                            <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
-                                data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <p>it look like readable English. Many desktop publishing packages and web page
-                                        editors now use Lorem Ipsum as their default model text, and a search for 'lorem
-                                        ipsum' will uncover many web sites still in their infancy. Various versions have
-                                        evolved over the years,All the Lorem Ipsum generators on the Internet tend to
-                                        repeat predefined chunks as necessary, making this the first true generator on
-                                        the Internet. It uses a dictionary of over 200 Latin words, combined with a
-                                        handful of model sentence structures</p>
-                                </div>
-                            </div>
+                </div>
+                    {% elif user_info.is_staff == False and user_info.is_superuser == False  %}
+                                              <div class="card-body">
+                                        <label class="col-form-label pt-0"><span>*</span> Seller Name:</label>
+                                        <input class="form-control" type="text" required="" value= "{{ details_buyer.first_name }} {{ details_buyer.last_name }}" disabled = True>
+                                    <div class="form-group">
+                                        <label class="col-form-label pt-0"><span>*</span> Message: </label>
+                                        <p></p><textarea rows="13" cols="120" disabled = True>{{ details_buyer.body_text }}</textarea>
+                                     </div>
+                                             </div>
+                    {% endif %}
+                </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+                </div>
+            </div>
     </section>
-    <!--Section ends-->
+    <!-- section end -->
 
 
     <!-- footer start -->
@@ -860,7 +836,7 @@
                             <h4>about</h4>
                         </div>
                         <div class="footer-contant">
-                            <div class="footer-logo"><img src="../assets/images/icon/logo.png" alt=""></div>
+                            <div class="footer-logo"><img src="{% static 'assets/images/icon/logo.png' %}" alt=""></div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                 ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
                             <div class="footer-social">
@@ -938,19 +914,19 @@
                         <div class="payment-card-bottom">
                             <ul>
                                 <li>
-                                    <a href="#"><img src="../assets/images/icon/visa.png" alt=""></a>
+                                    <a href="#"><img src="{% static 'assets/images/icon/visa.png' %}" alt=""></a>
                                 </li>
                                 <li>
-                                    <a href="#"><img src="../assets/images/icon/mastercard.png" alt=""></a>
+                                    <a href="#"><img src="{% static 'assets/images/icon/mastercard.png' %}" alt=""></a>
                                 </li>
                                 <li>
-                                    <a href="#"><img src="../assets/images/icon/paypal.png" alt=""></a>
+                                    <a href="#"><img src="{% static 'assets/images/icon/paypal.png' %}" alt=""></a>
                                 </li>
                                 <li>
-                                    <a href="#"><img src="../assets/images/icon/american-express.png" alt=""></a>
+                                    <a href="#"><img src="{% static 'assets/images/icon/american-express.png' %}" alt=""></a>
                                 </li>
                                 <li>
-                                    <a href="#"><img src="../assets/images/icon/discover.png" alt=""></a>
+                                    <a href="#"><img src="{% static 'assets/images/icon/discover.png' %}" alt=""></a>
                                 </li>
                             </ul>
                         </div>
@@ -1659,13 +1635,13 @@
                         target="_blank" class="btn btn-block purchase_btn"><i class="fa fa-shopping-cart"
                             aria-hidden="true"></i> purchase Multikart now!</a>
                     <a href="https://themeforest.net/item/multikart-responsive-angular-ecommerce-template/22905358?s_rank=3"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="../assets/images/icon/angular.png"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/angular.png' %}"
                             alt="" class="img-fluid"> Multikart Angular</a>
                     <a href="https://themeforest.net/item/multikart-responsive-react-ecommerce-template/23067773?s_rank=2"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="../assets/images/icon/react.png"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/react.png' %}"
                             alt="" class="img-fluid"> Multikart React</a>
                     <a href="https://themeforest.net/item/multikart-multipurpose-shopify-sections-theme/23093831?s_rank=1"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="../assets/images/icon/shopify.png"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/shopify.png' %}"
                             alt="" class="img-fluid"> Multikart Shopify</a>
                 </div>
             </div>
@@ -1680,30 +1656,29 @@
     </div>
     <!-- tap to top end -->
 
-
     <!-- latest jquery-->
-    <script src="../assets/js/jquery-3.3.1.min.js"></script>
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
 
     <!-- menu js-->
-    <script src="../assets/js/menu.js"></script>
+    <script src="{% static 'assets/js/menu.js' %}"></script>
 
     <!-- lazyload js-->
-    <script src="../assets/js/lazysizes.min.js"></script>
+    <script src="{% static 'assets/js/lazysizes.min.js' %}"></script>
 
     <!-- popper js-->
-    <script src="../assets/js/popper.min.js"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
 
     <!-- slick js-->
-    <script src="../assets/js/slick.js"></script>
+    <script src="{% static 'assets/js/slick.js' %}"></script>
 
     <!-- Bootstrap js-->
-    <script src="../assets/js/bootstrap.js"></script>
+    <script src="{% static 'assets/js/bootstrap.js' %}"></script>
 
     <!-- Bootstrap Notification js-->
-    <script src="../assets/js/bootstrap-notify.min.js"></script>
+    <script src="{% static 'assets/js/bootstrap-notify.min.js' %}"></script>
 
     <!-- Theme js-->
-    <script src="../assets/js/script.js"></script>
+    <script src="{% static 'assets/js/script.js' %}"></script>
 
     <script>
         function openSearch() {
@@ -1715,5 +1690,5 @@
         }
     </script>
 </body>
-
+{% endblock %}
 </html>
