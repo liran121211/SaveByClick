@@ -1,3 +1,4 @@
+# © 2020 Liran Smadja (First Real-World Project) ©
 from django.conf import settings
 from django.core.cache import cache
 from django.contrib.auth.models import User
@@ -46,3 +47,5 @@ class OnlineNowMiddleware(MiddlewareMixin):
         # Set the new cache
         cache.set('online-%s' % (request.user.pk,), True, ONLINE_THRESHOLD)
         cache.set('online-now', online_now_ids, ONLINE_THRESHOLD)
+
+# © 2020 Liran Smadja (First Real-World Project) ©

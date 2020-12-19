@@ -1,3 +1,4 @@
+# © 2020 Liran Smadja (First Real-World Project) ©
 """django_project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -28,3 +29,4 @@ urlpatterns = [
 handler404 = 'store.views.error_404_view'
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+# © 2020 Liran Smadja (First Real-World Project) ©

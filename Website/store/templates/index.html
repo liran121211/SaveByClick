@@ -83,7 +83,7 @@
                         </div>
                         <div class="col-lg-6 text-right">
                             <ul class="header-dropdown">
-                                <li class="mobile-wishlist"><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                <li class="mobile-wishlist"><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>Wishlist ({{ count }})
                                 </li>
                                 <li class="onhover-dropdown mobile-account"> <i class="fa fa-user" aria-hidden="true"></i>
                                     My Account
@@ -154,7 +154,7 @@
                                             </li>
                                             <li class="onhover-div mobile-cart">
                                                 <div><img src="{% static 'assets/images/icon/cart.png' %}"
-                                                        class="img-fluid blur-up lazyload" alt=""> <i
+                                                        class="img-fluid blur-up lazyload" alt="">&ensp;({{ count_cart }})<i
                                                         class="ti-shopping-cart"></i></div>
                                             </li>
                                         </ul>
@@ -353,7 +353,7 @@
                     </div>
                     <div class="col-lg-6 text-right">
                         <ul class="header-dropdown">
-                            <li class="mobile-wishlist"><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                            <li class="mobile-wishlist"><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>Wishlist ({{ count }})
                             </li>
                             <li class="onhover-dropdown mobile-account"> <i class="fa fa-user" aria-hidden="true"></i>
                                 {% if user.is_authenticated %}
@@ -755,9 +755,10 @@
                                                         <div class="container">
                                                             <div class="row">
                                                                 <div class="col-xl-12">
-                                                                    <form>
+                                                                    <form action="/search">
                                                                         <div class="form-group">
                                                                             <input type="text" class="form-control"
+                                                                                   name="LiranTheKing"
                                                                                 id="exampleInputPassword1"
                                                                                 placeholder="Search a Product">
                                                                         </div>
@@ -793,7 +794,7 @@
                                         <li class="onhover-div mobile-cart">
                                             <div>
                                                 <img src="{% static 'assets/images/icon/cart.png' %}"
-                                                    class="img-fluid blur-up lazyload" alt=""> <i
+                                                    class="img-fluid blur-up lazyload" alt=""> &ensp;({{ count_cart }})<i
                                                     class="ti-shopping-cart"></i></div>
                                             <ul class="show-div shopping-cart">
                                                 {% if order.get_cart_items == 0 %}
@@ -824,7 +825,7 @@
                                                 </li>
                                                 <li>
                                                     <div class="buttons"><a href="cart" class="view-cart">view
-                                                            cart</a> <a href="#" class="checkout">checkout</a></div>
+                                                            cart</a> <a href="checkout" class="checkout">checkout</a></div>
                                                 </li>
                                             </ul>
                                         </li>
@@ -958,7 +959,7 @@
     <!-- Paragraph-->
     <div class="title1 section-t-space">
         <h4>Find The Hottest Products</h4>
-        <h2 class="title-inner1">Most Viewd</h2>
+        <h2 class="title-inner1">Most Viewed</h2>
     </div>
     <div class="container">
         <div class="row">
@@ -985,8 +986,7 @@
                                     class="img-fluid blur-up lazyload bg-img" alt=""></a>
                         </div>
                         <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
+                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart update-wishlist-js" data-product=" {{ product.id }} " data-action="add" aria-hidden="true"></i></a>
                             <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
                                     class="ti-search" aria-hidden="true"></i></a>
                             <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
@@ -1209,6 +1209,8 @@
                                             <div class="cart-info cart-wrap">
                                                 <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
                                                         class="ti-heart" aria-hidden="true"></i></a>
+
+
                                                 <a href="#" data-toggle="modal" data-target="#quick-view"
                                                     title="Quick View" tabindex="0"><i class="ti-search"
                                                         aria-hidden="true"></i></a>
@@ -2730,6 +2732,9 @@
 
     <!-- Cart js-->
     <script src="{% static 'assets/js/cart.js' %}"></script>
+
+    <!-- Wishlist js-->
+    <script src="{% static 'js/wishlist.js' %}"></script>
 
 
     <!-- Global site tag (gtag.js) - Google Analytics -->

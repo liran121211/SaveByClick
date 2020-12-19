@@ -1,3 +1,4 @@
+# © 2020 Liran Smadja (First Real-World Project) ©
 from django.test import TestCase
 
 from .models import Room
@@ -19,3 +20,6 @@ class HomePageTest(TestCase):
 
         self.assertContains(response, 'room 1')
         self.assertContains(response, 'room 2')
+
+
+# © 2020 Liran Smadja (First Real-World Project) ©

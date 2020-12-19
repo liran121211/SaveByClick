@@ -1,3 +1,4 @@
+# © 2020 Liran Smadja (First Real-World Project) ©
 """
 Django settings for django_project project.
 
@@ -41,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_ckeditor_5'
+    'django_ckeditor_5',
+
 ]
 
 MIDDLEWARE = [
@@ -214,3 +216,5 @@ CKEDITOR_5_CONFIGS = {
     }
 }
   #-------------------------------end CkEditor-------------------------------------------
+
+# © 2020 Liran Smadja (First Real-World Project) ©

@@ -1,3 +1,5 @@
+# © 2020 Liran Smadja (First Real-World Project) ©
+
 from django.urls import path
 from django.conf.urls import url
 
@@ -17,6 +19,9 @@ path("logoutnow/", views.logoutPage, name="logout_with_log"),
 path('product/<int:pk>/', views.productDetails, name='product-details'),
 path('admin-panel/product/<int:pk>/review/', views.reviewProduct, name='review-product'),
 path('admin-panel/product-list/', views.productList, name='product-list'),
+path('admin-panel/inbox/', views.adminMessages, name='admin-messages'),
+path('admin-panel/inbox/<int:pk>', views.adminMessageReview, name='admin-message-review'),
+path('admin-panel/inbox/<int:pk>/delete', views.adminMessageDelete, name='admin-message-delete'),
 path("admin-panel/", views.adminPanel, name="admin-panel"),
 path('admin-panel/product/<int:pk>/delete/', views.DeleteProduct, name='delete-product'),
 path('admin-panel/product/add/', views.addProduct, name='add-product'),
@@ -24,8 +29,9 @@ path('admin-panel/users/', views.userList, name='user-list'),
 path('admin-panel/users/add', views.addUser, name='add-user'),
 path('admin-panel/users/<int:pk>/review', views.reviewUser, name='review-user'),
 path('admin-panel/users/<int:pk>/delete/', views.DeleteUser, name='delete-user'),
-path('checkout/', views.Checkout, name='checkout'),
+path('checkout/', views.checkout, name='checkout'),
 path('update_item/', views.updateItem, name='update-item'),
+path('update_wishlist/', views.updateWishlist, name='update-wishlist'),
 path('cart/', views.cart, name='cart'),
 path('faq/', views.faq, name='faq'),
 path('profile/my-products/', views.SellerProducts, name='my-products'),
@@ -43,6 +49,13 @@ path('admin-panel/coupons', views.coupons, name='coupons'),
 path('profile/coupons/', views.sellerCoupons, name='seller-coupons'),
 path('profile/coupons/<int:pk>/delete', views.sellerCouponDelete, name='seller-coupons-delete'),
 path('profile/coupons/add', views.sellerAddCoupon, name='seller-coupons-add'),
+path('contactus/', views.contactUs, name='contact-site'),
+path('search/', views.searchPage, name='search-page'),
+path('shop/<int:pk>', views.sellerShop, name='seller-shop'),
+path('shop/<int:pk>/rate', views.sellerStoreRate, name='seller-shop-rate'),
+path('profile/my-shops/', views.buyerShopList, name='buyer-shop-list'),
+path('profile/my-shops/<int:pk>/delete/', views.buyerDeleteShop, name='buyer-delete-from-shop-list'),
+path('order/<str:pk>/success', views.orderCompleted, name='order-completed'),
 
 url(r'chat/$', views.all_rooms, name="all_rooms"),
 url(r'chat/token/$', views.token, name="token"),
@@ -54,3 +67,5 @@ url(r'chat/rooms/(?P<slug>[-\w]+)/$', views.room_detail, name="room_detail"),
 
 ]
 handler404 = 'store.views.error_404_view'
+
+# © 2020 Liran Smadja (First Real-World Project) ©

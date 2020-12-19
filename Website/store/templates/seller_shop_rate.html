@@ -1,38 +1,40 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-
+{% block content %}
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="multikart">
     <meta name="keywords" content="multikart">
     <meta name="author" content="multikart">
-    <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
-    <link rel="shortcut icon" href="../assets/images/favicon/1.png" type="image/x-icon">
+    <link rel="icon" href="{% static 'assets/images/favicon/1.png' %}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon/1.png' %}" type="image/x-icon" />
     <title>Multikart - Multi-purpopse E-commerce Html Template</title>
 
     <!--Google font-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 
     <!-- Icons -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/fontawesome.css' %}">
 
     <!--Slick slider css-->
-    <link rel="stylesheet" type="text/css" href="../assets/css/slick.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/slick.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'ssets/css/slick-theme.css' %}">
 
     <!-- Animate icon -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/animate.css' %}">
 
     <!-- Themify icon -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/themify-icons.css' %}">
 
     <!-- Bootstrap css -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.css' %}">
 
     <!-- Theme css -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" media="screen" id="color">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/color1.css' %}" media="screen" id="color">
+
 
 </head>
 
@@ -58,26 +60,24 @@
                             <li class="mobile-wishlist"><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
                             </li>
                             <li class="onhover-dropdown mobile-account">
-                                <i class="fa fa-user" aria-hidden="true"></i> My Account
+                                    {% if user.is_authenticated %}
+                                     {{ user.first_name }}'s Profile
+                                    <ul class="onhover-show-div">
+                                     <li><a href="profile/" data-lng="es">My Profile</a></li>
+                                    <li><a href="logoutnow/" data-lng="es">Logout</a></li>
+                                {% else %}
+                                    My Account
                                 <ul class="onhover-show-div">
-                                    <li>
-                                        <a href="#" data-lng="en">
-                                            Login
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" data-lng="es">
-                                            Logout
-                                        </a>
-                                    </li>
+                                    <li><a href="login/" data-lng="en">Login</a></li>
+                                    <li><a href="register/" data-lng="en">Sign Up</a></li>
                                 </ul>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -85,20 +85,19 @@
                         <div class="menu-left">
                             <div class="navbar">
                                 <a href="javascript:void(0)" onclick="openNav()">
-                                    <div class="bar-style"> <i class="fa fa-bars sidebar-bar" aria-hidden="true"></i>
+                                    <div class="bar-style"><i class="fa fa-bars sidebar-bar" aria-hidden="true"></i>
                                     </div>
                                 </a>
                                 <div id="mySidenav" class="sidenav">
                                     <a href="javascript:void(0)" class="sidebar-overlay" onclick="closeNav()"></a>
                                     <nav>
                                         <div onclick="closeNav()">
-                                            <div class="sidebar-back text-left">
-                                                <i class="fa fa-angle-left pr-2" aria-hidden="true"></i> Back
-                                            </div>
+                                            <div class="sidebar-back text-left"><i class="fa fa-angle-left pr-2"
+                                                    aria-hidden="true"></i> Back</div>
                                         </div>
-                                        <!-- Vertical Menu -->
-                                        <ul id="sub-menu" class="sm pixelstrap sm-vertical ">
-                                            <li><a href="#">clothing</a>
+                                        <ul id="sub-menu" class="sm pixelstrap sm-vertical">
+                                            <li>
+                                                <a href="#">clothing</a>
                                                 <ul class="mega-menu clothing-menu">
                                                     <li>
                                                         <div class="row m-0">
@@ -136,21 +135,23 @@
                                                                     </ul>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-4">
-                                                                <a href="#" class="mega-menu-banner"><img
-                                                                        src="../assets/images/mega-menu/fashion.jpg"
+                                                            <div class="col-xl-4"><a href="#"
+                                                                    class="mega-menu-banner"><img
+                                                                        src="{% static 'assets/images/mega-menu/fashion.jpg' %}"
                                                                         alt="" class="img-fluid blur-up lazyload"></a>
                                                             </div>
                                                         </div>
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">bags</a>
+                                            <li>
+                                                <a href="#">bags</a>
                                                 <ul>
                                                     <li><a href="#">shopper bags</a></li>
                                                     <li><a href="#">laptop bags</a></li>
                                                     <li><a href="#">clutches</a></li>
-                                                    <li><a href="#">purses</a>
+                                                    <li>
+                                                        <a href="#">purses</a>
                                                         <ul>
                                                             <li><a href="#">purses</a></li>
                                                             <li><a href="#">wallets</a></li>
@@ -160,33 +161,37 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">footwear</a>
+                                            <li>
+                                                <a href="#">footwear</a>
                                                 <ul>
                                                     <li><a href="#">sport shoes</a></li>
                                                     <li><a href="#">formal shoes</a></li>
                                                     <li><a href="#">casual shoes</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">watches</a>
-                                            </li>
-                                            <li><a href="#">Accessories</a>
+                                            <li><a href="#">watches</a></li>
+                                            <li>
+                                                <a href="#">Accessories</a>
                                                 <ul>
                                                     <li><a href="#">fashion jewellery</a></li>
                                                     <li><a href="#">caps and hats</a></li>
                                                     <li><a href="#">precious jewellery</a></li>
-                                                    <li><a href="#">more..</a>
+                                                    <li>
+                                                        <a href="#">more..</a>
                                                         <ul>
                                                             <li><a href="#">necklaces</a></li>
                                                             <li><a href="#">earrings</a></li>
                                                             <li><a href="#">wrist wear</a></li>
-                                                            <li><a href="#">accessories</a>
+                                                            <li>
+                                                                <a href="#">accessories</a>
                                                                 <ul>
                                                                     <li><a href="#">ties</a></li>
                                                                     <li><a href="#">cufflinks</a></li>
                                                                     <li><a href="#">pockets squares</a></li>
                                                                     <li><a href="#">helmets</a></li>
                                                                     <li><a href="#">scarves</a></li>
-                                                                    <li><a href="#">more...</a>
+                                                                    <li>
+                                                                        <a href="#">more...</a>
                                                                         <ul>
                                                                             <li><a href="#">accessory gift sets</a></li>
                                                                             <li><a href="#">travel accessories</a></li>
@@ -201,15 +206,15 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">house of design</a>
-                                            </li>
-
-                                            <li><a href="#">beauty & personal care</a>
+                                            <li><a href="#">house of design</a></li>
+                                            <li>
+                                                <a href="#">beauty & personal care</a>
                                                 <ul>
                                                     <li><a href="#">makeup</a></li>
                                                     <li><a href="#">skincare</a></li>
                                                     <li><a href="#">premium beaty</a></li>
-                                                    <li><a href="#">more</a>
+                                                    <li>
+                                                        <a href="#">more</a>
                                                         <ul>
                                                             <li><a href="#">fragrances</a></li>
                                                             <li><a href="#">luxury beauty</a></li>
@@ -219,26 +224,19 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">home & decor</a>
-                                            </li>
-                                            <li><a href="#">kitchen</a>
-                                            </li>
+                                            <li><a href="#">home & decor</a></li>
+                                            <li><a href="#">kitchen</a></li>
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="brand-logo">
-                                <a href="index.html"> <img src="../assets/images/icon/logo.png"
-                                        class="img-fluid blur-up lazyload" alt=""></a>
-                            </div>
+                            <div class="brand-logo"><a href="../../><img src="{% static 'assets/images/icon/logo.png' %}"
+                                        class="img-fluid blur-up lazyload" alt="" height="130px" width="130px"></a></div>
                         </div>
                         <div class="menu-right pull-right">
                             <div>
                                 <nav id="main-nav">
-                                    <div class="toggle-nav">
-                                        <i class="fa fa-bars sidebar-bar"></i>
-                                    </div>
-                                    <!-- Horizontal menu -->
+                                    <div class="toggle-nav"><i class="fa fa-bars sidebar-bar"></i></div>
                                     <ul id="main-menu" class="sm pixelstrap sm-horizontal">
                                         <li>
                                             <div class="mobile-back text-right">Back<i class="fa fa-angle-right pl-2"
@@ -560,9 +558,9 @@
                                 <div class="icon-nav">
                                     <ul>
                                         <li class="onhover-div mobile-search">
-                                            <div><img src="../assets/images/icon/search.png" onclick="openSearch()"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                                <i class="ti-search" onclick="openSearch()"></i></div>
+                                            <div><img src="{% static 'assets/images/icon/search.png' %}" onclick="openSearch()"
+                                                    class="img-fluid blur-up lazyload" alt=""> <i class="ti-search"
+                                                    onclick="openSearch()"></i></div>
                                             <div id="search-overlay" class="search-overlay">
                                                 <div>
                                                     <span class="closebtn" onclick="closeSearch()"
@@ -572,11 +570,10 @@
                                                             <div class="row">
                                                                 <div class="col-xl-12">
                                                                     <form>
-                                                                        <div class="form-group">
-                                                                            <input type="text" class="form-control"
+                                                                        <div class="form-group"><input type="text"
+                                                                                class="form-control"
                                                                                 id="exampleInputPassword1"
-                                                                                placeholder="Search a Product">
-                                                                        </div>
+                                                                                placeholder="Search a Product"></div>
                                                                         <button type="submit" class="btn btn-primary"><i
                                                                                 class="fa fa-search"></i></button>
                                                                     </form>
@@ -588,33 +585,33 @@
                                             </div>
                                         </li>
                                         <li class="onhover-div mobile-setting">
-                                            <div><img src="../assets/images/icon/setting.png"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                                <i class="ti-settings"></i></div>
+                                            <div><img src="{% static 'assets/images/icon/setting.png' %}"
+                                                    class="img-fluid blur-up lazyload" alt=""> <i
+                                                    class="ti-settings"></i></div>
                                             <div class="show-div setting">
                                                 <h6>language</h6>
                                                 <ul>
-                                                    <li><a href="#">english</a> </li>
-                                                    <li><a href="#">french</a> </li>
+                                                    <li><a href="#">english</a></li>
+                                                    <li><a href="#">french</a></li>
                                                 </ul>
                                                 <h6>currency</h6>
                                                 <ul class="list-inline">
-                                                    <li><a href="#">euro</a> </li>
-                                                    <li><a href="#">rupees</a> </li>
-                                                    <li><a href="#">pound</a> </li>
-                                                    <li><a href="#">doller</a> </li>
+                                                    <li><a href="#">euro</a></li>
+                                                    <li><a href="#">rupees</a></li>
+                                                    <li><a href="#">pound</a></li>
+                                                    <li><a href="#">doller</a></li>
                                                 </ul>
                                             </div>
                                         </li>
                                         <li class="onhover-div mobile-cart">
-                                            <div><img src="../assets/images/icon/cart.png"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                                <i class="ti-shopping-cart"></i></div>
+                                            <div><img src="{% static 'assets/images/icon/cart.png' %}"
+                                                    class="img-fluid blur-up lazyload" alt=""> <i
+                                                    class="ti-shopping-cart"></i></div>
                                             <ul class="show-div shopping-cart">
                                                 <li>
                                                     <div class="media">
                                                         <a href="#"><img class="mr-3"
-                                                                src="../assets/images/fashion/product/1.jpg"
+                                                                src="{% static 'assets/images/fashion/product/1.jpg' %}"
                                                                 alt="Generic placeholder image"></a>
                                                         <div class="media-body">
                                                             <a href="#">
@@ -623,14 +620,13 @@
                                                             <h4><span>1 x $ 299.00</span></h4>
                                                         </div>
                                                     </div>
-                                                    <div class="close-circle">
-                                                        <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                    </div>
+                                                    <div class="close-circle"><a href="#"><i class="fa fa-times"
+                                                                aria-hidden="true"></i></a></div>
                                                 </li>
                                                 <li>
                                                     <div class="media">
                                                         <a href="#"><img class="mr-3"
-                                                                src="../assets/images/fashion/product/2.jpg"
+                                                                src="{% static 'assets/images/fashion/product/2.jpg' %}"
                                                                 alt="Generic placeholder image"></a>
                                                         <div class="media-body">
                                                             <a href="#">
@@ -639,9 +635,8 @@
                                                             <h4><span>1 x $ 299.00</span></h4>
                                                         </div>
                                                     </div>
-                                                    <div class="close-circle">
-                                                        <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                    </div>
+                                                    <div class="close-circle"><a href="#"><i class="fa fa-times"
+                                                                aria-hidden="true"></i></a></div>
                                                 </li>
                                                 <li>
                                                     <div class="total">
@@ -649,10 +644,8 @@
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <div class="buttons">
-                                                        <a href="cart.html" class="view-cart">view cart</a>
-                                                        <a href="#" class="checkout">checkout</a>
-                                                    </div>
+                                                    <div class="buttons"><a href="cart.html" class="view-cart">view
+                                                            cart</a> <a href="#" class="checkout">checkout</a></div>
                                                 </li>
                                             </ul>
                                         </li>
@@ -667,20 +660,21 @@
     </header>
     <!-- header end -->
 
+
     <!-- breadcrumb start -->
     <div class="breadcrumb-section">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="page-title">
-                        <h2>Check-out</h2>
+                        <h2>Rate [ {{ seller_info.store_name }} ] Shop </h2>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Check-out</li>
+                            <li class="breadcrumb-item active" aria-current="page">Rate Shop</li>
                         </ol>
                     </nav>
                 </div>
@@ -691,138 +685,28 @@
 
 
     <!-- section start -->
-    <section class="section-b-space">
+    <section class="p-0">
         <div class="container">
-            <div class="checkout-page">
-                <div class="checkout-form">
-                    <form>
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-12 col-xs-12">
-                                <div class="checkout-title">
-                                    <h3>Billing Details</h3>
-                                </div>
-                                <div class="row check-out">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">First Name</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Last Name</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Phone</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Email Address</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Country</div>
-                                        <select>
-                                            <option>India</option>
-                                            <option>South Africa</option>
-                                            <option>United State</option>
-                                            <option>Australia</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Address</div>
-                                        <input type="text" name="field-name" value="" placeholder="Street address">
-                                    </div>
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Town/City</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <div class="field-label">State / County</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <div class="field-label">Postal Code</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <input type="checkbox" name="shipping-option" id="account-option"> &ensp;
-                                        <label for="account-option">Create An Account?</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-12 col-xs-12">
-                                <div class="checkout-details">
-                                    <div class="order-box">
-                                        <div class="title-box">
-                                            <div>Product <span>Total</span></div>
-                                        </div>
-                                        <ul class="qty">
-                                            <li>Pink Slim Shirt × 1 <span>$25.10</span></li>
-                                            <li>SLim Fit Jeans × 1 <span>$555.00</span></li>
-                                        </ul>
-                                        <ul class="sub-total">
-                                            <li>Subtotal <span class="count">$380.10</span></li>
-                                            <li>Shipping
-                                                <div class="shipping">
-                                                    <div class="shopping-option">
-                                                        <input type="checkbox" name="free-shipping" id="free-shipping">
-                                                        <label for="free-shipping">Free Shipping</label>
-                                                    </div>
-                                                    <div class="shopping-option">
-                                                        <input type="checkbox" name="local-pickup" id="local-pickup">
-                                                        <label for="local-pickup">Local Pickup</label>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <ul class="total">
-                                            <li>Total <span class="count">$620.00</span></li>
-                                        </ul>
-                                    </div>
-                                    <div class="payment-box">
-                                        <div class="upper-box">
-                                            <div class="payment-options">
-                                                <ul>
-                                                    <li>
-                                                        <div class="radio-option">
-                                                            <input type="radio" name="payment-group" id="payment-1"
-                                                                checked="checked">
-                                                            <label for="payment-1">Check Payments<span
-                                                                    class="small-text">Please send a check to Store
-                                                                    Name, Store Street, Store Town, Store State /
-                                                                    County, Store Postcode.</span></label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="radio-option">
-                                                            <input type="radio" name="payment-group" id="payment-2">
-                                                            <label for="payment-2">Cash On Delivery<span
-                                                                    class="small-text">Please send a check to Store
-                                                                    Name, Store Street, Store Town, Store State /
-                                                                    County, Store Postcode.</span></label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="radio-option paypal">
-                                                            <input type="radio" name="payment-group" id="payment-3">
-                                                            <label for="payment-3">PayPal<span class="image"><img
-                                                                        src="../assets/images/paypal.png"
-                                                                        alt=""></span></label>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="text-right"><a href="#" class="btn-solid btn">Place Order</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="row">
+                <div class="col-sm-12">
+
+
+                                         <form class="theme-form" method="POST" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                    {{ form }}
+                                                {% if request.GET.next %}
+                                                    <input type="hidden" name="next" value="{{ request.GET.next }}" />
+                                                {% endif %}
+
+                                                    <P></P>
+                                                    <input type="submit" value="Send Review" class="btn btn-primary"/>
+                                            </form>
+                    </div>
+
             </div>
         </div>
     </section>
-    <!-- section end -->
+    <!-- Section ends -->
 
 
     <!-- footer start -->
@@ -844,10 +728,8 @@
                                 action="https://pixelstrap.us19.list-manage.com/subscribe/post?u=5a128856334b598b395f1fc9b&amp;id=082f74cbda"
                                 class="form-inline subscribe-form auth-form needs-validation" method="post"
                                 id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
-                                <div class="form-group mx-sm-3">
-                                    <input type="text" class="form-control" name="EMAIL" id="mce-EMAIL"
-                                        placeholder="Enter your email" required="required">
-                                </div>
+                                <div class="form-group mx-sm-3"><input type="text" class="form-control" name="EMAIL"
+                                        id="mce-EMAIL" placeholder="Enter your email" required="required"></div>
                                 <button type="submit" class="btn btn-solid" id="mc-submit">subscribe</button>
                             </form>
                         </div>
@@ -863,7 +745,7 @@
                             <h4>about</h4>
                         </div>
                         <div class="footer-contant">
-                            <div class="footer-logo"><img src="../assets/images/icon/logo.png" alt=""></div>
+                            <div class="footer-logo"><img src="{% static 'assets/images/icon/logo.png' %}" alt=""></div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                 ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
                             <div class="footer-social">
@@ -940,21 +822,11 @@
                     <div class="col-xl-6 col-md-6 col-sm-12">
                         <div class="payment-card-bottom">
                             <ul>
-                                <li>
-                                    <a href="#"><img src="../assets/images/icon/visa.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="../assets/images/icon/mastercard.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="../assets/images/icon/paypal.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="../assets/images/icon/american-express.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="../assets/images/icon/discover.png" alt=""></a>
-                                </li>
+                                <li><a href="#"><img src="{% static 'assets/images/icon/visa.png' %}" alt=""></a></li>
+                                <li><a href="#"><img src="{% static 'assets/images/icon/mastercard.png' %}" alt=""></a></li>
+                                <li><a href="#"><img src="{% static 'assets/images/icon/paypal.png' %}" alt=""></a></li>
+                                <li><a href="#"><img src="{% static 'assets/images/icon/american-express.png' %}" alt=""></a></li>
+                                <li><a href="#"><img src="{% static 'assets/images/icon/discover.png' %}" alt=""></a></li>
                             </ul>
                         </div>
                     </div>
@@ -963,6 +835,15 @@
         </div>
     </footer>
     <!-- footer end -->
+
+
+    <!-- tap to top -->
+    <div class="tap-top">
+        <div>
+            <i class="fa fa-angle-double-up"></i>
+        </div>
+    </div>
+    <!-- tap to top End -->
 
 
     <!-- theme setting -->
@@ -1662,13 +1543,13 @@
                         target="_blank" class="btn btn-block purchase_btn"><i class="fa fa-shopping-cart"
                             aria-hidden="true"></i> purchase Multikart now!</a>
                     <a href="https://themeforest.net/item/multikart-responsive-angular-ecommerce-template/22905358?s_rank=3"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="../assets/images/icon/angular.png"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/angular.png' %}"
                             alt="" class="img-fluid"> Multikart Angular</a>
                     <a href="https://themeforest.net/item/multikart-responsive-react-ecommerce-template/23067773?s_rank=2"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="../assets/images/icon/react.png"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/react.png' %}"
                             alt="" class="img-fluid"> Multikart React</a>
                     <a href="https://themeforest.net/item/multikart-multipurpose-shopify-sections-theme/23093831?s_rank=1"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="../assets/images/icon/shopify.png"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/shopify.png' %}"
                             alt="" class="img-fluid"> Multikart Shopify</a>
                 </div>
             </div>
@@ -1677,36 +1558,29 @@
     <!-- theme setting -->
 
 
-    <!-- tap to top start -->
-    <div class="tap-top">
-        <div><i class="fa fa-angle-double-up"></i></div>
-    </div>
-    <!-- tap to top end -->
-
-
     <!-- latest jquery-->
-    <script src="../assets/js/jquery-3.3.1.min.js"></script>
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
 
     <!-- menu js-->
-    <script src="../assets/js/menu.js"></script>
+    <script src="{% static 'assets/js/menu.js' %}"></script>
 
     <!-- lazyload js-->
-    <script src="../assets/js/lazysizes.min.js"></script>
+    <script src="{% static 'assets/js/lazysizes.min.js' %}"></script>
 
     <!-- popper js-->
-    <script src="../assets/js/popper.min.js"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
 
     <!-- slick js-->
-    <script src="../assets/js/slick.js"></script>
+    <script src="{% static 'assets/js/slick.js' %}"></script>
 
     <!-- Bootstrap js-->
-    <script src="../assets/js/bootstrap.js"></script>
+    <script src="{% static 'assets/js/bootstrap.js' %}"></script>
 
     <!-- Bootstrap Notification js-->
-    <script src="../assets/js/bootstrap-notify.min.js"></script>
+    <script src="{% static 'assets/js/bootstrap-notify.min.js' %}"></script>
 
     <!-- Theme js-->
-    <script src="../assets/js/script.js"></script>
+    <script src="{% static 'assets/js/script.js' %}"></script>
 
     <script>
         function openSearch() {
@@ -1717,6 +1591,7 @@
             document.getElementById("search-overlay").style.display = "none";
         }
     </script>
-</body>
 
+</body>
+{% endblock %}
 </html>

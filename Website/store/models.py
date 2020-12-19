@@ -1,10 +1,16 @@
+# © 2020 Liran Smadja (First Real-World Project) ©
 from django.db import models
 from django.contrib.auth.admin import User
 from datetime import timezone
-import random
 from django_countries.fields import CountryField
 from django_ckeditor_5.fields import CKEditor5Field
+import random
+import secrets
 # Create your models here.
+
+def get_random_transaction(): #create random transaction ID
+    id = secrets.token_hex(nbytes=10)
+    return id.upper()
 
 Product_Categories = (
     ('Motors', 'Motors'),
@@ -22,6 +28,18 @@ Product_Categories = (
 Product_Disable_Enable = (
     ('False' , 'Not Active'),
     ('True' , 'Active'),
+)
+
+
+
+MessageSubject = (
+    ('Fraud' , 'Fraud'),
+    ('Bugs' , 'Bugs'),
+    ('Exploits' , 'Exploits'),
+    ('Business' , 'Business'),
+    ('General' , 'General'),
+    ('Collaborations' , 'Collaborations'),
+    ('Jobs' , 'Jobs'),
 )
 
 class Room(models.Model):
@@ -79,7 +97,7 @@ class Buyer(models.Model):
         return self.name
 
 class shippingAdd(models.Model):
-    id = models.ForeignKey(User, name='shipping', on_delete=models.CASCADE)
+    id = models.ForeignKey(User, name='User', on_delete=models.CASCADE)
     address = models.CharField(name= 'address', max_length=200)
     city = models.CharField(name='city', max_length=100)
     zipcode = models.CharField(name='zipcode', max_length=7)
@@ -93,6 +111,10 @@ class Seller(models.Model):
     user = models.OneToOneField(User, name = "User", on_delete=models.CASCADE)
     store_name = models.CharField(name='store_name', max_length=200)
     store_category = models.CharField(name='store_category', choices=Product_Categories, max_length=100, default='Others')
+    profile_image = models.ImageField(name = 'profile_image', null=True, blank=True, default='null')
+    background_image = models.ImageField(name = 'background_image',null=True, blank=True, default='null')
+    followers = models.IntegerField(name= 'followers', default = random.randint(500, 99999))
+    store_description = models.TextField(name='store_description', max_length=2000, default='null')
 
     def __str__(self):
         return self.store_name
@@ -120,8 +142,9 @@ class Product(models.Model):
 class Order(models.Model):
     Buyer = models.ForeignKey(Buyer, on_delete=models.SET_NULL, null=True, blank=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
-    complete = models.BooleanField(default=False)
-    transaction_id = models.CharField(max_length=100, null=True)
+    complete = models.BooleanField(name = 'complete', default=False)
+    transaction_id = models.CharField(max_length=100, default=get_random_transaction())
+    pickup = models.BooleanField(name='pickup', default=False)
 
     def __str__(self):
         return str(self.id)
@@ -150,12 +173,17 @@ class OrderItem(models.Model):
 		return total
 
 class wishlist(models.Model):
+    product = models.OneToOneField(Product, on_delete=models.SET_NULL, null=True)
+    buyer = models.ForeignKey(Buyer, on_delete=models.SET_NULL, null=True)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
+
+
+
+class myShopList(models.Model):
     user = models.ForeignKey(User, name="User", on_delete=models.CASCADE)
     store_name = models.CharField(name= 'store_name', max_length=200, default='null')
-    product_name = models.CharField(name='product_name',max_length=200, default=0)
-    price = models.FloatField(name='price', max_length=20, default=0.0)
-    image = models.ImageField(null=True, blank=True, default='null')
-    stock = models.IntegerField(name="stock", default=0)
+    image = models.CharField(name = 'image', null=True, blank=True, default='null', max_length=500)
+    store_id = models.OneToOneField(Seller, name="store", on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.product_name
@@ -165,8 +193,51 @@ class Coupons(models.Model):
     code = models.CharField(name = 'code', max_length=50)
     discount_amount = models.FloatField(name='discount_amount', default=0)
     title = models.CharField(name = 'title', max_length=200, default='null')
-    status = models.BooleanField(name='status', default=False)
     status = models.CharField(name='status', choices=Product_Disable_Enable, max_length=100, default = 'Not Active')
 
     def __str__(self):
         return self.title
+
+class contactSite(models.Model):
+    time = models.DateTimeField(name = 'time', auto_now_add=True, blank=True)
+    title = models.CharField(name= 'title', max_length=200, default='null')
+    body_text = CKEditor5Field('body_text', config_name='extends', default='null')
+    first_name = models.CharField(name='first_name', max_length=200, default='null')
+    last_name = models.CharField(name='last_name', max_length=200, default='null')
+    email = models.EmailField(name='email', max_length=200, default='null')
+    status = models.BooleanField(name='read_or_not', default=False)
+    image = models.ImageField(name='image', null=True, blank=True, default='null')
+    message_category = models.CharField(name='message_category', choices=MessageSubject, max_length=100, default='General')
+
+
+    def __str__(self):
+        return self.title
+
+class productRating(models.Model):
+    Product = models.ForeignKey(Product, name="Product", on_delete=models.CASCADE)
+    time = models.DateTimeField(name='time', auto_now_add=True, blank=True)
+    rating = models.CharField(name='rating', max_length=100, default='1')
+    name = models.CharField(name='name', max_length=200, default='null')
+    email = models.EmailField(name='email', max_length=200, default='null')
+    Description = CKEditor5Field('Description', config_name='extends', default='null')
+    randomImageNumber = models.IntegerField(name='randomImageNumber', default=random.randint(1, 4))
+
+
+    def __str__(self):
+        return self.rating
+
+class storeRating(models.Model):
+    seller = models.ForeignKey(Seller, name="Seller", on_delete=models.CASCADE)
+    time = models.DateTimeField(name='time', auto_now_add=True, blank=True)
+    rating = models.CharField(name='rating', max_length=100, default='1')
+    name = models.CharField(name='name', max_length=200, default='null')
+    email = models.EmailField(name='email', max_length=200, default='null')
+    Description = CKEditor5Field('Description', config_name='extends', default='null')
+    randomImageNumber = models.IntegerField(name='randomImageNumber', default=random.randint(1, 4))
+
+
+    def __str__(self):
+        return self.rating
+
+
+# © 2020 Liran Smadja (First Real-World Project) ©

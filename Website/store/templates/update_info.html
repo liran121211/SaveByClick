@@ -694,33 +694,33 @@
                                                   {% csrf_token %}
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="email">First Name</label>
+                                    <label  >First Name</label>
                                         {{ form.first_name }}
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="review">Last Name</label>
+                                    <label  >Last Name</label>
                                         {{ form.last_name }}
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="email">Username</label>
+                                    <label  >Username</label>
                                         {{ form.username }}
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="review">Email</label>
+                                    <label  >Email</label>
                                         {{ form.email }}
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="email">Password</label>
+                                    <label  >Password</label>
                                         {{ form.password1 }}
                                    </div>
                                 <div class="col-md-6">
-                                    <label for="review">Repeat Password</label>
+                                    <label  >Repeat Password</label>
                                         {{ form.password2 }}
                                 </div>
                             </div>
@@ -734,13 +734,27 @@
                                                   {% csrf_token %}
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="email">Store Name</label>
+                                    <label  >Store Name</label>
                                         {{ form2.store_name }}
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="email">Store Category</label>
+                                    <label  >Store Category</label>
                                         {{ form2.store_category }}
                                 </div>
+                                <div class="col-md-6">
+                                    <label  >Store Description</label>
+                                        {{ form2.store_description }}
+                                </div>
+                                <div class="form-row">
+
+                                    <label  >Profile Image (107x107): </label>
+                                   {{ form2.profile_image }}
+
+
+                                    <label  >Background Image (1920x350): </label>
+                                   {{ form2.background_image }}
+
+                                    </div>
                             </div>
                                 {% if request.GET.next %}
                             <input type="hidden" name="next" value="{{ request.GET.next }}" />

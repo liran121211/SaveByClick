@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Django's command-line utility for administrative tasks."""
+# Pרroject SaveByClick - Online Ecommerce
+#© 2020 Liran Smadja (First Real-Word Project) ©
 import os
 import sys
 

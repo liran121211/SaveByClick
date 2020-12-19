@@ -103,7 +103,7 @@
                                     </a>
                                 </div>
                                 <div class="brand-logo">
-                                    <a href="index.html"><img src="{% static 'assets/images/icon/logo.png' %}"
+                                    <a href="../../"><img src="{% static 'assets/images/icon/logo.png' %}"
                                             class="img-fluid blur-up lazyload" alt="" height="130px" width="130px"></a>
                                 </div>
                             </div>
@@ -533,7 +533,7 @@
                                 </div>
                             </div>
                             <div class="brand-logo">
-                                <a href="index.html"> <img src="{% static 'assets/images/icon/logo.png' %}"
+                                <a href="../../"> <img src="{% static 'assets/images/icon/logo.png' %}"
                                         class="img-fluid blur-up lazyload" alt="" height="130px" width="130px"></a>
                             </div>
                         </div>
@@ -1002,26 +1002,24 @@
                                     <div class="product-slick">
                                         <div><img src="{{ product_info.image1.url }}" alt=""
                                                 class="img-fluid blur-up lazyload image_zoom_cls-0"></div>
-                                        <!-- <div><img src="{% static 'imageUploads/bg1.png' %}" alt=""
+                                        <div><img src="{{ product_info.image1.url }}" alt=""
                                                 class="img-fluid blur-up lazyload image_zoom_cls-1"></div>
-                                        <div><img src="{% static 'imageUploads/bg1.png' %}" alt=""
+                                        <div><img src="{{ product_info.image2.url }}" alt=""
                                                 class="img-fluid blur-up lazyload image_zoom_cls-2"></div>
-                                        <div><img src="{% static 'imageUploads/bg1.png' %}" alt=""
-                                                class="img-fluid blur-up lazyload image_zoom_cls-3"></div> -->
-
+                                        <div><img src="{{ product_info.image3.url }}" alt=""
+                                                class="img-fluid blur-up lazyload image_zoom_cls-3"></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12 p-0">
                                             <div class="slider-nav">
-                                                <div><img src="{{ product_info.image.url }}" alt=""
+                                                <div><img src="{{ product_info.image1.url }}" alt=""
                                                         class="img-fluid blur-up lazyload"></div>
-                                                <!--
-                                                <div><img src="{% static 'assets/images/pro3/2.jpg' %}" alt=""
+                                                <div><img src="{{ product_info.image1.url }}" alt=""
                                                         class="img-fluid blur-up lazyload"></div>
-                                                <div><img src="{% static 'assets/images/pro3/27.jpg' %}" alt=""
+                                                <div><img src="{{ product_info.image2.url }}" alt=""
                                                         class="img-fluid blur-up lazyload"></div>
-                                                <div><img src="{% static 'assets/images/pro3/27.jpg' %}" alt=""
-                                                        class="img-fluid blur-up lazyload"></div>  -->
+                                                <div><img src="{{ product_info.image3.url }}" alt=""
+                                                        class="img-fluid blur-up lazyload"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1036,9 +1034,8 @@
                                         <h3>${{ product_info.price|floatformat:2 }}</h3>
                                          {% endif %}
                                         <ul class="color-variant">
-                                            <li class="bg-light0"></li>
-                                            <li class="bg-light1"></li>
-                                            <li class="bg-light2"></li>
+
+                                             <h4> Published By: <a href="../../shop/{{ seller_info.id }}">{{ seller_info.store_name }}</a></h4>
                                         </ul>
                                         <div class="product-description border-product">
                                             <h6 class="product-title size-text">Rating: <span><a href=""
@@ -1063,27 +1060,17 @@
                                             </div>
                                             <div class="size-box">
                                                 <ul>
-                                                   {% if product_info.rating == 0 %}
+                                                   {% if avg_rating == 0 %}
                                                      <li> <img src="{% static 'images/stars_rating/0_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
-                                                    {% elif product_info.rating == 0.5 %}
-                                                     <li> <img src="{% static 'images/stars_rating/0.5_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
-                                                    {% elif product_info.rating == 1 %}
+                                                    {% elif avg_rating == 1 %}
                                                      <li> <img src="{% static 'images/stars_rating/1_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
-                                                    {% elif product_info.rating == 1.5 %}
-                                                     <li> <img src="{% static 'images/stars_rating/1.5_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
-                                                    {% elif product_info.rating == 2 %}
+                                                    {% elif avg_rating == 2 %}
                                                      <li> <img src="{% static 'images/stars_rating/2_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
-                                                    {% elif product_info.rating == 2.5 %}
-                                                     <li> <img src="{% static 'images/stars_rating/2.5_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
-                                                    {% elif product_info.rating == 3 %}
+                                                    {% elif avg_rating == 3 %}
                                                      <li> <img src="{% static 'images/stars_rating/3_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
-                                                    {% elif product_info.rating == 3.5 %}
-                                                     <li> <img src="{% static 'images/stars_rating/3.5_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
-                                                    {% elif product_info.rating == 4 %}
+                                                    {% elif avg_rating == 4 %}
                                                      <li> <img src="{% static 'images/stars_rating/4_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
-                                                    {% elif product_info.rating == 4.5 %}
-                                                     <li> <img src="{% static 'images/stars_rating/4.5_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
-                                                    {% elif product_info.rating == 5 %}
+                                                    {% elif avg_rating == 5 %}
                                                      <li> <img src="{% static 'images/stars_rating/5_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
                                                     {% endif %}
                                                 </ul>
@@ -1157,7 +1144,7 @@
                                         </li>
                                         <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-toggle="tab"
                                                 href="#top-contact" role="tab" aria-selected="false"><i
-                                                    class="icofont icofont-contacts"></i>Video</a>
+                                                    class="icofont icofont-contacts"></i>Reviews</a>
                                             <div class="material-border"></div>
                                         </li>
                                         <li class="nav-item"><a class="nav-link" id="review-top-tab" data-toggle="tab"
@@ -1213,57 +1200,72 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="top-contact" role="tabpanel"
-                                            aria-labelledby="contact-top-tab">
-                                            <div class="mt-3 text-center">
-                                                <iframe width="560" height="315"
-                                                    src="https://www.youtube.com/embed/BUWzX78Ye_8"
-                                                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                        <div class="tab-pane fade" id="top-contact" role="tabpanel">
+
+                        <section class="section-b-space blog-detail-page review-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="comment-section">
+                        <li>
+                             {% for comment in comments %}
+                            <div class="media">
+                                {% if comment.randomImageNumber == 1 %}
+                                <img src="{% static 'imageUploads/COMMENT1.png' %}" alt="Generic placeholder image">
+                                {% elif comment.randomImageNumber == 2 %}
+                                <img src="{% static 'imageUploads/COMMENT2.png' %}" alt="Generic placeholder image">
+                                {% elif comment.randomImageNumber == 3 %}
+                                <img src="{% static 'imageUploads/COMMENT3.png' %}" alt="Generic placeholder image">
+                                {% elif comment.randomImageNumber == 4 %}
+                                <img src="{% static 'imageUploads/COMMENT4.png' %}" alt="Generic placeholder image">
+                                {% endif %}
+                                <div class="media-body">
+                                    <h6>{{ comment.name }} <span>({{ comment.time }})</span></h6>
+                                    {{ comment.Description }}
+                                    <ul class="comnt-sec">
+                  <div class="size-box">
+                                                <ul>
+                                                   {% if comment.rating == '0' %}
+                                                     <li> <img src="{% static 'images/stars_rating/0_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif comment.rating == '1' %}
+                                                     <li> <img src="{% static 'images/stars_rating/1_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif comment.rating == '2' %}
+                                                     <li> <img src="{% static 'images/stars_rating/2_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif comment.rating == '3' %}
+                                                     <li> <img src="{% static 'images/stars_rating/3_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif comment.rating == '4' %}
+                                                     <li> <img src="{% static 'images/stars_rating/4_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif comment.rating == '5' %}
+                                                     <li> <img src="{% static 'images/stars_rating/5_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% endif %}
+                                                </ul>
                                             </div>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
                                         </div>
                                         <div class="tab-pane fade" id="top-review" role="tabpanel"
                                             aria-labelledby="review-top-tab">
-                                            <form class="theme-form">
-                                                <div class="form-row">
-                                                    <div class="col-md-12">
-                                                        <div class="media">
-                                                            <label>Rating</label>
-                                                            <div class="media-body ml-3">
-                                                                <div class="rating three-star"><i
-                                                                        class="fa fa-star"></i> <i
-                                                                        class="fa fa-star"></i> <i
-                                                                        class="fa fa-star"></i> <i
-                                                                        class="fa fa-star"></i> <i
-                                                                        class="fa fa-star"></i></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="name">Name</label>
-                                                        <input type="text" class="form-control" id="name"
-                                                            placeholder="Enter Your name" required>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="email">Email</label>
-                                                        <input type="text" class="form-control" id="email"
-                                                            placeholder="Email" required>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <label for="review">Review Title</label>
-                                                        <input type="text" class="form-control" id="review"
-                                                            placeholder="Enter your Review Subjects" required>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <label for="review">Review Title</label>
-                                                        <textarea class="form-control"
-                                                            placeholder="Wrire Your Testimonial Here"
-                                                            id="exampleFormControlTextarea1" rows="6"></textarea>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <button class="btn btn-solid" type="submit">Submit YOur
-                                                            Review</button>
-                                                    </div>
-                                                </div>
+                                            <form class="theme-form" method="POST" enctype="multipart/form-data">
+                                                {% csrf_token %}
+
+                                                    {{ form.media }}
+                                                    {{ form }}
+                                                {% if request.GET.next %}
+                                                    <input type="hidden" name="next" value="{{ request.GET.next }}" />
+                                                {% endif %}
+
+                                                    <P></P>
+                                                    <input type="submit" value="Send Review" class="btn btn-primary"/>
                                             </form>
                                         </div>
                                     </div>

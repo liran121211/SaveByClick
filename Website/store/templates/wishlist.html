@@ -35,6 +35,32 @@
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/color1.css' %}" media="screen" id="color">
 
+
+        <!-----CSRF TOKEN BUILT-IN AJAX FUNCTION AS JS ----------------->
+    <script type="text/javascript">
+		var user = '{{request.user}}'
+
+		function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+
+	</script>
+
+    <!-----END CSRF TOKEN BUILT-IN AJAX FUNCTION AS JS ----------------->
+
 </head>
 
 <body>
@@ -58,7 +84,7 @@
                         <ul class="header-dropdown">
                             {% if user.is_authenticated %}
                             <li class="mobile-wishlist"><a href="wishlist">
-                                <i class="fa fa-heart" aria-hidden="true"></i></a>
+                                <i class="fa fa-heart" aria-hidden="true"></i></a>Wishlist ({{ count }})
                             </li>
                                 {% endif %}
                             <li class="onhover-dropdown mobile-account">
@@ -142,7 +168,7 @@
                                                             </div>
                                                             <div class="col-xl-4">
                                                                 <a href="#" class="mega-menu-banner"><img
-                                                                        src={% static 'assets/images/mega-menu/fashion.jpg' %}"
+                                                                        src="{% static 'assets/images/mega-menu/fashion.jpg' %}"
                                                                         alt="" class="img-fluid blur-up lazyload"></a>
                                                             </div>
                                                         </div>
@@ -232,7 +258,7 @@
                                 </div>
                             </div>
                             <div class="brand-logo">
-                                <a href="index.html"> <img src="{% static 'assets/images/icon/logo.png' %}"
+                                <a href="../"> <img src="{% static 'assets/images/icon/logo.png' %}"
                                         class="img-fluid blur-up lazyload" alt=""></a>
                             </div>
                         </div>
@@ -610,53 +636,41 @@
                                                 </ul>
                                             </div>
                                         </li>
-                                        <li class="onhover-div mobile-cart">
-                                            <div><img src="{% static 'assets/images/icon/cart.png' %}"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                                <i class="ti-shopping-cart"></i></div>
+                                   <li class="onhover-div mobile-cart">
+                                            <div>
+                                                <img src="{% static 'assets/images/icon/cart.png' %}"
+                                                    class="img-fluid blur-up lazyload" alt=""> &ensp;({{ count_cart }})<i
+                                                    class="ti-shopping-cart"></i></div>
                                             <ul class="show-div shopping-cart">
+                                                {% if cart_order.get_cart_items == 0 %}
+                                                     <h6><span>Your Cart is Empty! Shop Now :) </span></h6>
+                                                {% else %}
+                                                    {% for cart_item in cart_items %}
                                                 <li>
                                                     <div class="media">
-                                                        <a href="#"><img class="mr-3"
-                                                                src="{% static 'assets/images/fashion/product/1.jpg' %}"
-                                                                alt="Generic placeholder image"></a>
+                                                        <a href="../product/{{cart_item.product.id}}">
+                                                            <img alt="" class="mr-3" src="{{ cart_item.product.image1.url }}">
+                                                        </a>
                                                         <div class="media-body">
                                                             <a href="#">
-                                                                <h4>item name</h4>
+                                                                <h4>{{ cart_item.product.product_name|slice:":10" }}</h4>
                                                             </a>
-                                                            <h4><span>1 x $ 299.00</span></h4>
+                                                            <h4><span>{{ cart_item.quantity }} x ${{ cart_item.product.price|floatformat:2 }}</span></h4>
                                                         </div>
                                                     </div>
-                                                    <div class="close-circle">
-                                                        <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                    </div>
+                                                    <div class="close-circle"><a href="#" class="update-cart-js" data-product=" {{cart_item.product.id}} " data-action="remove"><i class="fa fa-times"
+                                                                aria-hidden="true"></i></a></div>
                                                 </li>
-                                                <li>
-                                                    <div class="media">
-                                                        <a href="#"><img class="mr-3"
-                                                                src="{% static 'assets/images/fashion/product/2.jpg' %}"
-                                                                alt="Generic placeholder image"></a>
-                                                        <div class="media-body">
-                                                            <a href="#">
-                                                                <h4>item name</h4>
-                                                            </a>
-                                                            <h4><span>1 x $ 299.00</span></h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="close-circle">
-                                                        <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                    </div>
-                                                </li>
+                                                    {% endfor %}
+                                                {% endif %}
                                                 <li>
                                                     <div class="total">
-                                                        <h5>subtotal : <span>$299.00</span></h5>
+                                                        <h5>subtotal : <span>${{cart_order.get_cart_total|floatformat:2}}</span></h5>
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <div class="buttons">
-                                                        <a href="cart.html" class="view-cart">view cart</a>
-                                                        <a href="#" class="checkout">checkout</a>
-                                                    </div>
+                                                    <div class="buttons"><a href="../cart" class="view-cart">view
+                                                            cart</a> <a href="#" class="checkout">checkout</a></div>
                                                 </li>
                                             </ul>
                                         </li>
@@ -684,7 +698,7 @@
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="../">Home</a></li>
                             <li class="breadcrumb-item active">wishlist</li>
                         </ol>
                     </nav>
@@ -711,39 +725,38 @@
                                 <th scope="col">action</th>
                             </tr>
                         </thead>
-                        {% for user in wish %}
+                        {% for user in items %}
 
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="#"><img src="{{ user.image.url }}" alt=""></a>
+                                    <a href="#"><img src="{{ user.product.image1.url }}" alt=""></a>
                                 </td>
-                                <td><a href="#">{{user.product_name}}</a>
-                                    <div class="mobile-cart-content row">
-                                        <div class="col-xs-3">
-                                            <p>{{ user.stock }}</p>
-                                        </div>
-                                        <div class="col-xs-3">
-
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <h2 class="td-color"><a href="#" class="icon mr-1"><i class="ti-close"></i>
-                                                </a><a href="#" class="cart"><i class="ti-shopping-cart"></i></a></h2>
-                                        </div>
-                                    </div>
+                                <td><a href="#">{{user.product.product_name }}</a>
                                 </td>
 
                                 <td>
-                                   <p>{{user.store_name}}</p>
+                                    {% for selleron in seller %}
+                                        {% if selleron.id == user.product.Seller_id %}
+                                                {{ selleron.store_name }}
+                                        {% endif %}
+                                    {% endfor %}
                                 </td>
                                 <td>
-                                   <p>{{user.price}}</p>
+                                   <p>${{user.product.price}}</p>
                                 </td>
                                 <td>
-                                  {{ user.stock }}
+                                  {{ user.product.quantity }}
                                 </td>
-                                <td><a href="#" class="icon mr-3"><i class="ti-close"></i> </a><a href="#"
-                                        class="cart"><i class="ti-shopping-cart"></i></a></td>
+                                <td>
+                                    <a data-product=" {{user.product.id}} " data-action="remove" class="icon mr-3 update-wishlist-js">
+                                        <i class="ti-close">
+                                        </i>
+                                    </a>
+                                    <a class="add-button update-cart-js" data-toggle="modal" data-product="{{ user.product.id }}" data-action="add">
+                                        <i class="ti-shopping-cart"></i>
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         {%endfor%}
@@ -751,8 +764,8 @@
                 </div>
             </div>
             <div class="row wishlist-buttons">
-                <div class="col-12"><a href="#" class="btn btn-solid">continue shopping</a> <a href="#"
-                        class="btn btn-solid">check out</a></div>
+                <div class="col-12"><a href="../" class="btn btn-solid">continue shopping</a> <a href="../cart"
+                        class="btn btn-solid">View Cart</a></div>
             </div>
         </div>
     </section>
@@ -1641,6 +1654,12 @@
 
     <!-- Theme js-->
     <script src="{% static 'assets/js/script.js' %}"></script>
+
+        <!-- Cart js-->
+    <script src="{% static 'assets/js/cart.js' %}"></script>
+
+       <!-- Wishlist js-->
+    <script src="{% static 'js/wishlist.js' %}"></script>
 
     <script>
         function openSearch() {

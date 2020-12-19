@@ -1,7 +1,8 @@
+# © 2020 Liran Smadja (First Real-World Project) ©
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, forms
-from .models import shippingAdd, Product, Seller, contactSeller, contactBuyer, Coupons
+from .models import shippingAdd, Product, Seller, contactSeller, contactBuyer, Coupons , contactSite, productRating, storeRating, myShopList, Order
 
 class addCoupon(forms.ModelForm):
     class Meta:
@@ -41,9 +42,10 @@ class ContactBuyerForm(forms.ModelForm):
 class UpdateSellerForm(forms.ModelForm):
     class Meta:
         model = Seller
-        fields = ['store_name', 'store_category' ]
+        fields = ['store_name', 'store_category' , 'store_description', 'profile_image', 'background_image']
         widgets = {
             'store_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'store_description': forms.TextInput(attrs={'class': 'form-control'}),
             'store_category': forms.Select(attrs={'class': 'form-control'}),
         }
 
@@ -121,3 +123,68 @@ class UserRegisterForm(UserCreationForm):
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+class contactSiteForm(forms.ModelForm):
+    class Meta:
+        model = contactSite
+        fields = ['title', 'body_text', 'first_name', 'last_name','email', 'image', 'message_category' ]
+        widgets = {
+           'title' : forms.TextInput(attrs={'class': 'form-control'}),
+           'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+           'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+           'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+           'email': forms.TextInput(attrs={'class': 'form-control'}),
+           'message_category': forms.Select(attrs={'class': 'form-control'}),
+       }
+
+Product_Stars = [('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')]
+
+
+class productRatingForm(forms.ModelForm):
+    rating = forms.ChoiceField(choices=Product_Stars, widget=forms.RadioSelect())
+    class Meta:
+        model = productRating
+        fields = ['Product', 'rating', 'name', 'email', 'Description']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' }),
+            'email': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' }),
+            'Product': forms.HiddenInput()
+        }
+
+class storeRatingForm(forms.ModelForm):
+    rating = forms.ChoiceField(choices=Product_Stars, widget=forms.RadioSelect())
+    class Meta:
+        model = storeRating
+        fields = ['Seller', 'rating', 'name', 'email', 'Description']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' }),
+            'email': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' }),
+            'Seller': forms.HiddenInput()
+        }
+
+class myShopListForm(forms.ModelForm):
+    class Meta:
+        model = myShopList
+        fields = ['User', 'store_name', 'image', 'store']
+        widgets = {
+            'User': forms.HiddenInput(),
+            'store_name': forms.HiddenInput(),
+            'image': forms.HiddenInput(),
+            'store': forms.HiddenInput()
+        }
+
+
+Delivery_Type=[ ('True','Store Pickup'), ('False','Israel Post') ]
+
+class transactionForm(forms.ModelForm):
+    pickup = forms.ChoiceField(choices=Delivery_Type, widget=forms.RadioSelect())
+    class Meta:
+        model = Order
+        fields = ['pickup', 'complete', 'Buyer', 'transaction_id']
+        widgets = {
+            'transaction_id': forms.HiddenInput(),
+            'complete': forms.HiddenInput(),
+            'Buyer': forms.HiddenInput(),
+        }
+
+# © 2020 Liran Smadja (First Real-World Project) ©
