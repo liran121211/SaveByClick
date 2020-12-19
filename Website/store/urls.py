@@ -9,7 +9,6 @@ urlpatterns = [
     path('update-info/', views.userUpdateInfo, name= 'user-update-info'),
     path("update-shipping/", views.userUpdateShipping, name="update-shipping"),
     #path('products/', views.Products, name='products'),
-    path('checkout/', views.Checkout, name='checkout'),
     path('register/', views.RegisterPage, name='register'),
     path('login/', views.loginPage, name='login'),
     path("logout/", LogoutView.as_view(), name="logout"),
@@ -21,6 +20,12 @@ urlpatterns = [
     path('admin-panel/product/<int:pk>/delete/', views.DeleteProduct, name='delete-product'),
     path('admin-panel/product/add/', views.addProduct, name='add-product'),
     path('admin-panel/users/', views.userList, name='user-list'),
+    path('admin-panel/users/add', views.addUser, name='add-user'),
+    path('admin-panel/users/<int:pk>/review', views.reviewUser, name='review-user'),
+    path('admin-panel/users/<int:pk>/delete/', views.DeleteUser, name='delete-user'),
+    path('checkout/', views.Checkout, name='checkout'),
+    path('update_item/', views.updateItem, name='update-item'),
+    path('cart/', views.cart, name='cart')
 
 
 ]

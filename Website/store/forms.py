@@ -8,15 +8,14 @@ class UpdateUserForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    is_staff = forms.BooleanField(widget=forms.HiddenInput(), initial=False)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2','is_staff', 'first_name', 'last_name']
+        fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name']
         widgets = {
             'username' : forms.TextInput(attrs={'class': 'form-control'}),
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'})
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 class UpdateShippingForm(forms.ModelForm):
@@ -58,19 +57,22 @@ class addProductForm(forms.ModelForm):
            'status': forms.Select(attrs={'class': 'form-control'}),
        }
 
+Account_Type=[ ('True','Seller'), ('False','Buyer') ]
+
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    is_staff = forms.BooleanField(widget=forms.HiddenInput(), initial=True)
+    is_superuser = forms.ChoiceField(choices=Account_Type, widget=forms.RadioSelect())
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2','is_staff', 'first_name', 'last_name']
+        fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'is_superuser']
         widgets = {
             'username' : forms.TextInput(attrs={'class': 'form-control'}),
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'})
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'is_superuser': forms.Select()
         }
 
 class UserLoginForm(AuthenticationForm):

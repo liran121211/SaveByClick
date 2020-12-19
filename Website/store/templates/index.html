@@ -25,10 +25,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/slick-theme.css' %}">
 
     <!-- Animate icon -->
-    <link rel="stylesheet" type="text/css" href="{% static 'ssets/css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/animate.css' %}">
 
     <!-- Themify icon -->
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/themify-icons.' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/themify-icons.css' %}">
 
     <!-- Bootstrap css -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.css' %}">
@@ -36,6 +36,31 @@
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/color19.css' %}" media="screen" id="color">
 
+
+    <!-----CSRF TOKEN BUILT-IN AJAX FUNCTION AS JS ----------------->
+    <script type="text/javascript">
+		var user = '{{request.user}}'
+
+		function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+
+	</script>
+
+    <!-----END CSRF TOKEN BUILT-IN AJAX FUNCTION AS JS ----------------->
 
 </head>
 
@@ -52,7 +77,7 @@
                             <div class="header-contact">
                                 <ul>
                                     <li>Welcome To Our Store | SaveByClick</li>
-                                    <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li>
+                                    <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 08-0000000</li>
                                 </ul>
                             </div>
                         </div>
@@ -81,7 +106,7 @@
                                 </div>
                                 <div class="brand-logo">
                                     <a href="/"><img src="{% static 'assets/images/icon/logo/18.png' %}"
-                                            class="img-fluid blur-up lazyload" alt=""></a>
+                                            class="img-fluid blur-up lazyload" alt="logo" height="130px" width="130px"></a>
                                 </div>
                             </div>
                             <div class="menu-right pull-right">
@@ -310,9 +335,9 @@
 
     <!-- header start -->
     <header class="header-tools marketplace">
-                             <center><div style="background-color:#3e5067;" data-msg-iteration="7-36" class="container-fluid news-line-body">
+        <center><div style="background-color:#3e5067;" data-msg-iteration="7-36" class="container-fluid news-line-body">
 		<div class="message_title d-none d-md-block" style="color: rgb(252, 148, 3); font-weight: 600; font-size: 18px;">The Site Is Under Construction</div>
-		<div style="color:#ffffff;" class="text">Estimated release date on: 02/01/2021</div></center>
+		<div style="color:#ffffff;" class="text">Estimated release date on: 02/01/2021 </div></div></center>
 	</div>
         <div class="mobile-fix-option"></div>
         <div class="top-header">
@@ -321,8 +346,8 @@
                     <div class="col-lg-6">
                         <div class="header-contact">
                             <ul>
-                                <li>Welcome to Our store Multikart</li>
-                                <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li>
+                                <li>Welcome To Our Store | SaveByClick</li>
+                                <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 08-0000000</li>
                             </ul>
                         </div>
                     </div>
@@ -335,7 +360,7 @@
                                      {{ user.first_name }}'s Profile
                                     <ul class="onhover-show-div">
                                         {% if user.is_superuser == True and user.is_staff == True %}
-                                     <li><a href="admin-panel/" data-lng="es">My Profile</a></li>
+                                     <li><a href="admin-panel/" data-lng="es">Admin Area</a></li>
                                     <li><a href="logoutnow/" data-lng="es">Logout</a></li>
                                         {% else %}
                                         <li><a href="profile/" data-lng="es">My Profile</a></li>
@@ -343,6 +368,7 @@
                                         {% endif %}
                                 {% else %}
                                     My Account
+                                        </ul>
                                 <ul class="onhover-show-div">
                                     <li><a href="login/" data-lng="en">Login</a></li>
                                     <li><a href="register/" data-lng="en">Sign Up</a></li>
@@ -498,7 +524,7 @@
                             </div>
                             <div class="brand-logo">
                                 <a href="/"><img src="{% static 'assets/images/icon/logo/18.png' %}"
-                                        class="img-fluid blur-up lazyload" alt=""></a>
+                                        class="img-fluid blur-up lazyload" alt="logo" height="130px" width="130px"></a>
                             </div>
                         </div>
                         <div class="menu-right pull-right">
@@ -872,45 +898,39 @@
                                             </div>
                                         </li>
                                         <li class="onhover-div mobile-cart">
-                                            <div><img src="{% static 'assets/images/icon/cart.png"
+                                            <div>
+                                                <img src="{% static 'assets/images/icon/cart.png' %}"
                                                     class="img-fluid blur-up lazyload" alt=""> <i
                                                     class="ti-shopping-cart"></i></div>
                                             <ul class="show-div shopping-cart">
+                                                {% if order.get_cart_items == 0 %}
+                                                     <h6><span>Your Cart is Empty! Shop Now :) </span></h6>
+                                                {% else %}
+                                                    {% for cart_item in items %}
                                                 <li>
                                                     <div class="media">
-                                                        <a href="#"><img alt="" class="mr-3"
-                                                                src="{% static 'assets/images/fashion/product/1.jpg' %}"></a>
+                                                        <a href="product/{{cart_item.product.id}}">
+                                                            <img alt="" class="mr-3" src="{{ cart_item.product.image1.url }}">
+                                                        </a>
                                                         <div class="media-body">
                                                             <a href="#">
-                                                                <h4>item name</h4>
+                                                                <h4>{{ cart_item.product.product_name|slice:":10" }}</h4>
                                                             </a>
-                                                            <h4><span>1 x $ 299.00</span></h4>
+                                                            <h4><span>{{ cart_item.quantity }} x ${{ cart_item.product.price|floatformat:2 }}</span></h4>
                                                         </div>
                                                     </div>
-                                                    <div class="close-circle"><a href="#"><i class="fa fa-times"
+                                                    <div class="close-circle"><a href="#" class="update-cart-js" data-product=" {{cart_item.product.id}} " data-action="remove"><i class="fa fa-times"
                                                                 aria-hidden="true"></i></a></div>
                                                 </li>
-                                                <li>
-                                                    <div class="media">
-                                                        <a href="#"><img alt="" class="mr-3"
-                                                                src="{% static 'assets/images/fashion/product/2.jpg' %}"></a>
-                                                        <div class="media-body">
-                                                            <a href="#">
-                                                                <h4>item name</h4>
-                                                            </a>
-                                                            <h4><span>1 x $ 299.00</span></h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="close-circle"><a href="#"><i class="fa fa-times"
-                                                                aria-hidden="true"></i></a></div>
-                                                </li>
+                                                    {% endfor %}
+                                                {% endif %}
                                                 <li>
                                                     <div class="total">
-                                                        <h5>subtotal : <span>$299.00</span></h5>
+                                                        <h5>subtotal : <span>${{order.get_cart_total|floatformat:2}}</span></h5>
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <div class="buttons"><a href="cart.html" class="view-cart">view
+                                                    <div class="buttons"><a href="cart" class="view-cart">view
                                                             cart</a> <a href="#" class="checkout">checkout</a></div>
                                                 </li>
                                             </ul>
@@ -932,14 +952,14 @@
         <div class="slide-1 home-slider">
             <div>
                 <div class="home text-left">
-                    <img src="https://elearningindustry.com/wp-content/uploads/2020/02/How-LD-Teams-Can-Increase-Employee-Performance-and-Bring-Behav-landing-1920x560-1.jpg" alt="" class="bg-img blur-up lazyload">
+                    <img src="https://blog.payjunction.com/hubfs/BLOG/FEATURED%20IMAGES/visa-online-refunds.svg" alt="" class="bg-img blur-up lazyload">
                     <div class="container-fluid custom-container">
                         <div class="row">
                             <div class="col">
                                 <div class="slider-contain">
                                     <div>
-                                        <h4>Headsets for all styles</h4>
-                                        <h1>Starting $19</h1>
+                                        <h4>Shop With Confidence</h4>
+                                        <h1>Starting $9.99</h1>
                                         <a href="#" class="btn btn-solid">shop now</a>
                                     </div>
                                 </div>
@@ -950,14 +970,14 @@
             </div>
             <div>
                 <div class="home text-center">
-                    <img src="https://www.gamountainfoodbank.org/wp-content/uploads/2019/01/Copy-of-GMFB-Jan2018-website-1920x686-01-1024x366.png" alt="" class="bg-img blur-up lazyload">
+                    <img src="https://www.chez106.com/wp-content/uploads/sites/23/2020/03/Support_Local_ROCK_Web_STPH_1920x1080.jpg" alt="" class="bg-img blur-up lazyload">
                     <div class="container-fluid custom-container">
                         <div class="row">
                             <div class="col">
                                 <div class="slider-contain">
                                     <div>
-                                        <h4>Furnishing deals</h4>
-                                        <h1>Up to 70% off</h1>
+                                        <h4>Support Small Businesses</h4>
+                                        <h1></h1>
                                         <a href="#" class="btn btn-solid">shop now</a>
                                     </div>
                                 </div>
@@ -1064,10 +1084,11 @@
     <section class="pt-0 section-b-space ratio_asos">
         <div class="container">
             <div class="row game-product grid-products">
+                {% for product in product_list %}
                 <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
                     <div class="img-wrapper">
                         <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/1.jpg' %}"
+                            <a href="product/{{ product.id }}"><img src="{{ product.image1.url }}"
                                     class="img-fluid blur-up lazyload bg-img" alt=""></a>
                         </div>
                         <div class="cart-info cart-wrap">
@@ -1078,309 +1099,19 @@
                             <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
                                     aria-hidden="true"></i></a>
                         </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
+                        <div class="add-button update-cart-js" data-toggle="modal" data-product="{{ product.id }}" data-action="add" >add to
                             cart</div>
                     </div>
                     <div class="product-detail">
                         <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                 class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
                         <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
+                            <h6>{{ product.product_name }}</h6>
                         </a>
-                        <h4>$500.00</h4>
+                        <h4>${{ product.price }}</h4>
                     </div>
                 </div>
-                <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
-                    <div class="img-wrapper">
-                        <div class="lable-block"><span class="lable4">on sale</span></div>
-                        <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/2.jpg' %}"
-                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                        </div>
-                        <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
-                        </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                            cart</div>
-                    </div>
-                    <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
-                        </a>
-                        <h4>$500.00</h4>
-                    </div>
-                </div>
-                <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
-                    <div class="img-wrapper">
-                        <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/3.jpg' %}"
-                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                        </div>
-                        <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
-                        </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                            cart</div>
-                    </div>
-                    <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
-                        </a>
-                        <h4>$500.00</h4>
-                    </div>
-                </div>
-                <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
-                    <div class="img-wrapper">
-                        <div class="lable-block"><span class="lable4">on sale</span></div>
-                        <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/4.jpg' %}"
-                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                        </div>
-                        <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
-                        </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                            cart</div>
-                    </div>
-                    <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
-                        </a>
-                        <h4>$500.00</h4>
-                    </div>
-                </div>
-                <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
-                    <div class="img-wrapper">
-                        <div class="lable-block"><span class="lable4">on sale</span></div>
-                        <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/5.jpg' %}"
-                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                        </div>
-                        <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
-                        </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                            cart</div>
-                    </div>
-                    <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
-                        </a>
-                        <h4>$500.00</h4>
-                    </div>
-                </div>
-                <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
-                    <div class="img-wrapper">
-                        <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/6.jpg' %}"
-                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                        </div>
-                        <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
-                        </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                            cart</div>
-                    </div>
-                    <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
-                        </a>
-                        <h4>$500.00</h4>
-                    </div>
-                </div>
-                <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
-                    <div class="img-wrapper">
-                        <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/7.jpg' %}"
-                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                        </div>
-                        <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
-                        </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                            cart</div>
-                    </div>
-                    <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
-                        </a>
-                        <h4>$500.00</h4>
-                    </div>
-                </div>
-                <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
-                    <div class="img-wrapper">
-                        <div class="lable-block"><span class="lable4">on sale</span></div>
-                        <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/8.jpg' %}"></a>
-                        </div>
-                        <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
-                        </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                            cart</div>
-                    </div>
-                    <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
-                        </a>
-                        <h4>$500.00</h4>
-                    </div>
-                </div>
-                <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
-                    <div class="img-wrapper">
-                        <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/9.jpg' %}"
-                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                        </div>
-                        <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
-                        </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                            cart</div>
-                    </div>
-                    <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
-                        </a>
-                        <h4>$500.00</h4>
-                    </div>
-                </div>
-                <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
-                    <div class="img-wrapper">
-                        <div class="lable-block"><span class="lable4">on sale</span></div>
-                        <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/10.jpg' %}"
-                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                        </div>
-                        <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
-                        </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                            cart</div>
-                    </div>
-                    <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
-                        </a>
-                        <h4>$500.00</h4>
-                    </div>
-                </div>
-                <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
-                    <div class="img-wrapper">
-                        <div class="lable-block"><span class="lable4">on sale</span></div>
-                        <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/11.jpg' %}"
-                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                        </div>
-                        <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
-                        </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                            cart</div>
-                    </div>
-                    <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
-                        </a>
-                        <h4>$500.00</h4>
-                    </div>
-                </div>
-                <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
-                    <div class="img-wrapper">
-                        <div class="front">
-                            <a href="product-page(no-sidebar).html"><img src="{% static 'assets/images/marketplace/12.jpg' %}"
-                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                        </div>
-                        <div class="cart-info cart-wrap">
-                            <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
-                        </div>
-                        <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                            cart</div>
-                    </div>
-                    <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>Slim Fit Cotton Shirt</h6>
-                        </a>
-                        <h4>$500.00</h4>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -1418,7 +1149,7 @@
                             <div>
                                 <div class="media">
                                     <a href="product-page(no-sidebar).html"><img class="img-fluid blur-up lazyload"
-                                            src="{% static 'ssets/images/marketplace/6.jpg' %}" alt=""></a>
+                                            src="{% static 'assets/images/marketplace/6.jpg' %}" alt=""></a>
                                     <div class="media-body align-self-center">
                                         <div class="rating">
                                             <i class="fa fa-star"></i>
@@ -2127,14 +1858,15 @@
                             <form
                                 action="https://pixelstrap.us19.list-manage.com/subscribe/post?u=5a128856334b598b395f1fc9b&amp;id=082f74cbda"
                                 class="form-inline subscribe-form auth-form needs-validation" method="post"
-                                id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
+                                id="" name="mc-embedded-subscribe-form" target="_blank">
                                 <div class="form-group mx-sm-3">
-                                    <input type="text" class="form-control" name="EMAIL" id="mce-EMAIL"
+                                    <input type="text" class="form-control" name="EMAIL" id="NONE"
                                         placeholder="Enter your email" required="required">
                                 </div>
-                                <button type="submit" class="btn btn-solid" id="mc-submit">subscribe</button>
+                                <button type="submit" class="btn btn-solid" id="NONE1">subscribe</button>
                             </form>
                         </div>
+
                     </div>
                 </section>
             </div>
@@ -2147,7 +1879,7 @@
                             <h4>about</h4>
                         </div>
                         <div class="footer-contant">
-                            <div class="footer-logo"><img src="{% static 'assets/images/icon/logo/18.png' %}" alt=""></div>
+                            <div class="footer-logo"><img src="{% static 'assets/images/icon/logo/18.png' %}" alt="logo" ></div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                 ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
                             <div class="footer-social">
@@ -2249,7 +1981,7 @@
     <!-- footer end -->
 
 
-   <!--modal popup start-->
+   <!--modal popup start
     <div class="modal fade bd-example-modal-lg theme-modal" id="exampleModal" tabindex="-1" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -2285,7 +2017,7 @@
             </div>
         </div>
     </div>
-    <!--modal popup end-->
+    ----modal popup end-->
 
 
     <!-- Quick-view modal popup start-->
@@ -3076,7 +2808,7 @@
 
     <!-- exitintent jquery-->
     <script src="{% static 'assets/js/jquery.exitintent.js' %}"></script>
-    <script src="{% static 'assets/js/exit.js"></script>
+    <script src="{% static 'assets/js/exit.js' %}"></script>
 
     <!-- popper js-->
     <script src="{% static 'assets/js/popper.min.js' %}"></script>
@@ -3101,6 +2833,9 @@
 
     <!-- Theme js-->
     <script src="{% static 'assets/js/script.js' %}"></script>
+
+    <!-- Cart js-->
+    <script src="{% static 'assets/js/cart.js' %}"></script>
 
     <script>
         $(window).on('load', function () {

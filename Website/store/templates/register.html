@@ -715,7 +715,6 @@
                                 <div class="col-md-6">
                                     <label for="email">Username</label>
                                         {{ form.username }}
-                                    {{ form.is_staff }}
                                 </div>
                                 <div class="col-md-6">
                                     <label for="review">Email</label>
@@ -731,6 +730,10 @@
                                 <div class="col-md-6">
                                     <label for="review">Repeat Password</label>
                                         {{ form.password2 }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="review">Choose Account Type:</label>
+                                        {{ form.is_superuser }}
                                 </div>
                                 <button class="btn btn-solid" type="submit">Create Account</button>
                             </div>

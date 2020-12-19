@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-{% block content  %}
+{% block content %}
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,6 +34,32 @@
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/color1.css' %}" media="screen" id="color">
+
+
+       <!-----CSRF TOKEN BUILT-IN AJAX FUNCTION AS JS ----------------->
+    <script type="text/javascript">
+		var user = '{{ user_details }}'
+
+		function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+
+	</script>
+
+    <!-----END CSRF TOKEN BUILT-IN AJAX FUNCTION AS JS ----------------->
 
 </head>
 
@@ -78,7 +104,7 @@
                                 </div>
                                 <div class="brand-logo">
                                     <a href="index.html"><img src="{% static 'assets/images/icon/logo.png' %}"
-                                            class="img-fluid blur-up lazyload" alt=""></a>
+                                            class="img-fluid blur-up lazyload" alt="" height="130px" width="130px"></a>
                                 </div>
                             </div>
                             <div class="menu-right pull-right">
@@ -508,7 +534,7 @@
                             </div>
                             <div class="brand-logo">
                                 <a href="index.html"> <img src="{% static 'assets/images/icon/logo.png' %}"
-                                        class="img-fluid blur-up lazyload" alt=""></a>
+                                        class="img-fluid blur-up lazyload" alt="" height="130px" width="130px"></a>
                             </div>
                         </div>
                         <div class="menu-right pull-right">
@@ -886,52 +912,40 @@
                                             </div>
                                         </li>
                                         <li class="onhover-div mobile-cart">
-                                            <div><img src="{% static 'assets/images/icon/cart.png' %}"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                                <i class="ti-shopping-cart"></i></div>
+                                            <div>
+                                                <img src="{% static 'assets/images/icon/cart.png' %}"
+                                                    class="img-fluid blur-up lazyload" alt=""> <i
+                                                    class="ti-shopping-cart"></i></div>
                                             <ul class="show-div shopping-cart">
+                                                {% if order.get_cart_items == 0 %}
+                                                     <h6><span>Your Cart is Empty! Shop Now :) </span></h6>
+                                                {% else %}
+                                                    {% for cart_item in items %}
                                                 <li>
                                                     <div class="media">
-                                                        <a href="#"><img class="mr-3"
-                                                                src="{% static 'assets/images/fashion/product/1.jpg' %}"
-                                                                alt="Generic placeholder image"></a>
+                                                        <a href="../../product/{{cart_item.product.id}}">
+                                                            <img alt="" class="mr-3" src="{{ cart_item.product.image1.url }}">
+                                                        </a>
                                                         <div class="media-body">
                                                             <a href="#">
-                                                                <h4>item name</h4>
+                                                                <h4>{{ cart_item.product.product_name|slice:":10" }}</h4>
                                                             </a>
-                                                            <h4><span>1 x $ 299.00</span></h4>
+                                                            <h4><span>{{ cart_item.quantity }} x ${{ cart_item.product.price|floatformat:2 }}</span></h4>
                                                         </div>
                                                     </div>
-                                                    <div class="close-circle">
-                                                        <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                    </div>
+                                                    <div class="close-circle"><a href="#" class="update-cart-js" data-product=" {{cart_item.product.id}} " data-action="remove"><i class="fa fa-times"
+                                                                aria-hidden="true"></i></a></div>
                                                 </li>
-                                                <li>
-                                                    <div class="media">
-                                                        <a href="#"><img class="mr-3"
-                                                                src="{% static 'assets/images/fashion/product/2.jpg' %}"
-                                                                alt="Generic placeholder image"></a>
-                                                        <div class="media-body">
-                                                            <a href="#">
-                                                                <h4>item name</h4>
-                                                            </a>
-                                                            <h4><span>1 x $ 299.00</span></h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="close-circle">
-                                                        <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                    </div>
-                                                </li>
+                                                    {% endfor %}
+                                                {% endif %}
                                                 <li>
                                                     <div class="total">
-                                                        <h5>subtotal : <span>$299.00</span></h5>
+                                                        <h5>subtotal : <span>${{order.get_cart_total|floatformat:2}}</span></h5>
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <div class="buttons">
-                                                        <a href="cart.html" class="view-cart">view cart</a>
-                                                        <a href="#" class="checkout">checkout</a>
-                                                    </div>
+                                                    <div class="buttons"><a href="../../cart" class="view-cart">view
+                                                            cart</a> <a href="#" class="checkout">checkout</a></div>
                                                 </li>
                                             </ul>
                                         </li>
@@ -986,7 +1000,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="product-slick">
-                                        <div><img src="{{ product_info.image.url }}" alt=""
+                                        <div><img src="{{ product_info.image1.url }}" alt=""
                                                 class="img-fluid blur-up lazyload image_zoom_cls-0"></div>
                                         <!-- <div><img src="{% static 'imageUploads/bg1.png' %}" alt=""
                                                 class="img-fluid blur-up lazyload image_zoom_cls-1"></div>
@@ -1016,10 +1030,10 @@
                                     <div class="product-right">
                                         <h2>{{ product_info.product_name }}</h2>
                                         {% if discount > 0 %}
-                                        <h4><del>${{ product_info.price }}</del><span>{{ discount }}% off</span></h4>
-                                        <h3>${{ priceWithDiscount }}</h3>
+                                        <h4><del>${{ product_info.price|floatformat:2 }}</del><span>{{ discount }}% off</span></h4>
+                                        <h3>${{ priceWithDiscount|floatformat:2 }}</h3>
                                          {% else %}
-                                        <h3>${{ product_info.price }}</h3>
+                                        <h3>${{ product_info.price|floatformat:2 }}</h3>
                                          {% endif %}
                                         <ul class="color-variant">
                                             <li class="bg-light0"></li>
@@ -1087,9 +1101,9 @@
                                                                 class="ti-angle-right"></i></button></span></div>
                                             </div>
                                         </div>
-                                        <div class="product-buttons"><a href="#" data-toggle="modal"
-                                                data-target="#addtocart" class="btn btn-solid">add to cart</a> <a
-                                                href="#" class="btn btn-solid">buy now</a></div>
+                                        <div class="product-buttons">
+                                            <a href="#" data-product=" {{product_info.id}} " data-action="add" class="btn btn-solid update-cart-js">add to cart</a>
+                                            <a href="#" class="btn btn-solid" >buy now</a></div>
                                         <div class="border-product">
                                             <h6 class="product-title">product details</h6>
                                             <p>{{ product_info.product_description }}</p>
@@ -1519,7 +1533,7 @@
                             <h4>about</h4>
                         </div>
                         <div class="footer-contant">
-                            <div class="footer-logo"><img src="{% static 'assets/images/icon/logo.png' %}" alt=""></div>
+                            <div class="footer-logo"><img src="{% static 'assets/images/icon/logo.png' %}" alt="" height="130px" width="130px"></div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                 ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
                             <div class="footer-social">
@@ -2482,6 +2496,12 @@
 
     <!-- Theme js-->
     <script src="{% static 'assets/js/script.js' %}"></script>
+
+     <!-- Fly cart js-->
+    <script src="{% static 'assets/js/fly-cart.js' %}"></script>
+
+       <!-- Cart js-->
+    <script src="{% static 'assets/js/cart.js' %}"></script>
 
     <script>
         function openSearch() {
