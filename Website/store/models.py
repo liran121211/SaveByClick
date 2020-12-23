@@ -8,10 +8,6 @@ import random
 import secrets
 # Create your models here.
 
-def get_random_transaction(): #create random transaction ID
-    id = secrets.token_hex(nbytes=10)
-    return id.upper()
-
 Product_Categories = (
     ('Motors', 'Motors'),
     ('Books, Movies & Music', 'Books, Movies & Music'),
@@ -42,6 +38,12 @@ MessageSubject = (
     ('Jobs' , 'Jobs'),
 )
 
+Product_Advertise = (
+    ('Not Promoted' , 'Not Promoted'),
+    ('Banner' , 'Banner'),
+    ('Pop Up' , 'Pop Up'),
+    ('Main Slidebar' , 'Main Slidebar'),
+)
 class Room(models.Model):
     """Represents chat rooms that users can join"""
     name = models.CharField(max_length=30)
@@ -134,6 +136,7 @@ class Product(models.Model):
     category = models.CharField(name='category', choices=Product_Categories, max_length=100, default='Others')
     status = models.CharField(name='status', choices=Product_Disable_Enable, default = 'Not Active' , max_length=10)
     views = models.IntegerField(name='views', default=0)
+    advertise = models.CharField(name='advertise', choices=Product_Advertise, max_length=100, default = 'Not Promoted')
 
     def __str__(self):
         return self.product_name
@@ -143,8 +146,9 @@ class Order(models.Model):
     Buyer = models.ForeignKey(Buyer, on_delete=models.SET_NULL, null=True, blank=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(name = 'complete', default=False)
-    transaction_id = models.CharField(max_length=100, default=get_random_transaction())
+    transaction_id = models.CharField(max_length=50, default=secrets.token_hex(nbytes=10).upper())
     pickup = models.BooleanField(name='pickup', default=False)
+    total = models.FloatField(name='total', max_length=10, default=0.0)
 
     def __str__(self):
         return str(self.id)
@@ -162,22 +166,27 @@ class Order(models.Model):
         return total
 
 class OrderItem(models.Model):
-	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-	quantity = models.IntegerField(default=0, null=True, blank=True)
-	date_added = models.DateTimeField(auto_now_add=True)
+    seller = models.ForeignKey(Seller, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
 
-	@property  # Make function behave like attribute (of class) and not function
-	def get_total(self):
-		total = self.product.price * self.quantity
-		return total
+    @property  # Make function behave like attribute (of class) and not function
+    def get_total(self):
+        total = self.product.price * self.quantity
+        return total
 
 class wishlist(models.Model):
     product = models.OneToOneField(Product, on_delete=models.SET_NULL, null=True)
     buyer = models.ForeignKey(Buyer, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
 
-
+class Expenses(models.Model):
+    expanse_name = models.CharField(name= 'expanse_name', max_length=200, default='null')
+    startDate = models.DateTimeField(auto_now_add=True)
+    endDate = models.DateTimeField(auto_now_add=True)
+    amount = models.FloatField(default=0, null=True, blank=True)
 
 class myShopList(models.Model):
     user = models.ForeignKey(User, name="User", on_delete=models.CASCADE)

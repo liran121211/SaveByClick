@@ -58,20 +58,26 @@
                         <ul class="header-dropdown">
                             <li class="mobile-wishlist"><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
                             </li>
-                            <li class="onhover-dropdown mobile-account">
-                                <i class="fa fa-user" aria-hidden="true"></i> My Account
+                                   <li class="onhover-dropdown mobile-account"> <i class="fa fa-user" aria-hidden="true"></i>
+                                {% if user.is_authenticated %}
+                                     {{ user.first_name }}'s Profile
+                                    <ul class="onhover-show-div">
+                                        {% if user.is_superuser == True and user.is_staff == True %}
+                                     <li><a href="../../../admin-panel/" data-lng="es">Admin Area</a></li>
+                                    <li><a href="../../../logoutnow/" data-lng="es">Logout</a></li>
+                                        {% else %}
+                                        <li><a href="../../../profile/" data-lng="es">My Profile</a></li>
+                                    <li><a href="../../../logoutnow/" data-lng="es">Logout</a></li>
+                                        {% endif %}
+                                         </ul>
+                                {% else %}
+                                    My Account
+
                                 <ul class="onhover-show-div">
-                                    <li>
-                                        <a href="#" data-lng="en">
-                                            Login
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" data-lng="es">
-                                            Logout
-                                        </a>
-                                    </li>
+                                    <li><a href="login/" data-lng="en">Login</a></li>
+                                    <li><a href="register/" data-lng="en">Sign Up</a></li>
                                 </ul>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
@@ -229,7 +235,7 @@
                                 </div>
                             </div>
                             <div class="brand-logo">
-                                <a href="index.html"> <img src="{% static 'assets/images/icon/logo.png' %}"
+                                <a href="../../../../../"> <img src="{% static 'assets/images/icon/logo.png' %}"
                                         class="img-fluid blur-up lazyload" alt=""></a>
                             </div>
                         </div>
@@ -607,56 +613,6 @@
                                                 </ul>
                                             </div>
                                         </li>
-                                        <li class="onhover-div mobile-cart">
-                                            <div><img src="{% static 'assets/images/icon/cart.png' %}"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                                <i class="ti-shopping-cart"></i></div>
-                                            <ul class="show-div shopping-cart">
-                                                <li>
-                                                    <div class="media">
-                                                        <a href="#"><img class="mr-3"
-                                                                src="{% static 'assets/images/fashion/product/1.jpg' %}"
-                                                                alt="Generic placeholder image"></a>
-                                                        <div class="media-body">
-                                                            <a href="#">
-                                                                <h4>item name</h4>
-                                                            </a>
-                                                            <h4><span>1 x $ 299.00</span></h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="close-circle">
-                                                        <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="media">
-                                                        <a href="#"><img class="mr-3"
-                                                                src="{% static 'assets/images/fashion/product/2.jpg' %}"
-                                                                alt="Generic placeholder image"></a>
-                                                        <div class="media-body">
-                                                            <a href="#">
-                                                                <h4>item name</h4>
-                                                            </a>
-                                                            <h4><span>1 x $ 299.00</span></h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="close-circle">
-                                                        <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="total">
-                                                        <h5>subtotal : <span>$299.00</span></h5>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="buttons">
-                                                        <a href="cart.html" class="view-cart">view cart</a>
-                                                        <a href="#" class="checkout">checkout</a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -674,10 +630,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="success-text"><i class="fa fa-check-circle" aria-hidden="true"></i>
+                    <div class="success-text"><img src="https://i.pinimg.com/originals/fa/f4/b7/faf4b789684476051d16281ee1a7666d.gif" style="height: 197px; width: 217px;">
                         <h2>thank you</h2>
-                        <p>Payment is successfully processsed and your order is on the way</p>
-                        <p>Transaction ID:267676GHERT105467</p>
+                        <p>Order is successfully created and your order is being processed</p>
+                        <p>{{ order_id }}</p>
+                        <p><h3><a href="../../../../" >Continue Shopping :)</a></h3></p>
                     </div>
                 </div>
             </div>
@@ -693,59 +650,43 @@
                 <div class="col-lg-6">
                     <div class="product-order">
                         <h3>your order details</h3>
+                        {% for item in item_details %}
                         <div class="row product-order-detail">
-                            <div class="col-3"><img src="{% static 'assets/images/pro3/1.jpg' %}" alt=""
-                                    class="img-fluid blur-up lazyload"></div>
+
+                            <div class="col-3">
+                                <img src="{{ item.product.image1.url }}" alt="" class="img-fluid blur-up lazyload">
+                            </div>
                             <div class="col-3 order_detail">
                                 <div>
                                     <h4>product name</h4>
-                                    <h5>cotton shirt</h5>
+                                    <h5>{{ item.product.product_name|truncatechars:20 }}</h5>
                                 </div>
                             </div>
                             <div class="col-3 order_detail">
                                 <div>
                                     <h4>quantity</h4>
-                                    <h5>1</h5>
+                                    <h5>{{ item.quantity}}</h5>
                                 </div>
                             </div>
                             <div class="col-3 order_detail">
                                 <div>
                                     <h4>price</h4>
-                                    <h5>$555.00</h5>
+                                    <h5>${{ item.product.price|floatformat:2 }}</h5>
                                 </div>
                             </div>
+
+
                         </div>
-                        <div class="row product-order-detail">
-                            <div class="col-3"><img src="{% static 'assets/images/pro3/1.jpg' %}" alt=""
-                                    class="img-fluid blur-up lazyload"></div>
-                            <div class="col-3 order_detail">
-                                <div>
-                                    <h4>product name</h4>
-                                    <h5>cotton shirt</h5>
-                                </div>
-                            </div>
-                            <div class="col-3 order_detail">
-                                <div>
-                                    <h4>quantity</h4>
-                                    <h5>1</h5>
-                                </div>
-                            </div>
-                            <div class="col-3 order_detail">
-                                <div>
-                                    <h4>price</h4>
-                                    <h5>$555.00</h5>
-                                </div>
-                            </div>
-                        </div>
+ {% endfor %}
                         <div class="total-sec">
                             <ul>
-                                <li>subtotal <span>$55.00</span></li>
-                                <li>shipping <span>$12.00</span></li>
-                                <li>tax(GST) <span>$10.00</span></li>
+                                <li>subtotal <span>${{order_details.get_cart_total|floatformat:2 }}</span></li>
+                                <li>shipping <span style="color: forestgreen">FREE!</span></li>
+                                <li>tax(GST) <span>$0.00</span></li>
                             </ul>
                         </div>
                         <div class="final-total">
-                            <h3>total <span>$77.00</span></h3>
+                            <h3>total <span>${{order_details.get_cart_total|floatformat:2 }}</span></h3>
                         </div>
                     </div>
                 </div>
@@ -754,30 +695,31 @@
                         <div class="col-sm-6">
                             <h4>summery</h4>
                             <ul class="order-detail">
-                                <li>order ID: 5563853658932</li>
-                                <li>Order Date: October 22, 2018</li>
-                                <li>Order Total: $907.28</li>
+                                <li>order ID: {{ order_id }}</li>
+                                <li>Order Date: {{ confirmation_info.date_ordered|date:"M d, Y"  }}</li>
+                                <li>Order Total: ${{order_details.get_cart_total|floatformat:2 }}</li>
                             </ul>
                         </div>
                         <div class="col-sm-6">
                             <h4>shipping address</h4>
                             <ul class="order-detail">
-                                <li>gerg harvell</li>
-                                <li>568, suite ave.</li>
-                                <li>Austrlia, 235153</li>
-                                <li>Contact No. 987456321</li>
+                                <li>{{ request.user.first_name }}  {{ request.user.last_name }}</li>
+                                <li>{{ shipping.address }} </li>
+                                <li>{{ shipping.country }}, {{ shipping.zipcode }}</li>
+                                <li>Contact No. {{ shipping.phone }}</li>
                             </ul>
                         </div>
                         <div class="col-sm-12 payment-mode">
                             <h4>payment method</h4>
-                            <p>Pay on Delivery (Cash/Card). Cash on delivery (COD) available. Card/Net banking
-                                acceptance subject to device availability.</p>
+                            <p>Payment By Phone.</p>
                         </div>
                         <div class="col-md-12">
                             <div class="delivery-sec">
                                 <h3>expected date of delivery</h3>
-                                <h2>october 22, 2018</h2>
+                                <h2>{{ delivety_date|date:"jS F Y"  }}</h2>
                             </div>
+                            <p></p>
+                            <center><h4 style="color: orangered; position: center">Due to the COVID-19 disease, Delivery time may be longer than usual</h4></center>
                         </div>
                     </div>
                 </div>

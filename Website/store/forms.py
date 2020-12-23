@@ -78,7 +78,7 @@ class UpdateShippingForm(forms.ModelForm):
 class UpdateProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = [ 'product_name', 'product_description', 'price','quantity', 'discount', 'category', 'status' ,'image1', 'image2', 'image3' ]
+        fields = [ 'product_name', 'product_description', 'price','quantity', 'discount', 'category', 'status' ,'image1', 'image2', 'image3', 'advertise']
         widgets = {
            'product_name' : forms.TextInput(attrs={'class': 'form-control'}),
            'price': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -86,12 +86,13 @@ class UpdateProductForm(forms.ModelForm):
            'discount': forms.NumberInput(attrs={'class': 'form-control'}),
            'category': forms.Select(attrs={'class': 'form-control'}),
            'status': forms.Select(attrs={'class': 'form-control'}),
+           'advertise': forms.Select(attrs={'class': 'form-control'}),
        }
 
 class addProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['Seller', 'product_name', 'product_description', 'price','quantity', 'discount', 'category', 'status' ,'image1', 'image2', 'image3' ]
+        fields = ['Seller', 'product_name', 'product_description', 'price','quantity', 'discount', 'category', 'status' ,'image1', 'image2', 'image3', 'advertise']
         widgets = {
            'product_name' : forms.TextInput(attrs={'class': 'form-control'}),
            'Seller': forms.TextInput(attrs={'class': 'form-control'}),
@@ -100,6 +101,7 @@ class addProductForm(forms.ModelForm):
            'discount': forms.NumberInput(attrs={'class': 'form-control'}),
            'category': forms.Select(attrs={'class': 'form-control'}),
            'status': forms.Select(attrs={'class': 'form-control'}),
+           'advertise': forms.Select(attrs={'class': 'form-control'}),
        }
 
 Account_Type=[ ('True','Seller'), ('False','Buyer') ]
@@ -180,11 +182,12 @@ class transactionForm(forms.ModelForm):
     pickup = forms.ChoiceField(choices=Delivery_Type, widget=forms.RadioSelect())
     class Meta:
         model = Order
-        fields = ['pickup', 'complete', 'Buyer', 'transaction_id']
+        fields = ['pickup', 'complete', 'Buyer', 'transaction_id', 'total']
         widgets = {
             'transaction_id': forms.HiddenInput(),
             'complete': forms.HiddenInput(),
             'Buyer': forms.HiddenInput(),
+            'total': forms.HiddenInput(),
         }
 
 # © 2020 Liran Smadja (First Real-World Project) ©

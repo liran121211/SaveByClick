@@ -36,6 +36,9 @@
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/color1.css' %}" media="screen" id="color">
 
+      <!-- jsgrid css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/jsgrid.css' %}">
+
 </head>
 
 <body>
@@ -63,8 +66,8 @@
                                 {% if user.is_authenticated %}
                                      {{ user.first_name }}'s Profile
                                     <ul class="onhover-show-div">
-                                     <li><a href="../profile" data-lng="es">My Profile</a></li>
-                                    <li><a href="../../logoutnow/" data-lng="es">Logout</a></li>
+                                     <li><a href="/profile" data-lng="es">My Profile</a></li>
+                                    <li><a href="../logoutnow/" data-lng="es">Logout</a></li>
                                 {% else %}
                                     My Account
                                 <ul class="onhover-show-div">
@@ -230,7 +233,7 @@
                             </div>
                             <div class="brand-logo">
                                 <a href="/"> <img src="{% static 'assets/images/icon/logo.png' %}"
-                                        class="img-fluid blur-up lazyload" alt="" height="130px" width="130px"></a>
+                                        class="img-fluid blur-up lazyload" alt=""></a>
                             </div>
                         </div>
                         <div class="menu-right pull-right">
@@ -701,27 +704,17 @@
                     <div class="dashboard-left">
                         <div class="collection-mobile-back"><span class="filter-back"><i class="fa fa-angle-left"
                                     aria-hidden="true"></i> back</span></div>
-                        <div class="block-content">
+ <div class="block-content">
                             <ul>
-                                       {% if user_info.is_staff == False and user_info.is_superuser == False  %}
-                                <li class="active"><a href="/profile">Account Info</a></li>
-                                <li><a href="#">Address Book</a></li>
-                                <li><a href="#">My Orders</a></li>
-                                <li><a href="#">My Wishlist</a></li>
-                                <li><a href="#">Newsletter</a></li>
-                                <li><a href="/update-info">Update Information</a></li>
-                                <li><a href="#">Change Password</a></li>
-                                <li><a href="/">Activity Log</a></li>
-                                <li class="last"><a href="#">Log Out</a></li>
-                                {% endif %}
-                                {% if user_info.is_staff == False and user_info.is_superuser == True  %}
-                                <li class="active"><a href="/profile">Account Info</a></li>
-                                <li><a href="#">Warehouse Address</a></li>
-                                <li><a href="#">My Sells</a></li>
-                                <li><a href="/update-info">Update Information</a></li>
-                                <li><a href="#">Change Password</a></li>
-                                <li><a href="/">Activity Log</a></li>
-                                <li class="last"><a href="#">Log Out</a></li>
+                                {% if request.user.is_staff == False and request.user.is_superuser == False  %}
+                            <li class="active"><a href="../">Account Info</a></li>
+                                <li><a href="../../update-shipping">Address Book</a></li>
+                                <li><a href="../my-orders">My Orders</a></li>
+                                <li><a href="../wishlist">My Wishlist</a></li>
+                                <li><a href="../inbox">My Inbox</a></li>
+                                <li><a href="../../update-info">Update Information</a></li>
+                                <li><a href=".">My Store List</a></li>
+                                <li class="last"><a href="../../logoutnow">Log Out</a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -730,21 +723,60 @@
                 <div class="col-lg-9">
                     <div class="dashboard-right">
                         <div class="dashboard">
-                            <div class="page-title">
-                                {% if user_info.is_staff == False and user_info.is_superuser == False  %}
-                                <h2>ACCOUNT ACTIVITY</h2>
-                                {% endif %}
-                                {% if user_info.is_staff == False and user_info.is_superuser == True  %}
-                                <h2>ACCOUNT ACTIVITY:</h2>
-                                {% endif %}
+                           <center><h3> My Orders </h3></center>
+                           <div class="card">
+                            <div class="card-header">
+                                                   <div  class="category-table order-table jsgrid" style="position: relative; height: auto; width: 100%;">
+                                        <div class="jsgrid-grid-header jsgrid-header-scrollbar"><table class="jsgrid-table">
+                                                <th style="width: 50px;" class="jsgrid-header-cell jsgrid-align-center">
+                                                    Date Ordered
+                                                </th>
+                                                <th style="width: 50px;" class="jsgrid-header-cell jsgrid-align-center">
+                                                    Transaction ID
+                                                </th>
+                                            <th style="width: 30px;" class="jsgrid-header-cell jsgrid-align-center">
+                                                    Total Amount
+                                                </th>
+                                                <th style="width: 50px;" class="jsgrid-header-cell jsgrid-align-center">
+                                                    Action
+                                                </th>
+                                            </tr>
+                                        </table>
+                                        </div>
                             </div>
-                            {% for list in logs %}
-                                {% if list.logout == False %}
-                                <h3><p style="color:forestgreen">logged On: {{ list.time }}  from IP: {{ list.ip }}</p></h3>
-                                {% else %}
-                                 <h3><p style="color:orangered">logged Off: {{ list.time }}  from IP: {{ list.ip }}</p></h3>
-                                {% endif %}
-                            {% endfor %}
+
+                                <div class="jsgrid-grid-body"><table class="jsgrid-table">
+                                    <tbody>
+                                    {% for order in order_info %}
+                                        {% if order.complete != False %}
+                                    <tr class="jsgrid-row">
+                                        <td style="width: 50px;" class="jsgrid-cell jsgrid-align-center">
+                                            {{ order.date_ordered|date:"d/m/Y H:i " }}
+                                        </td>
+                                        <td style="width: 50px;" class="jsgrid-cell jsgrid-align-center">
+                                            <a href="../../order/{{ order.transaction_id }}/success">{{ order.transaction_id }}</a>
+                                        </td>
+                                        <td style="width: 30px;" class="jsgrid-cell jsgrid-align-center">
+                                            ${{order.get_cart_total|floatformat:2 }}
+                                        </td>
+                                        <td style="width: 50px;" class="jsgrid-cell jsgrid-align-center">
+                                        <img src="https://www.iconexperience.com/_img/g_collection_png/standard/16x16/delivery_man_parcel.png" alt="View Shop" onclick="window.location.href='../../order/{{ order.transaction_id }}/success';">
+                                    </td>
+
+                                    </tr>
+
+                                        {% endif %}
+                                     {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                </div>
+
+                            </div>
+                            <div class="card-body">
+                                <div id="batchDelete" class="category-table order-table"></div>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>

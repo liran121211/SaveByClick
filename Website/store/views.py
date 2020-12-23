@@ -7,13 +7,49 @@ from django.contrib.auth import login, logout
 import datetime
 from django.http import JsonResponse
 import json
-
+import datetime
+import random
+import csv
+from django.http import HttpResponse
 
 from faker import Faker
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import ChatGrant
 
 fake = Faker()
+
+def orderExcel(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Orders.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['date_ordered', 'complete', 'transaction_id', 'Buyer_id', 'pickup', 'id', 'total'])
+
+    orders = Order.objects.all().values_list('date_ordered', 'complete', 'transaction_id', 'Buyer_id', 'pickup', 'id', 'total')
+    for order in orders:
+        writer.writerow(order)
+
+    return response
+
+def expansesExcel(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Expanses.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['expanse_name', 'startDate', 'endDate', 'amount'])
+
+    expanses = Expenses.objects.all().values_list('expanse_name', 'startDate', 'endDate', 'amount')
+    for expanse in expanses:
+        writer.writerow(expanse)
+
+    return response
+
+def adminReports(request): # count items in wishlist of logged in user
+    if request.user.is_authenticated:
+        context  = {
+            'order_Report': '1'
+                   }
+    return render(request, 'admin_reports.html', context)
 
 def cart_scroll_view(request):
     if request.user.is_authenticated:
@@ -28,18 +64,24 @@ def cart_scroll_view(request):
 
 def count_wishlist(request): # count items in wishlist of logged in user
     count = 0
-    buyer = Buyer.objects.filter(User_id=request.user.id).first()
-    items = buyer.wishlist_set.all()  # [ _set.all() ] lets you navigate backward between linked Table ForgienKeys (example: buyer exist in wishlist as ForgienKey ] ( tableName_set.all() )
-    for count_items in items:
-        if count_items.buyer_id == buyer.id:
-            count = count + 1
-    return count
+    if request.user.is_authenticated:
+        buyer = Buyer.objects.filter(User_id=request.user.id).first()
+        items = buyer.wishlist_set.all()  # [ _set.all() ] lets you navigate backward between linked Table ForgienKeys (example: buyer exist in wishlist as ForgienKey ] ( tableName_set.all() )
+        for count_items in items:
+            if count_items.buyer_id == buyer.id:
+                count = count + 1
+        return count
+    else:
+        return 0
 
 def count_cart_items(request): # count items in wishlist of logged in user
     count = 0
-    buyer  = Buyer.objects.filter(User_id=request.user.id).first()
-    items = Order.objects.filter(Buyer_id=buyer).first()
-    return items.get_cart_items
+    if request.user.is_authenticated:
+        buyer  = Buyer.objects.filter(User_id=request.user.id).first()
+        items = Order.objects.filter(Buyer_id=buyer, complete=False).first()
+        return items.get_cart_items
+    return 0
+
 
 def token(request):
     identity = request.GET.get('identity', request.user.first_name)
@@ -68,16 +110,39 @@ def token(request):
     return JsonResponse(response)
 
 def searchPage(request):
-    if request.method == 'POST' or  request.POST.get('LiranTheKing'):
-        return redirect('/')
-
     query = request.GET.get('LiranTheKing')
     products = Product.objects.filter(product_description__icontains=query)
     return render(request,'search.html', {'searched_items': products } )
 
-def categoryMotors(request):
-    x = { 'user': request.user.email }
-    return render(request,'motors_category.html', x )
+def searchCategory(request):
+    query = request.GET.get('searchCheckBox')
+    products = Product.objects.filter(category__icontains=query)
+    return render(request,'search.html', {'searched_items': products } )
+
+def categories(request,pk):
+    product_info = Product.objects.filter(category=pk)
+    product_count = Product.objects.filter(category=pk).count()
+
+    #query = request.GET.get('LiranTheKing')
+    #products = Product.objects.filter(product_description__icontains=query)
+    #return render(request,'search.html', {'searched_items': products } )
+
+
+
+    if request.method == 'POST':
+        searchCheckBox = request.POST.get("searchCheckBox", None)
+        if searchCheckBox in ["Electronics"]:
+            products = Product.objects.filter(product_category__icontains='Electronics')
+            return render(request, 'search.html', {'searched_items': products})
+
+    context = {
+        'product_info': product_info,
+        'product_count': product_count,
+        'product_category': pk,
+        'count': count_wishlist(request),
+        'count_cart': count_cart_items(request)
+          }
+    return render(request,'category.html', context )
 
 def sellerStoreRate(request,pk):
     seller_info = Seller.objects.filter(id=pk).first()
@@ -337,10 +402,13 @@ def get_client_ip(request):
             ip = proxies[0]
     return ip
 
-def activity_logs(request):
-    current_user = request.user
-    data = {'logs': lastLogin.objects.filter(User_id = current_user.id), 'user_info': User.objects.filter(id=current_user.id).first()}
-    return render(request,'activity_logs.html', data)
+def adminActivityLogs(request):
+    user_info = User.objects.all()
+
+    data = {'logs': lastLogin.objects.all(),
+            'user_info': user_info
+            }
+    return render(request,'admin_activity_logs.html', data)
 
 def addUser(request):
     if not request.user.is_authenticated:
@@ -493,7 +561,19 @@ def error_404_view(request, exception):
 
 def adminPanel(request):
     if request.user.is_authenticated:
-        return render(request,'admin_dashboard.html', { 'user_info': request.user })
+        order_count = 0
+        for order in OrderItem.objects.all():
+            order_count = order_count + order.get_total
+        context = {
+            'order_count': order_count,
+            'count_products' : Product.objects.count(),
+            'count_buyers': Buyer.objects.count(),
+            'count_sellers': Seller.objects.count(),
+            'user_info': request.user,
+            'orders_info': Order.objects.all().order_by('-id')[:5]
+
+                  }
+        return render(request,'admin_dashboard.html', context)
     else:
         return redirect ('../../../../../../')
 
@@ -501,6 +581,21 @@ def logoutPage(request):
     current_logout_log = lastLogin(time=datetime.datetime.now().strftime("%d/%m/%y %H:%M:%S"), User_id=request.user.id, ip=get_client_ip(request), logout = True)
     current_logout_log.save()
     return redirect('../logout')
+
+def sellerSales(request):
+    seller = Seller.objects.filter(User_id=request.user.id).first()
+    orderitem = OrderItem.objects.filter(seller_id=seller.id)
+    order = Order.objects.all()
+
+    context = {
+        'orderitem': orderitem,
+        'order': order,
+            }
+    return render(request, 'seller_sales.html', context )
+
+def adminOrders(request):
+    context = { }
+    return render(request, 'admin_orders.html', context )
 
 def loginPage(request):
     if request.user.is_authenticated:
@@ -565,7 +660,7 @@ def userUpdateInfo(request):
 
 def userUpdateShipping(request):
     current_user = request.user
-    form = UpdateShippingForm(request.POST, instance=shippingAdd.objects.filter(shipping_id=current_user.id).first())
+    form = UpdateShippingForm(request.POST, instance=shippingAdd.objects.filter(User_id=current_user.id).first())
     if request.method == 'POST':
         if form.is_valid():
             m = form.save(commit=False)
@@ -576,7 +671,7 @@ def userUpdateShipping(request):
             else:
                 return redirect('../profile')
     else:
-        form = UpdateShippingForm(instance=shippingAdd.objects.filter(shipping_id=current_user.id).first())
+        form = UpdateShippingForm(instance=shippingAdd.objects.filter(User_id=current_user.id).first())
     return render(request, "update_shipping.html", {'form': form })
 
 def homePage(request):
@@ -597,41 +692,74 @@ def buyerShopList(request):
     return render(request, 'buyer_shop_list.html', context)
 
 def orderCompleted(request,pk):
+    if request.user.is_authenticated:
+        buyer = Buyer.objects.filter(User_id=request.user.id).first()
+        order, created = Order.objects.get_or_create(Buyer=buyer, complete=True, transaction_id=pk)
+        items = order.orderitem_set.all()
+    else:
+        # Create empty cart for error cart prevension
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+
+    shipping_info = shippingAdd.objects.filter(User_id=request.user.id).first()
     buyer_info = Buyer.objects.filter(User_id=request.user.id).first()
     get_transaction = Order.objects.filter(Buyer_id=buyer_info.id).first()  # get current transaction id of order
-    confirmation_info = Order.objects.filter(transaction_id=  get_transaction.transaction_id)
+    confirmation_info = Order.objects.filter(transaction_id=  get_transaction.transaction_id).first()
+    delivety_date = confirmation_info.date_ordered + datetime.timedelta(days=10)
     context = {
         'confirmation_info': confirmation_info,
-        'pk': pk
+        'order_id': pk,
+        'order_details': order,
+        'item_details': items,
+        'shipping': shipping_info,
+        'delivety_date': delivety_date
     }
     return render(request, 'order_success.html', context)
 
-def checkout(request):
-    user_info = request.user
-    buyer_info = Buyer.objects.filter(User_id=user_info.id).first()
-    user_address = shippingAdd.objects.filter(User_id=user_info.id).first()
-    get_transaction = Order.objects.filter(Buyer_id=buyer_info.id).first() # get current transaction id of order
-    form = transactionForm(request.POST or None, instance= Order.objects.filter(transaction_id=  get_transaction.transaction_id ).first() ,initial={'pickup': False, 'complete': True, 'Buyer': buyer_info.id } )
-    success_url_redirect = '../../order/' + get_transaction.transaction_id + '/success'
-    if request.method == 'POST':
-        if form.is_valid():
-            m = form.save(commit=False)
-            m.save()
-            if 'next' in request.POST:
-                return redirect(request.POST.get('next'))
-            else:
-                return redirect(success_url_redirect)
-    else:
-        form = transactionForm(instance= Order.objects.filter(transaction_id=  get_transaction.transaction_id ).first(), initial={'pickup': False, 'complete': True, 'Buyer': buyer_info.id} )
-
+def buyerOrderList(request):
+    buyer_info = Buyer.objects.filter(User_id=request.user.id).first()
+    order_info = Order.objects.filter(Buyer_id=buyer_info.id)
     context = {
-        'user_info': user_info,
-        'user_address': user_address,
-        'order_info': cart_scroll_view(request)[1],
-        'items_info': cart_scroll_view(request)[0],
-        'form': form
-    }
-    return render(request, 'checkout.html', context)
+             'buyer_info' : buyer_info,
+             'order_info': order_info,
+              }
+    return render(request, 'buyer_orders.html', context)
+
+def checkout(request):
+    if request.user.is_authenticated:
+        if count_cart_items(request) == 0:
+            return redirect('http://savebyclick.online')
+        else:
+            user_info = request.user
+            buyer_info = Buyer.objects.filter(User_id=user_info.id).first()
+            user_address = shippingAdd.objects.filter(User_id=user_info.id).first()
+            get_transaction = Order.objects.filter(Buyer_id=buyer_info.id, complete=False).first() # get current transaction id of order
+            form = transactionForm(request.POST or None, instance= Order.objects.filter(transaction_id=  get_transaction.transaction_id ).first() ,initial={'pickup': False, 'complete': True, 'Buyer': buyer_info.id, 'total': get_transaction.get_cart_total } )
+            if request.method == 'POST':
+                if form.is_valid():
+                    m = form.save(commit=False)
+                    m.save()
+                    transec = Order.objects.filter(transaction_id=get_transaction.transaction_id).first()
+                    transec.transaction_id = str(random.randint(10, 99)) + get_transaction.transaction_id + str(random.randint(10, 99))
+                    transec.save()
+                    success_url_redirect = '../../order/' + transec.transaction_id + '/success'
+                    if 'next' in request.POST:
+                        return redirect(request.POST.get('next'))
+                    else:
+                        return redirect(success_url_redirect)
+            else:
+                form = transactionForm(instance= Order.objects.filter(transaction_id=  get_transaction.transaction_id ).first(), initial={'pickup': False, 'complete': True, 'Buyer': buyer_info.id, 'total': get_transaction.get_cart_total } )
+
+        context = {
+            'user_info': user_info,
+            'user_address': user_address,
+            'order_info': cart_scroll_view(request)[1],
+            'items_info': cart_scroll_view(request)[0],
+            'form': form
+        }
+        return render(request, 'checkout.html', context)
+    else:
+        return redirect('http://savebyclick.online/cart')
 
 def sellerShop(request,pk):
     iterate_rating_column = storeRating.objects.filter(Seller_id=pk)  # get all ratings from the same product

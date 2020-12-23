@@ -712,6 +712,13 @@
                             <input type="hidden" name="next" value="{{ request.GET.next }}" />
                                     {% endif %}
                              <input type="submit" value="Login" class="btn btn-solid"/>
+                            {% if form.errors %}
+                                    <ul>
+                                    {% for key,value in form.errors.items %}
+                                    <b><li STYLE="color: red">{{ value|escape }}</li></b>
+                                {% endfor %}
+                                    </ul>
+                                {% endif %}
                         </form>
                     </div>
                 </div>

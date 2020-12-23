@@ -723,7 +723,10 @@
                 <div class="col-lg-9">
                     <div class="dashboard-right">
                         <div class="dashboard">
-                           <center><h3> My Products </h3></center>
+                                  <div class="title1 title5">
+                                        <h2 class="title-inner1">My Products</h2>
+                                        <hr role="tournament6">
+                                 </div>
                             <div class="card-body">
                                 	<div id="basicScenario" class="product-list digital-product jsgrid" style="position: relative; height: auto; width: 100%;">
                                         <div class="jsgrid-grid-header jsgrid-header-scrollbar">
@@ -746,6 +749,9 @@
                                                     </th>
                                                     <th style="width: 50px;" class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable">
                                                         Quantity
+                                                    </th>
+                                                    <th style="width: 50px;" class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable">
+                                                        Advertise Status
                                                     </th>
                                                     <th style="width: 50px;" class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center">
                                                         <input class="jsgrid-button jsgrid-mode-button jsgrid-insert-mode-button" input type="button" onclick="window.location.href='../product/add';"/>
@@ -783,6 +789,9 @@
                                                     </td>
                                                     <td style="width: 50px;" class="jsgrid-cell jsgrid-align-right">
                                                         {{ list.quantity }}
+                                                    </td>
+                                                    <td style="width: 50px;" class="jsgrid-cell jsgrid-align-right">
+                                                        {{ list.advertise }}
                                                     </td>
                                                     <td style="width: 50px;" class="jsgrid-cell jsgrid-control-field jsgrid-align-center">
                                                         <form action="">

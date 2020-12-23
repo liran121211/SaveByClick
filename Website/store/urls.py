@@ -44,25 +44,32 @@ path('profile/inbox/', views.userMessages, name='user-messages'),
 path('profile/inbox/<int:pk>', views.userMessageReview, name='user-message-review'),
 path('profile/inbox/<int:pk>/delete/seller', views.sellerMessageDelete, name='seller-delete-message'),
 path('profile/inbox/<int:pk>/delete/buyer', views.BuyerMessageDelete, name='buyer-delete-message'),
-path('category/motors', views.categoryMotors, name='category-motors'),
 path('admin-panel/coupons', views.coupons, name='coupons'),
 path('profile/coupons/', views.sellerCoupons, name='seller-coupons'),
 path('profile/coupons/<int:pk>/delete', views.sellerCouponDelete, name='seller-coupons-delete'),
 path('profile/coupons/add', views.sellerAddCoupon, name='seller-coupons-add'),
 path('contactus/', views.contactUs, name='contact-site'),
 path('search/', views.searchPage, name='search-page'),
+path('search-category/', views.searchCategory, name='search-category'),
 path('shop/<int:pk>', views.sellerShop, name='seller-shop'),
 path('shop/<int:pk>/rate', views.sellerStoreRate, name='seller-shop-rate'),
 path('profile/my-shops/', views.buyerShopList, name='buyer-shop-list'),
 path('profile/my-shops/<int:pk>/delete/', views.buyerDeleteShop, name='buyer-delete-from-shop-list'),
 path('order/<str:pk>/success', views.orderCompleted, name='order-completed'),
+path('profile/my-orders/', views.buyerOrderList, name='buyer-order-list'),
+path('profile/my-sales/', views.sellerSales, name='seller-sales'),
+path('admin-panel/orders/', views.adminOrders, name='admin-orders'),
+path('admin-panel/reports/', views.adminReports, name='admin-reports'),
+path('admin-panel/activity-logs/', views.adminActivityLogs, name='admin-activity-logs'),
+path('category/<str:pk>/', views.categories, name='categoties'),
+
 
 url(r'chat/$', views.all_rooms, name="all_rooms"),
 url(r'chat/token/$', views.token, name="token"),
 url(r'chat/rooms/(?P<slug>[-\w]+)/$', views.room_detail, name="room_detail"),
+url(r'^export/csv/orderExcel', views.orderExcel, name='orderExcel'),
+url(r'^export/csv/expansesExcel', views.expansesExcel, name='expansesExcel'),
 
-
-    path('', views.homePage, name='home')
 
 
 ]

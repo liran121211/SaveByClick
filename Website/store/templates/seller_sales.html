@@ -67,7 +67,7 @@
                                      {{ user.first_name }}'s Profile
                                     <ul class="onhover-show-div">
                                      <li><a href="/profile" data-lng="es">My Profile</a></li>
-                                    <li><a href="../../logoutnow/" data-lng="es">Logout</a></li>
+                                    <li><a href="../logoutnow/" data-lng="es">Logout</a></li>
                                 {% else %}
                                     My Account
                                 <ul class="onhover-show-div">
@@ -704,27 +704,17 @@
                     <div class="dashboard-left">
                         <div class="collection-mobile-back"><span class="filter-back"><i class="fa fa-angle-left"
                                     aria-hidden="true"></i> back</span></div>
-      <div class="block-content">
+ <div class="block-content">
                             <ul>
-                                {% if user_info.is_staff == False and user_info.is_superuser == True  %}
+                                {% if request.user.is_staff == False and request.user.is_superuser == True  %}
                                 <li class="active"><a href="../">Account Info</a></li>
                                 <li><a href="../../update-shipping">Warehouse Address</a></li>
                                 <li><a href="../my-products">My Products</a></li>
+                                <li><a href="../coupons">My Coupons</a></li>
                                 <li><a href="../../update-info">Update Information</a></li>
                                 <li><a href="../inbox">My Inbox</a></li>
                                 <li><a href="../activity">Activity Log</a></li>
                                 <li class="last"><a href="../../logoutnow">Log Out</a></li>
-
-                                {% elif user_info.is_staff == False and user_info.is_superuser == False  %}
-
-                                <li class="active"><a href="../">Account Info</a></li>
-                                <li><a href="../../update-shipping">Address Book</a></li>
-                                <li><a href="../my-orders">My Orders</a></li>
-                                <li><a href="../../wishlist">My Wishlist</a></li>
-                                <li><a href=".">My Inbox</a></li>
-                                <li><a href="../../update-info">Update Information</a></li>
-                                <li><a href="../activity">Activity Log</a></li>
-                                <li class="last"><a href="../logoutnow">Log Out</a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -733,8 +723,8 @@
                 <div class="col-lg-9">
                     <div class="dashboard-right">
                         <div class="dashboard">
-                            <div class="title1 title5">
-                                        <h2 class="title-inner1">My Inbox</h2>
+                                  <div class="title1 title5">
+                                        <h2 class="title-inner1">My Sales</h2>
                                         <hr role="tournament6">
                                  </div>
                             <div class="card-body">
@@ -742,91 +732,60 @@
                                         <div class="jsgrid-grid-header jsgrid-header-scrollbar">
                                             <table class="jsgrid-table">
                                                 <tr class="jsgrid-header-row">
-                                                    <th style="width: 10px;" class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable">
-                                                        ID
+                                                    <th style="width: 50px;" class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable">
+                                                        Date Created
                                                     </th>
-                                                     <th style="width: 30px;" class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable">
-                                                       Sender
-                                                    </th>
-                                                    <th style="width: 120px;" class="jsgrid-header-cell jsgrid-header-sortable">
-                                                         Title
+                                                    <th style="width: 100px;" class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable">
+                                                      Order ID
                                                     </th>
                                                     <th style="width: 50px;" class="jsgrid-header-cell jsgrid-header-sortable">
-                                                         Date Sent
+                                                         Billed To
                                                     </th>
-                                                        <th style="width: 50px;" class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable">
-                                                         Action
+                                                    <th style="width: 50px;" class="jsgrid-header-cell jsgrid-header-sortable">
+                                                        Grand Total
+                                                    </th>
+                                                    <th style="width: 50px;" class="jsgrid-header-cell jsgrid-header-sortable">
+                                                        Status
+                                                    </th>
+                                                    <th style="width: 50px;" class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center">
+                                                        <input class="jsgrid-button jsgrid-mode-button jsgrid-insert-mode-button" input type="button" onclick="window.location.href='../product/add';"/>
                                                     </th>
                                                 </tr>
                                             </table>
                                         </div>
                                         <div class="jsgrid-grid-body">
-                                            {% for messages in Messages_List_Seller %}
-                                                {% if user.is_superuser == True and user.is_staff == False %}
-                                                    {% if Seller.id == messages.receiver %}
+                                            {% for order_item in orderitem %}
+                                                {% for orders in order %}
+                                                    {% if order_item.order_id == orders.id %}
                                             <table class="jsgrid-table">
                                                 <tbody>
-                                                <tr class="jsgrid-row"><td style="width: 10px;" class="jsgrid-cell jsgrid-align-center">
-                                                    {{ messages.id }}
+                                                <tr class="jsgrid-row">
+                                                    <td style="width: 50px;" class="jsgrid-cell jsgrid-align-right">
+                                                    {{ orders.date_ordered }}
                                                 </td>
-                                                    <td style="width: 30px;" class="jsgrid-cell">
-                                                        {{ messages.first_name }} {{ messages.last_name }}
-                                                    </td>
-                                                    <td style="width: 120px;" class="jsgrid-cell">
-                                                        {% if messages.read_or_not == False %}
-                                                            {{ messages.title }}
-                                                         {% else %}
-                                                            <b>{{ messages.title }}</b>
-                                                        {% endif %}
+                                                    <td style="width: 100px;" class="jsgrid-cell jsgrid-align-center">
+                                                    {{ orders.transaction_id }}
                                                     </td>
                                                     <td style="width: 50px;" class="jsgrid-cell">
-                                                        {{ messages.time }}
+                                                        ${{ order_item.get_total }}
+                                                    </td>
+                                                    <td style="width: 50px;" class="jsgrid-cell">
+                                                            {{ order.product_name }}
+                                                    </td>
+                                                    <td style="width: 50px;" class="jsgrid-cell">
+                                                        ${{ list.price }}
                                                     </td>
                                                     <td style="width: 50px;" class="jsgrid-cell jsgrid-control-field jsgrid-align-center">
                                                         <form action="">
-                                                            <input class="jsgrid-button jsgrid-edit-button" input type="button" onclick="window.location.href='{{ messages.id }}';"/>
-                                                            <input class="jsgrid-button jsgrid-delete-button " input type="button" onclick="window.location.href='{{ messages.id }}/delete/seller';"/>
+                                                            <input class="jsgrid-button jsgrid-edit-button" input type="button" onclick="window.location.href='{{ list.id }}/review';"/>
+                                                            <input class="jsgrid-button jsgrid-delete-button " input type="button" onclick="window.location.href='{{ list.id }}/delete';"/>
                                                         </form>
 
                                                     </td>
                                                 </tr>
                                             </table>
                                                     {% endif %}
-                                                {% endif %}
-                                            {% endfor %}
-
-                                            {% for messages in Messages_List_Buyer %}
-                                               {% if user.is_superuser == False and user.is_staff == False %}
-                                                    {% if Buyer.User_id == messages.receiver %}
-                                            <table class="jsgrid-table">
-                                                <tbody>
-                                                <tr class="jsgrid-row"><td style="width: 10px;" class="jsgrid-cell jsgrid-align-center">
-                                                    {{ messages.id }}
-                                                </td>
-                                                    <td style="width: 30px;" class="jsgrid-cell">
-                                                        {{ messages.first_name }} {{ messages.last_name }}
-                                                    </td>
-                                                    <td style="width: 120px;" class="jsgrid-cell">
-                                                        {% if messages.read_or_not == False %}
-                                                           {{ messages.title }}
-                                                         {% else %}
-                                                            <b>{{ messages.title }}</b>
-                                                        {% endif %}
-                                                    </td>
-                                                    <td style="width: 50px;" class="jsgrid-cell">
-                                                        {{ messages.time }}
-                                                    </td>
-                                                    <td style="width: 50px;" class="jsgrid-cell jsgrid-control-field jsgrid-align-center">
-                                                        <form action="">
-                                                            <input class="jsgrid-button jsgrid-edit-button" input type="button" onclick="window.location.href='{{ messages.id }}';"/>
-                                                            <input class="jsgrid-button jsgrid-delete-button " input type="button" onclick="window.location.href='{{ messages.id }}/delete/buyer';"/>
-                                                        </form>
-
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                                    {% endif %}
-                                                {% endif %}
+                                                 {% endfor %}
                                             {% endfor %}
                                             </div>
 

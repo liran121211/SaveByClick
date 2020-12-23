@@ -701,6 +701,13 @@
                         <form class="theme-form" method="POST">
                             {% csrf_token %}
                             <div class="form-row">
+                                {% if form.errors %}
+                                    <ul>
+                                    {% for key,value in form.errors.items %}
+                                    <p><b><li STYLE="color: red">{{ value|escape }}</li></b></p>
+                                {% endfor %}
+                                    </ul>
+                                {% endif %}
                                 <div class="col-md-6">
                                     <label for="email">First Name</label>
                                         {{ form.first_name }}
@@ -735,6 +742,11 @@
                                     <label for="review">Choose Account Type:</label>
                                         {{ form.is_superuser }}
                                 </div>
+                                <div class="col-md-6"><b>
+                                    <p style="color: #0a0100">* Your password can't be too similar to your other personal information.</p>
+                                    <p style="color: #0a0100">* Your password must contain at least 8 characters.</p>
+                                    <p style="color: #0a0100">* Your password can't be commonly used password.</p>
+                                    <p style="color: #0a0100">* Your password can't be entirely numeric.</p></b></div>
                                 <button class="btn btn-solid" type="submit">Create Account</button>
                             </div>
                         </form>
