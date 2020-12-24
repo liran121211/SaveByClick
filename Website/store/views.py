@@ -1,13 +1,12 @@
 # © 2020 Liran Smadja (First Real-World Project) ©
 from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
 from django.contrib import messages
-from .forms import UserRegisterForm, UpdateUserForm, UserLoginForm, UpdateShippingForm, storeRatingForm, UpdateProductForm, addProductForm, transactionForm, UpdateSellerForm, ContactSellerForm, ContactBuyerForm, contactSeller, addCoupon, contactSiteForm, productRatingForm, myShopListForm
+from .forms import UserRegisterForm, UpdateUserForm, UserLoginForm, UpdateShippingForm, storeRatingForm, UpdateProductForm, addProductForm, transactionForm, PromotedProductsForm, mainMessageForm, UpdateSellerForm, ContactSellerForm, ContactBuyerForm, contactSeller, addCoupon, contactSiteForm, productRatingForm, myShopListForm
 from .models import *
 from django.contrib.auth import login, logout
 import datetime
 from django.http import JsonResponse
 import json
-import datetime
 import random
 import csv
 from django.http import HttpResponse
@@ -44,12 +43,37 @@ def expansesExcel(request):
 
     return response
 
-def adminReports(request): # count items in wishlist of logged in user
-    if request.user.is_authenticated:
-        context  = {
-            'order_Report': '1'
-                   }
-    return render(request, 'admin_reports.html', context)
+def adminSettings(request): # count items in wishlist of logged in user
+    advertise = Product.objects.all()
+    form = mainMessageForm(request.POST or None, initial={'main_message': '', 'title': '' })
+    PromotedProduct = PromotedProductsForm(request.POST, request.FILES, instance= PromotedProducts.objects.filter(unique_save=999).first())
+    if request.method == 'POST':
+        if form.is_valid():
+            m = form.save(commit=False)
+            m.save()
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('../')
+
+        elif PromotedProduct.is_valid():
+            m2 = PromotedProduct.save(commit=False)
+            m2.save()
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('../')
+    else:
+        form = mainMessageForm(initial={'main_message': '', 'title': '' })
+        PromotedProduct = PromotedProductsForm(request.POST, request.FILES, instance= PromotedProducts.objects.filter(unique_save=999).first() )
+
+        context = {
+            'form': form,
+            'advertise_Products': advertise,
+            'PromotedProduct': PromotedProduct
+
+                 }
+    return render(request, 'admin_settings.html', context)
 
 def cart_scroll_view(request):
     if request.user.is_authenticated:
@@ -65,11 +89,14 @@ def cart_scroll_view(request):
 def count_wishlist(request): # count items in wishlist of logged in user
     count = 0
     if request.user.is_authenticated:
-        buyer = Buyer.objects.filter(User_id=request.user.id).first()
-        items = buyer.wishlist_set.all()  # [ _set.all() ] lets you navigate backward between linked Table ForgienKeys (example: buyer exist in wishlist as ForgienKey ] ( tableName_set.all() )
-        for count_items in items:
-            if count_items.buyer_id == buyer.id:
-                count = count + 1
+        if request.user.is_superuser == True:
+            return 0
+        else:
+            buyer = Buyer.objects.filter(User_id=request.user.id).first()
+            items = buyer.wishlist_set.all()  # [ _set.all() ] lets you navigate backward between linked Table ForgienKeys (example: buyer exist in wishlist as ForgienKey ] ( tableName_set.all() )
+            for count_items in items:
+                if count_items.buyer_id == buyer.id:
+                    count = count + 1
         return count
     else:
         return 0
@@ -112,12 +139,14 @@ def token(request):
 def searchPage(request):
     query = request.GET.get('LiranTheKing')
     products = Product.objects.filter(product_description__icontains=query)
-    return render(request,'search.html', {'searched_items': products } )
-
-def searchCategory(request):
-    query = request.GET.get('searchCheckBox')
-    products = Product.objects.filter(category__icontains=query)
-    return render(request,'search.html', {'searched_items': products } )
+    return render(request,'search.html', {
+        'searched_items': products,
+        'items': cart_scroll_view(request)[0],
+        'order': cart_scroll_view(request)[1],
+        'count': count_wishlist(request),
+        'count_cart': count_cart_items(request),
+        'main_message': mainMessage.objects.all().order_by('-id').first()
+                                        } )
 
 def categories(request,pk):
     product_info = Product.objects.filter(category=pk)
@@ -126,8 +155,6 @@ def categories(request,pk):
     #query = request.GET.get('LiranTheKing')
     #products = Product.objects.filter(product_description__icontains=query)
     #return render(request,'search.html', {'searched_items': products } )
-
-
 
     if request.method == 'POST':
         searchCheckBox = request.POST.get("searchCheckBox", None)
@@ -140,7 +167,8 @@ def categories(request,pk):
         'product_count': product_count,
         'product_category': pk,
         'count': count_wishlist(request),
-        'count_cart': count_cart_items(request)
+        'count_cart': count_cart_items(request),
+        'main_message': mainMessage.objects.all().order_by('-id').first()
           }
     return render(request,'category.html', context )
 
@@ -157,7 +185,7 @@ def sellerStoreRate(request,pk):
                 return redirect('../../')
     else:
         form = storeRatingForm(initial={'Seller': seller_info } )
-    return render(request,'seller_shop_rate.html', {'form': form, 'seller_info': seller_info } )
+    return render(request,'seller_shop_rate.html', {'form': form, 'seller_info': seller_info, 'main_message': mainMessage.objects.all().order_by('-id').first() } )
 
 def all_rooms(request): #twilto chat
     rooms = Room.objects.all()
@@ -173,13 +201,15 @@ def userMessages(request):
     messageByBuyer = Buyer.objects.filter(User_id=request.user.id).first()
     Messages_List_Seller = contactSeller.objects.all()
     Messages_List_Buyer = contactBuyer.objects.all()
-    return render(request, 'user_messages.html', {'Messages_List_Buyer': Messages_List_Buyer, 'Messages_List_Seller': Messages_List_Seller, 'user_info': request.user , 'Seller': messageBySeller, 'Buyer': messageByBuyer })
+    return render(request, 'user_messages.html', {'Messages_List_Buyer': Messages_List_Buyer, 'Messages_List_Seller': Messages_List_Seller, 'user_info': request.user , 'Seller': messageBySeller, 'Buyer': messageByBuyer, 'main_message': mainMessage.objects.all().order_by('-id').first() })
 
 def adminMessages(request):
     Messages_List_Admin = contactSite.objects.all()
     return render(request, 'admin_messages.html', {'Messages_List_Admin': Messages_List_Admin } )
 
 def sellerContact(request,pk):
+    seller_info = Seller.objects.filter(id=pk).first()
+    user_info = shippingAdd.objects.filter(User_id=seller_info.User_id).first()
     form = ContactSellerForm(request.POST, initial={'User': request.user.id, 'body_text': '', 'title': '', 'first_name': '', 'last_name': '', 'email': '', 'receiver': pk })
     if request.method == 'POST':
         if form.is_valid():
@@ -191,7 +221,7 @@ def sellerContact(request,pk):
                 return redirect('../../../profile')
     else:
         form = ContactSellerForm(initial={'User': request.user.id, 'body_text': '', 'title': '', 'first_name': '', 'last_name': '', 'email': '', 'receiver': pk })
-    return render(request, "contact_seller.html", {'form': form })
+    return render(request, "contact_seller.html", {'form': form, 'main_message': mainMessage.objects.all().order_by('-id').first(), 'seller_info': seller_info, 'user_info': user_info })
 
 def contactUs(request):
     form = contactSiteForm(request.POST, request.FILES, initial={'body_text': '', 'title': '', 'first_name': '', 'last_name': '', 'email': ''})
@@ -205,16 +235,32 @@ def contactUs(request):
                 return redirect('../')
     else:
         form = contactSiteForm()
-    return render(request, "contact_site.html", {'form': form })
+    return render(request, "contact_site.html", {'form': form, 'main_message': mainMessage.objects.all().order_by('-id').first() })
 
 def faq(request):
-    return render(request,'faq.html')
+        if request.user.is_superuser == True:
+            return render(request, 'faq_seller.html', {
+                'main_message': mainMessage.objects.all().order_by('-id').first(),
+                'count': count_wishlist(request),
+                'count_cart': count_cart_items(request),
+                'items': cart_scroll_view(request)[0],
+                'order': cart_scroll_view(request)[1],
+                                                      })
+        else:
+            return render(request,'faq.html', {
+                'main_message': mainMessage.objects.all().order_by('-id').first(),
+                'count': count_wishlist(request),
+                'count_cart': count_cart_items(request),
+                'items': cart_scroll_view(request)[0],
+                'order': cart_scroll_view(request)[1],
+                                              })
 
 def coupons(request):
     coupons_list = Coupons.objects.all()
-    return render(request,'coupons.html', {'coupons': coupons_list } )
+    return render(request,'admin_coupons.html', {'coupons': coupons_list, 'main_message': mainMessage.objects.all().order_by('-id').first() } )
 
 def sellerAddCoupon(request):
+    seller_info = Seller.objects.filter(User_id=request.user.id).first()
     form = addCoupon(request.POST or None, initial={'Seller': Seller.objects.filter(User_id=request.user.id).first()})
     if request.method == 'POST':
         if form.is_valid():
@@ -226,7 +272,7 @@ def sellerAddCoupon(request):
                 return redirect('../coupons')
     else:
         form = addCoupon(initial={'Seller': Seller.objects.filter(User_id=request.user.id).first() })
-    return render(request, "seller_coupon_add.html", {'form': form  })
+    return render(request, "seller_coupon_add.html", {'form': form, 'main_message': mainMessage.objects.all().order_by('-id').first(),'seller_info': seller_info,  })
 
 def sellerCouponDelete (request,pk):
     item = get_object_or_404(Coupons, id=pk)
@@ -242,7 +288,7 @@ def buyerDeleteShop (request,pk):
 def sellerCoupons(request):
     seller_info = Seller.objects.filter(User_id=request.user.id).first()
     coupons_list = Coupons.objects.filter(Seller_id= seller_info.id )
-    return render(request,'seller_coupons.html', {'coupons': coupons_list , 'Seller': seller_info } )
+    return render(request,'seller_coupons.html', {'coupons': coupons_list , 'Seller': seller_info, 'main_message': mainMessage.objects.all().order_by('-id').first() } )
 
 def sellerReviewProduct(request,pk):
     form = UpdateProductForm(request.POST, request.FILES, instance= Product.objects.filter(id=pk).first() )
@@ -256,7 +302,7 @@ def sellerReviewProduct(request,pk):
                 return redirect('../')
     else:
         form = UpdateProductForm(instance= Product.objects.filter(id=pk).first() )
-    return render(request, "seller_product_review.html", {'form': form , 'product_id': pk, 'user_info': request.user })
+    return render(request, "seller_product_review.html", {'form': form , 'product_id': pk, 'user_info': request.user, 'main_message': mainMessage.objects.all().order_by('-id').first() })
 
 def adminMessageReview(request,pk):
     Messages_List_Admin = contactSite.objects.filter(id=pk).first()
@@ -283,9 +329,10 @@ def userMessageReview(request,pk):
     else:
         form = ContactBuyerForm(initial={'User': request.user.id, 'first_name': request.user.first_name, 'body_text': details_seller.body_text +'<p>----------------------------------------------------------------------------------------------------</p>' + 'Write Your Message Here', 'title': 'Write Your Subject Here', 'last_name': request.user.last_name, 'email': request.user.email, 'receiver': details_seller.User_id })
 
-    return render(request, "user_message_review.html", {'form': form , 'user_info': request.user, 'details_seller': details_seller, 'details_buyer': details_buyer } )
+    return render(request, "user_message_review.html", {'form': form , 'user_info': request.user, 'details_seller': details_seller, 'details_buyer': details_buyer, 'main_message': mainMessage.objects.all().order_by('-id').first() } )
 
 def sellerAddProduct(request):
+    seller_info = Seller.objects.filter(User_id=current_user.id).first()
     form = addProductForm(request.POST or None, request.FILES, initial={'Seller': Seller.objects.filter(User_id=request.user.id).first()})
     if request.method == 'POST':
         if form.is_valid():
@@ -294,10 +341,10 @@ def sellerAddProduct(request):
             if 'next' in request.POST:
                 return redirect(request.POST.get('next'))
             else:
-                return redirect('../../product-list')
+                return redirect('../../my-products')
     else:
         form = addProductForm(initial={'Seller': Seller.objects.filter(User_id=request.user.id).first() })
-    return render(request, "seller_product_add.html", {'form': form  , 'user_info': request.user })
+    return render(request, "seller_product_add.html", {'form': form  , 'user_info': request.user, 'main_message': mainMessage.objects.all().order_by('-id').first(), 'seller_info': seller_info })
 
 def wish_list(request):
     if request.user.is_authenticated:
@@ -313,7 +360,8 @@ def wish_list(request):
         'cart_order': cart_scroll_view(request)[1],
         'seller': seller,
         'count': count_wishlist(request),
-        'count_cart': count_cart_items(request)
+        'count_cart': count_cart_items(request),
+        'main_message': mainMessage.objects.all().order_by('-id').first()
               }
     return render(request, 'wishlist.html', context)
 
@@ -321,7 +369,8 @@ def wish_list(request):
 def SellerProducts(request): #admin panel product list
     data_product = {'product_list': Product.objects.all(),
                     'user_info': request.user,
-                    'seller_info': Seller.objects.filter(User_id=request.user.id).first()
+                    'seller_info': Seller.objects.filter(User_id=request.user.id).first(),
+                    'main_message': mainMessage.objects.all().order_by('-id').first()
                     }
     return render(request,'seller_products.html', data_product)
 
@@ -330,7 +379,8 @@ def cart(request):
         'items':cart_scroll_view(request)[0],
         'order':cart_scroll_view(request)[1],
         'count_cart': count_cart_items(request),
-        'count': count_wishlist(request)
+        'count': count_wishlist(request),
+        'main_message': mainMessage.objects.all().order_by('-id').first()
                }
 	return render(request, 'cart.html', context)
 
@@ -423,22 +473,41 @@ def addUser(request):
                 return redirect('../users')
         else:
             form = UserRegisterForm()
-        return render(request, 'user_add.html', {'form': form, 'user_info': request.user })
+        return render(request, 'admin_user_add.html', {'form': form, 'user_info': request.user })
 
 def reviewUser(request,pk):
     if not request.user.is_authenticated:
         return redirect('../../../')
     else:
+        seller_info = Seller.objects.filter(User_id=pk).first()
         if request.method == 'POST':
+            if not seller_info:
+                storeForm = 0
+            else:
+                storeForm = UpdateSellerForm(request.POST, request.FILES, instance=seller_info , initial = { 'store_name': seller_info.store_name, 'store_category': seller_info.store_category, 'store_description': seller_info.store_description  })
             form = UpdateUserForm(request.POST, instance=User.objects.filter(id=pk).first())
             if form.is_valid():
                 form.save()
                 username = form.cleaned_data.get('username')
                 messages.success(request, f'Account updated for {username}!')
                 return redirect('../')
+
+            elif storeForm.is_valid():
+                storeForm = storeForm.save(commit=False)
+                storeForm.save()
+                return redirect('../')
+
         else:
             form = UpdateUserForm(instance=User.objects.filter(id=pk).first())
-        return render(request, 'user_review.html', {'form': form, 'user_info': request.user })
+            if not seller_info:
+                storeForm = 0
+            else:
+                storeForm = UpdateSellerForm(initial = { 'store_name': seller_info.store_name, 'store_category': seller_info.store_category, 'store_description': seller_info.store_description  })
+        return render(request, 'admin_user_review.html', {
+                                                    'form': form,
+                                                    'user_info': request.user,
+                                                    'storeForm': storeForm
+                                                    })
 
 def DeleteProduct (request,pk):
     item = get_object_or_404(Product, id=pk)
@@ -471,12 +540,12 @@ def DeleteUser (request,pk):
     return redirect('../../../users')
 
 def productList(request): #admin panel product list
-    data_product = {'product_list': Product.objects.all(), 'user_info': request.user }
-    return render(request,'product_list.html', data_product)
+    data_product = {'product_list': Product.objects.all(), 'user_info': request.user, 'main_message': mainMessage.objects.all().order_by('-id').first() }
+    return render(request,'admin_product_list.html', data_product)
 
 def userList(request): #admin panel user list
     data_user = {'user_list': User.objects.all() , 'user_info': request.user }
-    return render(request,'user_list.html', data_user)
+    return render(request,'admin_user_list.html', data_user)
 
 def productDetails(request,pk):
     get_seller_from_product = Product.objects.filter(id=pk).first()
@@ -539,7 +608,11 @@ def productDetails(request,pk):
         'seller_info': seller_info,
         'form': form,
         'comments' : get_comments,
-        'avg_rating': item_rating_avg } )
+        'avg_rating': item_rating_avg,
+        'main_message': mainMessage.objects.all().order_by('-id').first(),
+        'count': count_wishlist(request),
+        'count_cart': count_cart_items(request),
+    } )
 
 def reviewProduct(request,pk):
     form = UpdateProductForm(request.POST, request.FILES, instance=Product.objects.filter(id=pk).first())
@@ -553,11 +626,19 @@ def reviewProduct(request,pk):
                 return redirect('../../../product-list')
     else:
         form = UpdateProductForm(instance=Product.objects.filter(id=pk).first())
-    return render(request, "product_review.html", {'form': form , 'product_id': pk, 'user_info': request.user })
+    return render(request, "admin_product_review.html", {'form': form , 'product_id': pk, 'user_info': request.user })
 
 
 def error_404_view(request, exception):
-    return render(request,'404.html')
+    return render(request,'404.html',
+                  {
+                      'items': cart_scroll_view(request)[0],
+                      'order': cart_scroll_view(request)[1],
+                      'count': count_wishlist(request),
+                      'count_cart': count_cart_items(request),
+                      'main_message': mainMessage.objects.all().order_by('-id').first()
+
+                  })
 
 def adminPanel(request):
     if request.user.is_authenticated:
@@ -570,8 +651,8 @@ def adminPanel(request):
             'count_buyers': Buyer.objects.count(),
             'count_sellers': Seller.objects.count(),
             'user_info': request.user,
-            'orders_info': Order.objects.all().order_by('-id')[:5]
-
+            'orders_info': Order.objects.all().order_by('-id')[:5],
+            'countOnlineUsers': request.online_now.count(),
                   }
         return render(request,'admin_dashboard.html', context)
     else:
@@ -590,6 +671,7 @@ def sellerSales(request):
     context = {
         'orderitem': orderitem,
         'order': order,
+        'main_message': mainMessage.objects.all().order_by('-id').first()
             }
     return render(request, 'seller_sales.html', context )
 
@@ -617,7 +699,7 @@ def loginPage(request):
                 return redirect('/')
         else:
             form = UserLoginForm()
-        return render(request, 'login.html', { 'form': form })
+        return render(request, 'login.html', { 'form': form, 'main_message': mainMessage.objects.all().order_by('-id').first() })
 
 def userPanel(request):
     if request.user.is_authenticated:
@@ -628,7 +710,8 @@ def userPanel(request):
         data = {
             'user_info': user_info,
             'address' : address ,
-            'seller_info': seller_info
+            'seller_info': seller_info,
+            'main_message': mainMessage.objects.all().order_by('-id').first()
                 }
         return render(request, 'profile.html', data)
     else:
@@ -656,7 +739,7 @@ def userUpdateInfo(request):
     else:
         form = UpdateUserForm(instance=request.user)
         form2 = UpdateSellerForm(instance=Seller.objects.filter(User_id=request.user.id).first())
-    return render(request, "update_info.html", {'form': form, 'form2': form2})
+    return render(request, "update_info.html", {'form': form, 'form2': form2, 'main_message': mainMessage.objects.all().order_by('-id').first() })
 
 def userUpdateShipping(request):
     current_user = request.user
@@ -672,7 +755,7 @@ def userUpdateShipping(request):
                 return redirect('../profile')
     else:
         form = UpdateShippingForm(instance=shippingAdd.objects.filter(User_id=current_user.id).first())
-    return render(request, "update_shipping.html", {'form': form })
+    return render(request, "update_shipping.html", {'form': form, 'main_message': mainMessage.objects.all().order_by('-id').first() })
 
 def homePage(request):
     data_product = {'items': cart_scroll_view(request)[0],
@@ -680,14 +763,17 @@ def homePage(request):
                     'product_list': Product.objects.all(),
                     'countOnlineUsers': request.online_now.count(),
                     'count': count_wishlist(request),
-                    'count_cart': count_cart_items(request)
+                    'count_cart': count_cart_items(request),
+                    'main_message': mainMessage.objects.all().order_by('-id').first(),
+                    'promoted': PromotedProducts.objects.all().first()
                     }
     return render(request,'index.html', data_product )
 
 def buyerShopList(request):
     shops_info = myShopList.objects.filter(User_id = request.user.id)
     context = {
-        'shops_info': shops_info
+        'shops_info': shops_info,
+        'main_message': mainMessage.objects.all().order_by('-id').first()
     }
     return render(request, 'buyer_shop_list.html', context)
 
@@ -712,7 +798,10 @@ def orderCompleted(request,pk):
         'order_details': order,
         'item_details': items,
         'shipping': shipping_info,
-        'delivety_date': delivety_date
+        'delivety_date': delivety_date,
+        'count': count_wishlist(request),
+        'count_cart': count_cart_items(request),
+        'main_message': mainMessage.objects.all().order_by('-id').first()
     }
     return render(request, 'order_success.html', context)
 
@@ -722,6 +811,7 @@ def buyerOrderList(request):
     context = {
              'buyer_info' : buyer_info,
              'order_info': order_info,
+            'main_message': mainMessage.objects.all().order_by('-id').first()
               }
     return render(request, 'buyer_orders.html', context)
 
@@ -755,7 +845,10 @@ def checkout(request):
             'user_address': user_address,
             'order_info': cart_scroll_view(request)[1],
             'items_info': cart_scroll_view(request)[0],
-            'form': form
+            'form': form,
+            'main_message': mainMessage.objects.all().order_by('-id').first(),
+            'count': count_wishlist(request),
+            'count_cart': count_cart_items(request),
         }
         return render(request, 'checkout.html', context)
     else:
@@ -794,7 +887,8 @@ def sellerShop(request,pk):
         'seller_products': seller_products,
         'avg_shop_rate': item_rating_avg,
         'form': form,
-        'my_shop_list': my_shop_list
+        'my_shop_list': my_shop_list,
+        'main_message': mainMessage.objects.all().order_by('-id').first()
               }
     return render(request, 'seller_shop.html', context)
 
@@ -811,7 +905,13 @@ def RegisterPage(request):
                 return redirect('/login')
         else:
             form = UserRegisterForm()
-        return render(request, 'register.html', {'form': form})
+        return render(request, 'register.html', {
+            'form': form, 'main_message': mainMessage.objects.all().order_by('-id').first(),
+            'items': cart_scroll_view(request)[0],
+            'order': cart_scroll_view(request)[1],
+            'count': count_wishlist(request),
+            'count_cart': count_cart_items(request),
+        })
 
 def addProduct(request):
     form = addProductForm(request.POST or None, request.FILES, initial={'Seller': Seller.objects.filter(User_id=request.user.id).first() })
@@ -825,6 +925,6 @@ def addProduct(request):
                 return redirect('../../product-list')
     else:
         form = addProductForm(initial={'Seller': Seller.objects.filter(User_id=request.user.id).first() })
-    return render(request, "product_add.html", {'form': form  , 'user_info': request.user } )
+    return render(request, "admin_product_add.html", {'form': form  , 'user_info': request.user, } )
 
 # © 2020 Liran Smadja (First Real-World Project) ©

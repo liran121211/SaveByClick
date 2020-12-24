@@ -330,10 +330,11 @@
 
     <!-- header start -->
     <header class="header-tools marketplace">
+        {% if main_message.status == True %}
         <center><div style="background-color:#3e5067;" data-msg-iteration="7-36" class="container-fluid news-line-body">
-		<div class="message_title d-none d-md-block" style="color: rgb(252, 148, 3); font-weight: 600; font-size: 18px;">The Site Is Under Construction </div>
-		<div style="color:#ffffff;" class="text">Estimated release date on: 02/01/2021 </div></div></center>
-	</div>
+		<div class="message_title d-none d-md-block" style="color: rgb(252, 148, 3); font-weight: 600; font-size: 18px;">{{ main_message.title }} </div>
+		<div style="color:#ffffff;" class="text">{{ main_message.main_message }} {{ main_message.time|date:"d/m/Y" }} </div></div></center>
+            {% endif %}
         <div class="mobile-fix-option"></div>
         <div class="top-header">
             <div class="container-fluid custom-container">
@@ -437,7 +438,12 @@
                                                 <div class="lable-nav">new</div>
                                             </a>
                                         </li>
+
                                         <li><a href="contactus">Contact Us</a>
+                                        </li>
+                                        <li class="mega" id="hover-cls"><a href="faq">FAQ
+                                                <div class="lable-nav">new</div>
+                                            </a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -675,7 +681,6 @@
         <div class="container">
             <div class="row game-product grid-products">
                 {% for product in product_list %}
-                   <!---  {% if product.views > 0 %}-subject to update by choice --->
                 <div class="product-box col-xl-2 col-lg-3 col-sm-4 col-6">
                     <div class="img-wrapper">
                         <div class="front">
@@ -701,7 +706,7 @@
                         <h4>${{ product.price }}</h4>
                     </div>
                 </div>
-                    <!---{% endif %}-->
+
                 {% endfor %}
             </div>
         </div>
@@ -738,9 +743,11 @@
                         <h5 class="title-border">Under $20 | Free delivery</h5>
                         <div class="offer-slider slide-1">
                             <div>
+                                {% for product in product_list %}
+                                    {% if product.id == promoted.slideshow|add:"0" %}
                                 <div class="media">
-                                    <a href="product-page(no-sidebar).html"><img class="img-fluid blur-up lazyload"
-                                            src="{% static 'assets/images/marketplace/6.jpg' %}" alt=""></a>
+                                    <a href=" product/{{ product.id }}"><img class="img-fluid blur-up lazyload"
+                                            src="{{ product.image1.url }}" alt=""></a>
                                     <div class="media-body align-self-center">
                                         <div class="rating">
                                             <i class="fa fa-star"></i>
@@ -750,11 +757,15 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <a href="product-page(no-sidebar).html">
-                                            <h6>Slim Fit Cotton Shirt</h6>
+                                            <h6>{{ product.product_name }}</h6>
                                         </a>
-                                        <h4>$500.00 <del>$600.00</del></h4>
+                                        <h4>${{ product.price }}</h4>
+                                         <h6 style="color: orangered;">Promoted Product</h6>
                                     </div>
                                 </div>
+                                 {% endif %}
+                                {% endfor %}
+
                                 <div class="media">
                                     <a href="product-page(no-sidebar).html"><img class="img-fluid blur-up lazyload"
                                             src="{% static 'assets/images/marketplace/7.jpg' %}" alt=""></a>
@@ -1255,7 +1266,28 @@
                         </div>
                     </div>
                     <div class="banner-tools">
-                        <img src="{% static 'assets/images/offer-banner1.jpg' %}" alt="" class="img-fluid">
+                                                                <div class="title1 title5">
+            <h2 class="title-inner1">Promoted Product</h2>
+            <hr role="tournament6">
+        </div>
+                         <center>
+                                             {% for product in product_list %}
+                                                {% if product.id == promoted.banner|add:"0" %}
+                                           <img src="{{ product.image1.url }}" alt="" class="img-fluid" style="width: 900px; width: 150px">
+                                     <div class="product-detail">
+                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                        <a href="product-page(no-sidebar).html">
+                            <h6>{{ product.product_name }}</h6>
+                        </a>
+                        <h4>${{ product.price }}</h4>
+                                         <div class="col-12"><a href="product/{{ product.id }}" class="btn btn-solid">View Product</a></div>
+                                         <p>&nbsp;</p>
+                    </div>
+                                                 {% endif %}
+                                                 {% endfor %}
+                                            </center>
+
                     </div>
                 </div>
             </div>
@@ -1443,7 +1475,7 @@
                             <div class="subscribe">
                                 <div>
                                     <h4>KNOW IT ALL FIRST!</h4>
-                                    <p>Never Miss Anything From Multikart By Signing Up To Our Newsletter.</p>
+                                    <p>Never Miss Anything From SaveByClick By Signing Up To Our Newsletter.</p>
                                 </div>
                             </div>
                         </div>
@@ -1451,15 +1483,14 @@
                             <form
                                 action="https://pixelstrap.us19.list-manage.com/subscribe/post?u=5a128856334b598b395f1fc9b&amp;id=082f74cbda"
                                 class="form-inline subscribe-form auth-form needs-validation" method="post"
-                                id="" name="mc-embedded-subscribe-form" target="_blank">
+                                id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
                                 <div class="form-group mx-sm-3">
-                                    <input type="text" class="form-control" name="EMAIL" id="NONE"
-                                        placeholder="Enter your email" required="required">
+                                    <input type="text" class="form-control" name="EMAIL" id="mce-EMAIL"
+                                        placeholder="Enter your email" required="required" disabled=True>
                                 </div>
-                                <button type="submit" class="btn btn-solid" id="NONE1">subscribe</button>
+                                <button type="submit" class="btn btn-solid" id="mc-submit">subscribe</button>
                             </form>
                         </div>
-
                     </div>
                 </section>
             </div>
@@ -1472,16 +1503,10 @@
                             <h4>about</h4>
                         </div>
                         <div class="footer-contant">
-                            <div class="footer-logo"><img src="{% static 'assets/images/icon/logo/18.png' %}" alt="logo" ></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                            <div class="footer-logo"><img src="{%  static 'assets/images/icon/logo.png' %}" alt=""></div>
+                            <p>Information About The Store...</p>
                             <div class="footer-social">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -1493,11 +1518,11 @@
                             </div>
                             <div class="footer-contant">
                                 <ul>
-                                    <li><a href="#">mens</a></li>
-                                    <li><a href="#">womens</a></li>
-                                    <li><a href="#">clothing</a></li>
-                                    <li><a href="#">accessories</a></li>
-                                    <li><a href="#">featured</a></li>
+                                   <li><a href="../profile">Manage Account</a></li>
+                                    <li><a href="../update-info">Address Book</a></li>
+                                    <li><a href="../update-info">Update Information</a></li>
+                                    <li><a href="../profile/inbox">My Inbox</a></li>
+                                    <li><a href="../logoutnow">Log Out</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -1505,15 +1530,13 @@
                     <div class="col">
                         <div class="sub-title">
                             <div class="footer-title">
-                                <h4>why we choose</h4>
+                                <h4>Site Map</h4>
                             </div>
                             <div class="footer-contant">
                                 <ul>
-                                    <li><a href="#">shipping & return</a></li>
-                                    <li><a href="#">secure shopping</a></li>
-                                    <li><a href="#">gallary</a></li>
-                                    <li><a href="#">affiliates</a></li>
-                                    <li><a href="#">contacts</a></li>
+                                    <li><a href="../contactus">Contact Us</a></li>
+                                    <li><a href="../faq">F.A.Q</a></li>
+                                    <li><a href="../chat">Live Chat</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -1525,11 +1548,11 @@
                             </div>
                             <div class="footer-contant">
                                 <ul class="contact-list">
-                                    <li><i class="fa fa-map-marker"></i>Multikart Demo Store, Demo store India 345-659
+                                    <li><i class="fa fa-map-marker"></i>SaveByClick, Uknown Address, Hadarom, Beer Sheva, Israel, 00000
                                     </li>
-                                    <li><i class="fa fa-phone"></i>Call Us: 123-456-7898</li>
-                                    <li><i class="fa fa-envelope-o"></i>Email Us: <a href="#">Support@Fiot.com</a></li>
-                                    <li><i class="fa fa-fax"></i>Fax: 123456</li>
+                                    <li><i class="fa fa-phone"></i>Call Us: 051-000-0000</li>
+                                    <li><i class="fa fa-envelope-o"></i>Email Us: Support@savebyclick.online</li>
+                                    <li><i class="fa fa-fax"></i>Fax: 051-000-0001</li>
                                 </ul>
                             </div>
                         </div>
@@ -1549,21 +1572,6 @@
                     <div class="col-xl-6 col-md-6 col-sm-12">
                         <div class="payment-card-bottom">
                             <ul>
-                                <li>
-                                    <a href="#"><img src="{% static 'assets/images/icon/visa.png' %}" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="{% static 'assets/images/icon/mastercard.png' %}" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="{% static 'assets/images/icon/paypal.png' %}" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="{% static 'assets/images/icon/american-express.png' %}" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="{% static 'assets/images/icon/discover.png' %}" alt=""></a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -1574,7 +1582,7 @@
     <!-- footer end -->
 
 
-   <!--modal popup start
+    <!--modal popup start-->
     <div class="modal fade bd-example-modal-lg theme-modal" id="exampleModal" tabindex="-1" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -1586,21 +1594,27 @@
                                 <div class="modal-bg">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                             aria-hidden="true">&times;</span></button>
-                                    <div class="offer-content"> <img src="{% static 'assets/images/Offer-banner.png' %}"
-                                            class="img-fluid blur-up lazyload" alt="">
-                                        <h2>newsletter</h2>
-                                        <form
-                                            action="https://pixelstrap.us19.list-manage.com/subscribe/post?u=5a128856334b598b395f1fc9b&amp;id=082f74cbda"
-                                            class="auth-form needs-validation" method="post"
-                                            id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
-                                            target="_blank">
-                                            <div class="form-group mx-sm-3">
-                                                <input type="email" class="form-control" name="EMAIL" id="mce-EMAIL"
-                                                    placeholder="Enter your email" required="required">
-                                                <button type="submit" class="btn btn-solid"
-                                                    id="mc-submit">subscribe</button>
-                                            </div>
-                                        </form>
+                                    <div class="offer-content">
+                                        <div class="title1 title5">
+            <h2 class="title-inner1">Promoted Product</h2>
+            <hr role="tournament6">
+        </div>
+                                        <center>
+                                             {% for product in product_list %}
+                                                {% if product.id == promoted.popup|add:"0" %}
+                                            <img src="{{ product.image1.url }}" style="height: 300px; width: 300px; ">
+                                     <div class="product-detail">
+                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                        <a href="product-page(no-sidebar).html">
+                            <h6>{{ product.product_name }}</h6>
+                        </a>
+                        <h4>${{ product.price }}</h4>
+                                         <div class="col-12"><a href="product/{{ product.id }}" class="btn btn-solid">View Product</a></div>
+                    </div>
+                                                 {% endif %}
+                                                 {% endfor %}
+                                            </center>
                                     </div>
                                 </div>
                             </div>
@@ -1610,7 +1624,7 @@
             </div>
         </div>
     </div>
-    ----modal popup end-->
+    <!--modal popup end-->
 
 
     <!-- Quick-view modal popup start-->
@@ -1623,8 +1637,9 @@
                             aria-hidden="true">&times;</span></button>
                     <div class="row">
                         <div class="col-lg-6 col-xs-12">
-                            <div class="quick-view-img"><img src="{% static 'assets/images/pro3/1.jpg' %}" alt=""
-                                    class="img-fluid blur-up lazyload"></div>
+                            <div class="quick-view-img">
+                               <h2 class="title-inner1">Promoted Content</h2>
+                            </div>
                         </div>
                         <div class="col-lg-6 rtl-text">
                             <div class="product-right">

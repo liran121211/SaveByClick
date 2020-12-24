@@ -50,7 +50,6 @@ path('profile/coupons/<int:pk>/delete', views.sellerCouponDelete, name='seller-c
 path('profile/coupons/add', views.sellerAddCoupon, name='seller-coupons-add'),
 path('contactus/', views.contactUs, name='contact-site'),
 path('search/', views.searchPage, name='search-page'),
-path('search-category/', views.searchCategory, name='search-category'),
 path('shop/<int:pk>', views.sellerShop, name='seller-shop'),
 path('shop/<int:pk>/rate', views.sellerStoreRate, name='seller-shop-rate'),
 path('profile/my-shops/', views.buyerShopList, name='buyer-shop-list'),
@@ -59,9 +58,10 @@ path('order/<str:pk>/success', views.orderCompleted, name='order-completed'),
 path('profile/my-orders/', views.buyerOrderList, name='buyer-order-list'),
 path('profile/my-sales/', views.sellerSales, name='seller-sales'),
 path('admin-panel/orders/', views.adminOrders, name='admin-orders'),
-path('admin-panel/reports/', views.adminReports, name='admin-reports'),
+path('admin-panel/settings/', views.adminSettings, name='admin-settings'),
 path('admin-panel/activity-logs/', views.adminActivityLogs, name='admin-activity-logs'),
 path('category/<str:pk>/', views.categories, name='categoties'),
+
 
 
 url(r'chat/$', views.all_rooms, name="all_rooms"),

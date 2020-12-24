@@ -121,7 +121,6 @@ class Seller(models.Model):
     def __str__(self):
         return self.store_name
 
-
 class Product(models.Model):
     seller = models.ForeignKey(Seller, name = "Seller", on_delete=models.CASCADE)
     product_name = models.CharField(name='product_name', max_length=200, default='null' )
@@ -230,6 +229,13 @@ class productRating(models.Model):
     email = models.EmailField(name='email', max_length=200, default='null')
     Description = CKEditor5Field('Description', config_name='extends', default='null')
     randomImageNumber = models.IntegerField(name='randomImageNumber', default=random.randint(1, 4))
+    image = models.ImageField(name='image', null=True, blank=True, default='null')
+
+class mainMessage(models.Model):
+    main_message = models.CharField(name='main_message', max_length=1000, default='null')
+    status = models.BooleanField(name='status', default=False)
+    title = models.CharField(name='title', max_length=100, default='null')
+    valid_till = models.DateTimeField(name='valid_till')
 
 
     def __str__(self):
@@ -248,5 +254,10 @@ class storeRating(models.Model):
     def __str__(self):
         return self.rating
 
+class PromotedProducts(models.Model):
+    banner = models.CharField(name='banner', max_length=10)
+    slideshow = models.CharField(name='slideshow', max_length=10)
+    popup = models.CharField(name='popup', max_length=10)
+    unique_save = models.IntegerField(name='unique_save', default=999)
 
 # © 2020 Liran Smadja (First Real-World Project) ©

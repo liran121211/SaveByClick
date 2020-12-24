@@ -46,6 +46,13 @@
 
     <!-- header start -->
     <header>
+                                            {% now "Y-m-d" as todays_date %}
+                                    {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
+                                <center>
+                                <div class="message_title d-none d-md-block" style="color: red; font-weight: 600; font-size: 18px;">{{ main_message.title }} </div>
+                                <div style="color:black;" class="text">{{ main_message.main_message }} {{ main_message.time|date:"d/m/Y" }} </div>
+                       </center>
+                            {% endif %}
         <div class="mobile-fix-option"></div>
         <div class="top-header">
             <div class="container">
@@ -705,15 +712,26 @@
                         <div class="collection-mobile-back"><span class="filter-back"><i class="fa fa-angle-left"
                                     aria-hidden="true"></i> back</span></div>
  <div class="block-content">
-                            <ul>
+                              <ul>
+                                       {% if request.user.is_staff == False and request.user.is_superuser == False  %}
+                                <li class="active"><a href="../profile">Account Info</a></li>
+                                <li><a href="../../update-shipping">Address Book</a></li>
+                                <li><a href="../my-orders">My Orders</a></li>
+                                <li><a href="../../wishlist">My Wishlist</a></li>
+                                <li><a href="../inbox">My Inbox</a></li>
+                                <li><a href="../../update-info">Update Information</a></li>
+                                <li><a href="../my-shops">My Store List</a></li>
+                                <li class="last"><a href="../logoutnow">Log Out</a></li>
+                                {% endif %}
                                 {% if request.user.is_staff == False and request.user.is_superuser == True  %}
-                                  <li class="active"><a href="../">Account Info</a></li>
-                                <li><a href="../../update-shipping">Warehouse Address</a></li>
+                                <li class="active"><a href=".">Account Info</a></li>
+                                <li><a href="../../update-info">Warehouse Address</a></li>
                                 <li><a href="../my-products">My Products</a></li>
-                                <li><a href=".">My Coupons</a></li>
+                                <li><a href="../my-sales">My Sales</a></li>
+                                <li><a href="../coupons">My Coupons</a></li>
                                 <li><a href="../../update-info">Update Information</a></li>
                                 <li><a href="../inbox">My Inbox</a></li>
-                                <li><a href="../activity">Activity Log</a></li>
+                                <li><a href="../../shop/{{ seller_info.id }}">Visit My Shop</a></li>
                                 <li class="last"><a href="../../logoutnow">Log Out</a></li>
                                 {% endif %}
                             </ul>

@@ -43,6 +43,13 @@
 
     <!-- header start -->
     <header>
+                                            {% now "Y-m-d" as todays_date %}
+                                    {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
+                                <center>
+                                <div class="message_title d-none d-md-block" style="color: red; font-weight: 600; font-size: 18px;">{{ main_message.title }} </div>
+                                <div style="color:black;" class="text">{{ main_message.main_message }} {{ main_message.time|date:"d/m/Y" }} </div>
+                       </center>
+                            {% endif %}
         <div class="mobile-fix-option"></div>
         <div class="top-header">
             <div class="container">

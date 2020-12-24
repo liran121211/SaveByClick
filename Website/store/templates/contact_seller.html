@@ -42,6 +42,13 @@
 
     <!-- header start -->
     <header>
+                                            {% now "Y-m-d" as todays_date %}
+                                    {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
+                                <center>
+                                <div class="message_title d-none d-md-block" style="color: red; font-weight: 600; font-size: 18px;">{{ main_message.title }} </div>
+                                <div style="color:black;" class="text">{{ main_message.main_message }} {{ main_message.time|date:"d/m/Y" }} </div>
+                       </center>
+                            {% endif %}
         <div class="mobile-fix-option"></div>
         <div class="top-header">
             <div class="container">
@@ -709,9 +716,21 @@
                                         alt="Generic placeholder image">
                                     <h6>Contact Us</h6>
                                 </div>
+                                <script>
+                                    var phone_number = "{{ user_info.phone }}";
+                                    function myFunction() {
+                                      alert("Phone: " + phone_number);
+                                    }
+
+                                       function myFunction2() {
+                                      alert("Request Submitted Successfully!");
+                                    }
+                                    </script>
                                 <div class="media-body">
-                                    <p>+91 123 - 456 - 7890</p>
-                                    <p>+86 163 - 451 - 7894</p>
+
+                                      <button onclick="myFunction()"  class="btn btn-solid" >Show Phone Number</button>
+                                    <p>&nbsp;</p>
+                                    <button class="btn btn-solid" onclick="myFunction2()">&nbsp;&nbsp;Request Call Back &nbsp;&nbsp;&nbsp;</button>
                                 </div>
                             </li>
                             <li>
@@ -719,8 +738,8 @@
                                     <h6>Address</h6>
                                 </div>
                                 <div class="media-body">
-                                    <p>ABC Complex,Near xyz, New York</p>
-                                    <p>USA 123456</p>
+                                    <p>{{ user_info.address }}</p>
+                                    <p>{{ user_info.country }} {{ user_info.zipcode }}</p>
                                 </div>
                             </li>
                             <li>
@@ -729,17 +748,17 @@
                                     <h6>Address</h6>
                                 </div>
                                 <div class="media-body">
-                                    <p>Support@Shopcart.com</p>
-                                    <p>info@shopcart.com</p>
+                                    <p>support@{{ seller_info.store_name|cut:" " }}.com</p>
                                 </div>
+
                             </li>
                             <li>
                                 <div class="contact-icon"><i class="fa fa-fax" aria-hidden="true"></i>
                                     <h6>Fax</h6>
                                 </div>
                                 <div class="media-body">
-                                    <p>Support@Shopcart.com</p>
-                                    <p>info@shopcart.com</p>
+                                    <p>fax@{{ seller_info.store_name|cut:" " }}.com</p>
+                                    <p>info@{{ seller_info.store_name|cut:" " }}.com</p>
                                 </div>
                             </li>
                         </ul>

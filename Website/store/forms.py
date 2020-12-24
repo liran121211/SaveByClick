@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, forms
-from .models import shippingAdd, Product, Seller, contactSeller, contactBuyer, Coupons , contactSite, productRating, storeRating, myShopList, Order
+from .models import shippingAdd, Product, Seller, contactSeller, contactBuyer, Coupons , contactSite, productRating, storeRating, myShopList, Order, mainMessage, PromotedProducts
 
 class addCoupon(forms.ModelForm):
     class Meta:
@@ -13,6 +13,26 @@ class addCoupon(forms.ModelForm):
             'discount_amount': forms.TextInput(attrs={'class': 'form-control'}),
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'status': forms.Select()
+        }
+
+class mainMessageForm(forms.ModelForm):
+    class Meta:
+        model = mainMessage
+        fields = ['title', 'main_message' , 'status', 'valid_till']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' } ),
+            'main_message': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' } ),
+        }
+
+class PromotedProductsForm(forms.ModelForm):
+    class Meta:
+        model = PromotedProducts
+        fields = ['banner' , 'slideshow', 'popup' ]
+        widgets = {
+            'banner': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' } ),
+            'slideshow': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' } ),
+            'popup': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px'}),
+            'unique_save': forms.HiddenInput()
         }
 
 class ContactSellerForm(forms.ModelForm):
@@ -146,7 +166,7 @@ class productRatingForm(forms.ModelForm):
     rating = forms.ChoiceField(choices=Product_Stars, widget=forms.RadioSelect())
     class Meta:
         model = productRating
-        fields = ['Product', 'rating', 'name', 'email', 'Description']
+        fields = ['Product', 'rating', 'name', 'email', 'Description', 'image']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' }),
             'email': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' }),

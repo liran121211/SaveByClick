@@ -3,6 +3,8 @@ from django.conf import settings
 from django.core.cache import cache
 from django.contrib.auth.models import User
 from django.utils.deprecation import MiddlewareMixin
+import time
+
 
 ONLINE_THRESHOLD = getattr(settings, 'ONLINE_THRESHOLD', 60*5)
 ONLINE_MAX = getattr(settings, 'ONLINE_MAX', 50)
