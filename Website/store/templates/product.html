@@ -140,7 +140,7 @@
                                         </div>
                                         <!-- Vertical Menu -->
                                        <ul id="sub-menu" class="sm pixelstrap sm-vertical">
-                                            <li> <a href="../../category/hot-deals"><p style="color:orangered">HOT DEALS</p></a></li>
+                                            <li> <a href="../../hot-deals"><p style="color:orangered">HOT DEALS</p></a></li>
                                             <li> <a href="../../category/Motors">Motors</a></li>
                                             <li> <a href="../../category/Books, Movies & Music">Books, Movies & Music</a></li>
                                             <li> <a href="../../category/Electronics">Electronics</a></li>
@@ -174,18 +174,18 @@
                                                     aria-hidden="true"></i></div>
                                         </li>
                                         <li>
-                                            <a href="../best-sellers" style="color: red">Best Sellers</a>
+                                            <a href="../../best-sellers" style="color: red">Best Sellers</a>
                                         </li>
                                         <li>
                                             <a href="#">Latest Products</a>
                                         </li>
-                                        <li class="mega" id="hover-cls"><a href="../chat">Live Chat
+                                        <li class="mega" id="hover-cls"><a href="../../chat">Live Chat
                                                 <div class="lable-nav">new</div>
                                             </a>
                                         </li>
-                                        <li><a href="../contactus">Contact Us</a>
+                                        <li><a href="../../contactus">Contact Us</a>
                                         </li>
-                                         <li class="mega" id="hover-cls"><a href="../faq">FAQ
+                                         <li class="mega" id="hover-cls"><a href="../../faq">FAQ
                                                 <div class="lable-nav">new</div>
                                             </a>
                                         </li>
@@ -253,7 +253,7 @@
                                                     {% for cart_item in items %}
                                                 <li>
                                                     <div class="media">
-                                                        <a href="../product/{{cart_item.product.id}}">
+                                                        <a href="../../product/{{cart_item.product.id}}">
                                                             <img alt="" class="mr-3" src="{{ cart_item.product.image1.url }}">
                                                         </a>
                                                         <div class="media-body">
@@ -274,8 +274,8 @@
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <div class="buttons"><a href="../cart" class="view-cart">view
-                                                            cart</a> <a href="../checkout" class="checkout">checkout</a></div>
+                                                    <div class="buttons"><a href="../../cart" class="view-cart">view
+                                                            cart</a> <a href="../../checkout" class="checkout">checkout</a></div>
                                                 </li>
                                             </ul>
                                         </li>
@@ -297,14 +297,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="page-title">
-                        <h2>faq</h2>
+                        <h2>PRODUCT</h2>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">faq</li>
+                            <li class="breadcrumb-item"><a href="../../../">home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Product</li>
                         </ol>
                     </nav>
                 </div>
@@ -368,12 +368,10 @@
                                          {% endif %}
                                         <ul class="color-variant">
 
-                                             <h4> Published By: <a href="../../shop/{{ seller_info.id }}">{{ seller_info.store_name }}</a></h4>
+                                             <h4> Sold By: <a href="../../shop/{{ seller_info.id }}">{{ seller_info.store_name }}</a></h4>
                                         </ul>
                                         <div class="product-description border-product">
-                                            <h6 class="product-title size-text">Rating: <span><a href=""
-                                                        data-toggle="modal" data-target="#sizemodal">size
-                                                        chart</a></span></h6>
+                                            <h6 class="product-title size-text">Rating: <span></span></h6>
                                             <div class="modal fade" id="sizemodal" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -408,54 +406,27 @@
                                                     {% endif %}
                                                 </ul>
                                             </div>
-                                            <h6 class="product-title">quantity</h6>
-                                            <div class="qty-box">
-                                                <div class="input-group"><span class="input-group-prepend"><button
-                                                            type="button" class="btn quantity-left-minus"
-                                                            data-type="minus" data-field=""><i
-                                                                class="ti-angle-left"></i></button> </span>
-                                                    <input type="text" name="quantity" class="form-control input-number"
-                                                        value="1"> <span class="input-group-prepend"><button
-                                                            type="button" class="btn quantity-right-plus"
-                                                            data-type="plus" data-field=""><i
-                                                                class="ti-angle-right"></i></button></span></div>
-                                            </div>
+
                                         </div>
                                         <div class="product-buttons">
                                             <a href="#" data-product=" {{product_info.id}} " data-action="add" class="btn btn-solid update-cart-js">add to cart</a>
                                             <a href="../../seller/{{ seller_id }}/contact" class="btn btn-solid" >Contact Seller</a></div>
                                         <div class="border-product">
                                             <h6 class="product-title">product details</h6>
-                                            <p>{{ product_info.product_description }}</p>
+                                            <p>{{ product_info.product_description| safe }}</p>
                                         </div>
                                         <div class="border-product">
-                                            <h6 class="product-title">share it</h6>
-                                            <div class="product-icon">
-                                                <ul class="product-social">
-                                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                                                </ul>
-                                                <form class="d-inline-block">
-                                                    <button class="wishlist-btn"><i class="fa fa-heart"></i><span
-                                                            class="title-font">Add To WishList</span></button>
-                                                </form>
-                                            </div>
+                                            <h6 class="product-title">Save It For Later?</h6>
+
+
+                                                    <i class="wishlist-btn update-wishlist-js"  tabindex="0" data-product=" {{ product_info.id }} " data-action="add" aria-hidden="true"><i class="fa fa-heart"></i><span
+                                                            class="title-font">Add To WishList</span></i>
+
+
+
                                         </div>
                                         <div class="border-product">
-                                            <h6 class="product-title">Time Reminder</h6>
-                                            <div class="timer">
-                                                <p id="demo"><span>25 <span class="padding-l">:</span> <span
-                                                            class="timer-cal">Days</span> </span><span>22 <span
-                                                            class="padding-l">:</span> <span
-                                                            class="timer-cal">Hrs</span> </span><span>13 <span
-                                                            class="padding-l">:</span> <span
-                                                            class="timer-cal">Min</span> </span><span>57 <span
-                                                            class="timer-cal">Sec</span></span>
-                                                </p>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -468,11 +439,6 @@
                                         <li class="nav-item"><a class="nav-link active" id="top-home-tab"
                                                 data-toggle="tab" href="#top-home" role="tab" aria-selected="true"><i
                                                     class="icofont icofont-ui-home"></i>Description</a>
-                                            <div class="material-border"></div>
-                                        </li>
-                                        <li class="nav-item"><a class="nav-link" id="profile-top-tab" data-toggle="tab"
-                                                href="#top-profile" role="tab" aria-selected="false"><i
-                                                    class="icofont icofont-man-in-glasses"></i>Details</a>
                                             <div class="material-border"></div>
                                         </li>
                                         <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-toggle="tab"
@@ -489,49 +455,7 @@
                                     <div class="tab-content nav-material" id="top-tabContent">
                                         <div class="tab-pane fade show active" id="top-home" role="tabpanel"
                                             aria-labelledby="top-home-tab">
-                                            <p>{{ product_info.product_description }}</p>
-                                        </div>
-                                        <div class="tab-pane fade" id="top-profile" role="tabpanel"
-                                            aria-labelledby="profile-top-tab">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                                since the 1500s, when an unknown printer took a galley of type and
-                                                scrambled it to make a type specimen book. It has survived not only five
-                                                centuries, but also the leap into electronic typesetting, remaining
-                                                essentially unchanged. It was popularised in the 1960s with the release
-                                                of Letraset sheets containing Lorem Ipsum passages, and more recently
-                                                with desktop publishing software like Aldus PageMaker including versions
-                                                of Lorem Ipsum.</p>
-                                            <div class="single-product-tables">
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Febric</td>
-                                                            <td>Chiffon</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Color</td>
-                                                            <td>Red</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Material</td>
-                                                            <td>Crepe printed</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Length</td>
-                                                            <td>50 Inches</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Size</td>
-                                                            <td>S, M, L .XXL</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                            <p>{{ product_info.product_description| safe }}</p>
                                         </div>
                                         <div class="tab-pane fade" id="top-contact" role="tabpanel">
 
@@ -541,6 +465,9 @@
                 <div class="col-sm-12">
                     <ul class="comment-section">
                         <li>
+                            {% if not comments %}
+                            <h5>No Comments Has Been Found!</h5>
+                            {% else %}
                              {% for comment in comments %}
                             <div class="media">
                                 {% if comment.randomImageNumber == 1 %}
@@ -553,8 +480,8 @@
                                 <img src="{% static 'imageUploads/COMMENT4.png' %}" alt="Generic placeholder image">
                                 {% endif %}
                                 <div class="media-body">
-                                    <h6>{{ comment.name }} <span>({{ comment.time }})</span></h6>
-                                    {{ comment.Description }}
+                                    <h6>{{ comment.name }} <span>({{ comment.time|date:"d-m-Y H:i"  }})</span></h6>
+                                    {{ comment.Description| safe }}
                                     <ul class="comnt-sec">
                   <div class="size-box">
                                                 <ul>
@@ -577,6 +504,7 @@
                                 </div>
                             </div>
                             {% endfor %}
+                            {% endif %}
                         </li>
 
                     </ul>
@@ -610,20 +538,6 @@
                         <div class="collection-filter-block">
                             <div class="collection-mobile-back"><span class="filter-back"><i class="fa fa-angle-left"
                                         aria-hidden="true"></i> back</span></div>
-                            <div class="collection-collapse-block border-0 open">
-                                <h3 class="collapse-block-title">brand</h3>
-                                <div class="collection-collapse-block-content">
-                                    <div class="collection-brand-filter">
-                                        <ul class="category-list">
-                                            <li><a href="#">clothing</a></li>
-                                            <li><a href="#">bags</a></li>
-                                            <li><a href="#">footwear</a></li>
-                                            <li><a href="#">watches</a></li>
-                                            <li><a href="#">accessories</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="collection-filter-block">
                             <div class="product-service">
@@ -635,7 +549,7 @@
                                     </svg>
                                     <div class="media-body">
                                         <h4>free shipping</h4>
-                                        <p>free shipping world wide</p>
+                                        <p>free shipping country wide</p>
                                     </div>
                                 </div>
                                 <div class="media">
@@ -727,98 +641,32 @@
                                         </g>
                                     </svg>
                                     <div class="media-body">
-                                        <h4>online payment</h4>
-                                        <p>Contrary to popular belief.</p>
+                                        <h4>Pay By Phone Payment</h4>
+                                        <p>Contrary to online payment.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- side-bar single product slider start -->
                         <div class="theme-card">
-                            <h5 class="title-border">new product</h5>
+                            <h5 class="title-border">New Suggestions</h5>
                             <div class="offer-slider slide-1">
                                 <div>
+                                    {% for latest in latest_products %}
+
                                     <div class="media">
-                                        <a href=""><img class="img-fluid blur-up lazyload"
-                                                src="{% static 'assets/images/pro/1.jpg' %}" alt=""></a>
+                                        <a href="../../product/{{ latest.id }}"><img class="img-fluid blur-up lazyload"
+                                                src="{{ latest.image1.url }}" alt=""></a>
                                         <div class="media-body align-self-center">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div><a
-                                                href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
+                                            <a href="">
+                                                <h6>{{ latest.product_name|truncatechars:50 }}</h6>
                                             </a>
-                                            <h4>$500.00</h4>
+                                            <h4>${{ latest.price|floatformat:2 }}</h4>
                                         </div>
                                     </div>
-                                    <div class="media">
-                                        <a href=""><img class="img-fluid blur-up lazyload"
-                                                src="{% static 'assets/images/pro/1.jpg' %}" alt=""></a>
-                                        <div class="media-body align-self-center">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div><a
-                                                href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
+
+                                    {% endfor %}
                                     </div>
-                                    <div class="media">
-                                        <a href=""><img class="img-fluid blur-up lazyload"
-                                                src="{% static 'assets/images/pro/1.jpg' %}" alt=""></a>
-                                        <div class="media-body align-self-center">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div><a
-                                                href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="media">
-                                        <a href=""><img class="img-fluid blur-up lazyload"
-                                                src="{% static 'assets/images/pro/1.jpg' %}" alt=""></a>
-                                        <div class="media-body align-self-center">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div><a
-                                                href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <a href=""><img class="img-fluid blur-up lazyload"
-                                                src="{% static 'assets/images/pro/1.jpg' %}" alt=""></a>
-                                        <div class="media-body align-self-center">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div><a
-                                                href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <a href=""><img class="img-fluid blur-up lazyload"
-                                                src="{% static 'assets/images/pro/1.jpg' %}" alt=""></a>
-                                        <div class="media-body align-self-center">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div><a
-                                                href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <!-- side-bar single product slider end -->
@@ -883,11 +731,11 @@
                             </div>
                             <div class="footer-contant">
                                 <ul>
-                                   <li><a href="../profile">Manage Account</a></li>
-                                    <li><a href="../update-info">Address Book</a></li>
-                                    <li><a href="../update-info">Update Information</a></li>
-                                    <li><a href="../profile/inbox">My Inbox</a></li>
-                                    <li><a href="../logoutnow">Log Out</a></li>
+                                   <li><a href="../../profile">Manage Account</a></li>
+                                    <li><a href="../../update-info">Address Book</a></li>
+                                    <li><a href="../../update-info">Update Information</a></li>
+                                    <li><a href="../../profile/inbox">My Inbox</a></li>
+                                    <li><a href="../../logoutnow">Log Out</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -899,9 +747,9 @@
                             </div>
                             <div class="footer-contant">
                                 <ul>
-                                    <li><a href="../contactus">Contact Us</a></li>
-                                    <li><a href="../faq">F.A.Q</a></li>
-                                    <li><a href="../chat">Live Chat</a></li>
+                                    <li><a href="../../contactus">Contact Us</a></li>
+                                    <li><a href="../../faq">F.A.Q</a></li>
+                                    <li><a href="../../chat">Live Chat</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -947,7 +795,7 @@
     <!-- footer end -->
 
 
-    <!-- theme setting -->
+ <!-- theme setting
     <a href="javascript:void(0)" onclick="openSetting()">
         <div class="setting-sidebar" id="setting-icon">
             <div>
@@ -1624,7 +1472,7 @@
                 <div class="setting-contant">
                     <ul class="color-box">
                         <li>
-                            <input id="ColorPicker1" type="color" value="#ff4c3b" name="Background">
+                            <input id="ColorPicker1" type="color" value="#3e5067" name="Background">
                             <span>theme deafult color</span>
                         </li>
                     </ul>
@@ -1644,19 +1492,19 @@
                         target="_blank" class="btn btn-block purchase_btn"><i class="fa fa-shopping-cart"
                             aria-hidden="true"></i> purchase Multikart now!</a>
                     <a href="https://themeforest.net/item/multikart-responsive-angular-ecommerce-template/22905358?s_rank=3"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="{%  static 'assets/images/icon/angular.png' %}"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/angular.png' %}"
                             alt="" class="img-fluid"> Multikart Angular</a>
                     <a href="https://themeforest.net/item/multikart-responsive-react-ecommerce-template/23067773?s_rank=2"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="{%  static 'assets/images/icon/react.png' %}"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/react.png' %}"
                             alt="" class="img-fluid"> Multikart React</a>
                     <a href="https://themeforest.net/item/multikart-multipurpose-shopify-sections-theme/23093831?s_rank=1"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="{%  static 'assets/images/icon/shopify.png' %}"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/shopify.png' %}"
                             alt="" class="img-fluid"> Multikart Shopify</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- theme setting -->
+     theme setting -->
 
 
     <!-- tap to top start -->

@@ -7,6 +7,8 @@ from django.conf.urls import url
 from . import views
 from django.contrib.auth.views import LogoutView
 urlpatterns = [
+path('shop/<int:pk>/reviews', views.shopReviews, name= 'shop-reviews'),
+path('hot-deals/', views.hotDeals, name= 'hotDeals'),
 path('', views.homePage, name='home'),
 path('profile/', views.userPanel, name= 'userPanel'),
 path('update-info/', views.userUpdateInfo, name= 'user-update-info'),
@@ -61,7 +63,11 @@ path('admin-panel/orders/', views.adminOrders, name='admin-orders'),
 path('admin-panel/settings/', views.adminSettings, name='admin-settings'),
 path('admin-panel/activity-logs/', views.adminActivityLogs, name='admin-activity-logs'),
 path('category/<str:pk>/', views.categories, name='categoties'),
+path('unauthorized', views.unauthorized, name='unauthorized'),
+path('best-sellers', views.bestSellersPage, name='best-sellers-page'),
 
+
+#path('charts', views.charts, name='charts'),
 
 
 url(r'chat/$', views.all_rooms, name="all_rooms"),

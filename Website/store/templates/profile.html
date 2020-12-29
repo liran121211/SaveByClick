@@ -114,7 +114,7 @@
                                         </div>
                                         <!-- Vertical Menu -->
                                        <ul id="sub-menu" class="sm pixelstrap sm-vertical">
-                                            <li> <a href="../category/hot-deals"><p style="color:orangered">HOT DEALS</p></a></li>
+                                            <li> <a href="../../hot-deals"><p style="color:orangered">HOT DEALS</p></a></li>
                                             <li> <a href="../category/Motors">Motors</a></li>
                                             <li> <a href="../category/Books, Movies & Music">Books, Movies & Music</a></li>
                                             <li> <a href="../category/Electronics">Electronics</a></li>
@@ -277,7 +277,7 @@
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="../">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                         </ol>
                     </nav>
@@ -311,7 +311,7 @@
                                 {% endif %}
                                 {% if user_info.is_staff == False and user_info.is_superuser == True  %}
                                 <li class="active"><a href=".">Account Info</a></li>
-                                <li><a href="../update-info">Warehouse Address</a></li>
+                                <li><a href="../update-shipping">Warehouse Address</a></li>
                                 <li><a href="my-products">My Products</a></li>
                                 <li><a href="my-sales">My Sales</a></li>
                                 <li><a href="coupons">My Coupons</a></li>
@@ -361,10 +361,10 @@
                                     <div class="col-sm-6">
                                         <div class="box">
                                             <div class="box-title">
-                                                <h3>Newsletters</h3><a href="#">Edit</a>
+                                               <del> <h3>Newsletters</h3></del><a href="#"><del>Edit</del></a>
                                             </div>
                                             <div class="box-content">
-                                                <p>You are currently not subscribed to any newsletter.</p>
+                                                <del><p>You are currently not subscribed to any newsletter.</p></del>
                                             </div>
                                         </div>
                                     </div>
@@ -372,7 +372,7 @@
                                 <div>
                                     <div class="box">
                                         <div class="box-title">
-                                            <h3>Address Book</h3><a href="#">Manage Addresses</a>
+                                            <h3>Address Book</h3><a href="../update-shipping">Manage Addresses</a>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
@@ -467,7 +467,7 @@
                             <div class="footer-contant">
                                 <ul>
                                    <li><a href="../profile">Manage Account</a></li>
-                                    <li><a href="../update-info">Address Book</a></li>
+                                    <li><a href="../update-shipping">Address Book</a></li>
                                     <li><a href="../update-info">Update Information</a></li>
                                     <li><a href="../profile/inbox">My Inbox</a></li>
                                     <li><a href="../logoutnow">Log Out</a></li>
@@ -529,8 +529,7 @@
     </footer>
     <!-- footer end -->
 
-
-    <!-- theme setting -->
+ <!-- theme setting
     <a href="javascript:void(0)" onclick="openSetting()">
         <div class="setting-sidebar" id="setting-icon">
             <div>
@@ -1207,7 +1206,7 @@
                 <div class="setting-contant">
                     <ul class="color-box">
                         <li>
-                            <input id="ColorPicker1" type="color" value="#ff4c3b" name="Background">
+                            <input id="ColorPicker1" type="color" value="#3e5067" name="Background">
                             <span>theme deafult color</span>
                         </li>
                     </ul>
@@ -1239,8 +1238,7 @@
             </div>
         </div>
     </div>
-    <!-- theme setting -->
-
+     theme setting -->
 
     <!-- tap to top start -->
     <div class="tap-top">

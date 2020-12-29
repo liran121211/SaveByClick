@@ -232,7 +232,7 @@
                                 {% if list.logout == False %}
                                 <h3><p style="color:forestgreen"><b>[{{ info.username }}]</b> Logged On: {{ list.time }}  from IP: {{ list.ip }}</p></h3>
                                 {% else %}
-                                 <h3><p style="color:orangered">Logged Off: {{ list.time }}  from IP: {{ list.ip }}</p></h3>
+                                 <h3><p style="color:orangered">[{{ info.username }}] Logged Off: {{ list.time }}  from IP: {{ list.ip }}</p></h3>
                                         {% endif %}
                                 {% endif %}
                             {% endfor %}

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="multikart">
+    <meta name="keywords" content="multikart">
+    <meta name="author" content="multikart">
+    <link rel="icon" href="{% static 'assets/images/favicon/1.png' %}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon/1.png' %}" type="image/x-icon" />
+    <title>Multikart - Multi-purpopse E-commerce Html Template</title>
+
+    <!--Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/fontawesome.css' %}">
+
+    <!--Slick slider css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/slick.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/slick-theme.css' %}">
+
+    <!-- Animate icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/animate.css' %}">
+
+    <!-- Themify icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/themify-icons.css' %}">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.css' %}">
+
+    <!-- Theme css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/color1.css' %}" media="screen" id="color">
+
+
+</head>
+
+<body>
+
+    <!-- header start -->
+      <header>
+                                            {% now "Y-m-d" as todays_date %}
+                                    {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
+                                <center>
+                                <div class="message_title d-none d-md-block" style="color: red; font-weight: 600; font-size: 18px;">{{ main_message.title }} </div>
+                                <div style="color:black;" class="text">{{ main_message.main_message }} {{ main_message.time|date:"d/m/Y" }} </div>
+                       </center>
+                            {% endif %}
+        <div class="mobile-fix-option"></div>
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header-contact">
+                            <ul>
+                                <li>Welcome To Our Store | SaveByClick</li>
+                                <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 051 - 000 - 0000</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <ul class="header-dropdown">
+                                   <li class="mobile-wishlist"><a href="../../wishlist"><i class="fa fa-heart" aria-hidden="true"></i>Wishlist ({{ count }})</a>
+                            </li>
+                            <li class="onhover-dropdown mobile-account">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                {% if user.is_authenticated %}
+                                     {{ user.first_name }}'s Profile
+                                    <ul class="onhover-show-div">
+                                        {% if user.is_superuser == True and user.is_staff == True %}
+                                     <li><a href="../../admin-panel/" data-lng="es">Admin Area</a></li>
+                                    <li><a href="../../logoutnow/" data-lng="es">Logout</a></li>
+                                        {% else %}
+                                        <li><a href="../../profile/" data-lng="es">My Profile</a></li>
+                                    <li><a href="../../logoutnow/" data-lng="es">Logout</a></li>
+                                        {% endif %}
+                                         </ul>
+                                {% else %}
+                                    My Account
+
+                                <ul class="onhover-show-div">
+                                    <li><a href="../../login/" data-lng="en">Login</a></li>
+                                    <li><a href="../../register/" data-lng="en">Sign Up</a></li>
+                                </ul>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="main-menu">
+                        <div class="menu-left">
+                            <div class="navbar">
+                                <a href="javascript:void(0)" onclick="openNav()">
+                                    <div class="bar-style"> <i class="fa fa-bars sidebar-bar" aria-hidden="true"></i>
+                                    </div>
+                                </a>
+                                <div id="mySidenav" class="sidenav">
+                                    <a href="javascript:void(0)" class="sidebar-overlay" onclick="closeNav()"></a>
+                                    <nav>
+                                        <div onclick="closeNav()">
+                                            <div class="sidebar-back text-left">
+                                                <i class="fa fa-angle-left pr-2" aria-hidden="true"></i> Back
+                                            </div>
+                                        </div>
+                                        <!-- Vertical Menu -->
+                                       <ul id="sub-menu" class="sm pixelstrap sm-vertical">
+                                            <li> <a href="../../hot-deals"><p style="color:orangered">HOT DEALS</p></a></li>
+                                            <li> <a href="../../category/Motors">Motors</a></li>
+                                            <li> <a href="../../category/Books, Movies & Music">Books, Movies & Music</a></li>
+                                            <li> <a href="../../category/Electronics">Electronics</a></li>
+                                            <li><a href="../../category/Collectibles & Art">Collectibles & Art</a></li>
+                                            <li> <a href="../../category/Fashion">Fashion</a></li>
+                                            <li><a href="../../category/Home & Garden">Home & Garden</a></li>
+                                            <li> <a href="../../category/Sporting Goods">Sporting Goods</a></li>
+                                            <li><a href="../../category/Toys & Hobbies">Toys & Hobbies</a></li>
+                                            <li><a href="../../category/Business & Industrial">Business & Industrial</a></li>
+                                            <li><a href="../../category/Health & Beauty">Health & Beauty</a></li>
+                                            <li><a href="../../category/Others">Others</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="brand-logo">
+                                <a href="../../../../"> <img src="{%  static 'assets/images/icon/logo.png' %}"
+                                        class="img-fluid blur-up lazyload" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="menu-right pull-right">
+                            <div>
+                                <nav id="main-nav">
+                                    <div class="toggle-nav">
+                                        <i class="fa fa-bars sidebar-bar"></i>
+                                    </div>
+                                    <!-- Horizontal menu -->
+                                    <ul id="main-menu" class="sm pixelstrap sm-horizontal">
+                                        <li>
+                                            <div class="mobile-back text-right">Back<i class="fa fa-angle-right pl-2"
+                                                    aria-hidden="true"></i></div>
+                                        </li>
+                                        <li>
+                                            <a href="../../best-sellers" style="color: red">Best Sellers</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Latest Products</a>
+                                        </li>
+                                        <li class="mega" id="hover-cls"><a href="../../chat">Live Chat
+                                                <div class="lable-nav">new</div>
+                                            </a>
+                                        </li>
+                                        <li><a href="../../contactus">Contact Us</a>
+                                        </li>
+                                         <li class="mega" id="hover-cls"><a href="../../faq">FAQ
+                                                <div class="lable-nav">new</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div>
+                                <div class="icon-nav">
+                                    <ul>
+                                        <li class="onhover-div mobile-search">
+                                            <div><img src="{%  static 'assets/images/icon/search.png" onclick="openSearch()"
+                                                    class="img-fluid blur-up lazyload" alt="">
+                                                <i class="ti-search" onclick="openSearch()"></i></div>
+                                            <div id="search-overlay" class="search-overlay">
+                                                <div>
+                                                    <span class="closebtn" onclick="closeSearch()"
+                                                        title="Close Overlay">×</span>
+                                                    <div class="overlay-content">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-xl-12">
+                                                                    <form>
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control"
+                                                                                id="exampleInputPassword1"
+                                                                                placeholder="Search a Product">
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary"><i
+                                                                                class="fa fa-search"></i></button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="onhover-div mobile-setting">
+                                            <div><img src="{%  static 'assets/images/icon/setting.png' %}"
+                                                    class="img-fluid blur-up lazyload" alt="">
+                                                <i class="ti-settings"></i></div>
+                                            <div class="show-div setting">
+                                                <h6>language</h6>
+                                                <ul>
+                                                    <li><a href="#">english</a> </li>
+                                                    <li><a href="#">french</a> </li>
+                                                </ul>
+                                                <h6>currency</h6>
+                                                <ul class="list-inline">
+                                                    <li><a href="#">euro</a> </li>
+                                                    <li><a href="#">rupees</a> </li>
+                                                    <li><a href="#">pound</a> </li>
+                                                    <li><a href="#">doller</a> </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="onhover-div mobile-cart">
+                                            <div><img src="{%  static 'assets/images/icon/cart.png' %}"
+                                                    class="img-fluid blur-up lazyload" alt="">({{ count_cart }})
+                                                <i class="ti-shopping-cart"></i></div>
+                                            <ul class="show-div shopping-cart">
+                                         {% if order.get_cart_items == 0 %}
+                                                     <h6><span>Your Cart is Empty! Shop Now :) </span></h6>
+                                                {% else %}
+                                                    {% for cart_item in items %}
+                                                <li>
+                                                    <div class="media">
+                                                        <a href="../../product/{{cart_item.product.id}}">
+                                                            <img alt="" class="mr-3" src="{{ cart_item.product.image1.url }}">
+                                                        </a>
+                                                        <div class="media-body">
+                                                            <a href="#">
+                                                                <h4>{{ cart_item.product.product_name|slice:":10" }}</h4>
+                                                            </a>
+                                                            <h4><span>{{ cart_item.quantity }} x ${{ cart_item.product.price|floatformat:2 }}</span></h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="close-circle"><a href="#" class="update-cart-js" data-product=" {{cart_item.product.id}} " data-action="remove"><i class="fa fa-times"
+                                                                aria-hidden="true"></i></a></div>
+                                                </li>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                <li>
+                                                    <div class="total">
+                                                        <h5>subtotal : <span>${{order.get_cart_total|floatformat:2}}</span></h5>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="buttons"><a href="../../cart" class="view-cart">view
+                                                            cart</a> <a href="../../checkout" class="checkout">checkout</a></div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header end -->
+
+
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2>review</h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">review</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb End -->
+
+
+    <!-- section start -->
+
+    <section class="section-b-space blog-detail-page review-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="comment-section">
+                        <li>
+                            {% if  not storerating %}
+                            <h5>No Reviews Has Been Found!</h5>
+                            {% else %}
+                             {% for comment in storerating %}
+                            <div class="media">
+                                {% if comment.randomImageNumber == 1 %}
+                                <img src="{% static 'imageUploads/COMMENT1.png' %}" alt="Generic placeholder image">
+                                {% elif comment.randomImageNumber == 2 %}
+                                <img src="{% static 'imageUploads/COMMENT2.png' %}" alt="Generic placeholder image">
+                                {% elif comment.randomImageNumber == 3 %}
+                                <img src="{% static 'imageUploads/COMMENT3.png' %}" alt="Generic placeholder image">
+                                {% elif comment.randomImageNumber == 4 %}
+                                <img src="{% static 'imageUploads/COMMENT4.png' %}" alt="Generic placeholder image">
+                                {% endif %}
+                                <div class="media-body">
+                                    <h6>{{ comment.name }} <span>({{ comment.time|date:"d-m-Y H:i"  }})</span></h6>
+                                    {{ comment.Description| safe }}
+                                    <ul class="comnt-sec">
+                  <div class="size-box">
+                                                <ul>
+                                                   {% if comment.rating == '0' %}
+                                                     <li> <img src="{% static 'images/stars_rating/0_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif comment.rating == '1' %}
+                                                     <li> <img src="{% static 'images/stars_rating/1_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif comment.rating == '2' %}
+                                                     <li> <img src="{% static 'images/stars_rating/2_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif comment.rating == '3' %}
+                                                     <li> <img src="{% static 'images/stars_rating/3_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif comment.rating == '4' %}
+                                                     <li> <img src="{% static 'images/stars_rating/4_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif comment.rating == '5' %}
+                                                     <li> <img src="{% static 'images/stars_rating/5_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+                             {% endif %}
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section ends -->
+
+
+    <!-- footer start -->
+  <footer class="footer-light">
+        <div class="light-layout">
+            <div class="container">
+                <section class="small-section border-section border-top-0">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="subscribe">
+                                <div>
+                                    <h4>KNOW IT ALL FIRST!</h4>
+                                    <p>Never Miss Anything From SaveByClick By Signing Up To Our Newsletter.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <form
+                                action="https://pixelstrap.us19.list-manage.com/subscribe/post?u=5a128856334b598b395f1fc9b&amp;id=082f74cbda"
+                                class="form-inline subscribe-form auth-form needs-validation" method="post"
+                                id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
+                                <div class="form-group mx-sm-3">
+                                    <input type="text" class="form-control" name="EMAIL" id="mce-EMAIL"
+                                        placeholder="Enter your email" required="required" disabled=True>
+                                </div>
+                                <button type="submit" class="btn btn-solid" id="mc-submit">subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <section class="section-b-space light-layout">
+            <div class="container">
+                <div class="row footer-theme partition-f">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-title footer-mobile-title">
+                            <h4>about</h4>
+                        </div>
+                        <div class="footer-contant">
+                            <div class="footer-logo"><img src="{%  static 'assets/images/icon/logo.png' %}" alt=""></div>
+                            <p>Information About The Store...</p>
+                            <div class="footer-social">
+                                <ul>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col offset-xl-1">
+                        <div class="sub-title">
+                            <div class="footer-title">
+                                <h4>my account</h4>
+                            </div>
+                            <div class="footer-contant">
+                                <ul>
+                                   <li><a href="../../profile">Manage Account</a></li>
+                                    <li><a href="../../update-info">Address Book</a></li>
+                                    <li><a href="../../update-info">Update Information</a></li>
+                                    <li><a href="../../profile/inbox">My Inbox</a></li>
+                                    <li><a href="../../logoutnow">Log Out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="sub-title">
+                            <div class="footer-title">
+                                <h4>Site Map</h4>
+                            </div>
+                            <div class="footer-contant">
+                                <ul>
+                                    <li><a href="../../contactus">Contact Us</a></li>
+                                    <li><a href="../../faq">F.A.Q</a></li>
+                                    <li><a href="../../chat">Live Chat</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="sub-title">
+                            <div class="footer-title">
+                                <h4>store information</h4>
+                            </div>
+                            <div class="footer-contant">
+                                <ul class="contact-list">
+                                    <li><i class="fa fa-map-marker"></i>SaveByClick, Uknown Address, Hadarom, Beer Sheva, Israel, 00000
+                                    </li>
+                                    <li><i class="fa fa-phone"></i>Call Us: 051-000-0000</li>
+                                    <li><i class="fa fa-envelope-o"></i>Email Us: Support@savebyclick.online</li>
+                                    <li><i class="fa fa-fax"></i>Fax: 051-000-0001</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="sub-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-md-6 col-sm-12">
+                        <div class="footer-end">
+                            <p><i class="fa fa-copyright" aria-hidden="true"></i> 2017-18 themeforest powered by
+                                pixelstrap</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6 col-sm-12">
+                        <div class="payment-card-bottom">
+                            <ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer end -->
+
+
+    <!-- tap to top -->
+    <div class="tap-top">
+        <div>
+            <i class="fa fa-angle-double-up"></i>
+        </div>
+    </div>
+    <!-- tap to top End -->
+
+
+    <!-- latest jquery-->
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js'  %}"></script>
+
+    <!-- menu js-->
+    <script src="{% static 'assets/js/menu.js'  %}"></script>
+
+    <!-- lazyload js-->
+    <script src="{% static 'assets/js/lazysizes.min.js'  %}"></script>
+
+    <!-- popper js-->
+    <script src="{% static 'assets/js/popper.min.js'  %}"></script>
+
+    <!-- slick js-->
+    <script src="{% static 'assets/js/slick.js'  %}"></script>
+
+    <!-- Bootstrap js-->
+    <script src="{% static 'assets/js/bootstrap.js'  %}"></script>
+
+    <!-- Bootstrap Notification js-->
+    <script src="{% static 'assets/js/bootstrap-notify.min.js'  %}"></script>
+
+    <!-- Theme js-->
+    <script src="{% static 'assets/js/script.js'  %}"></script>
+
+    <script>
+        function openSearch() {
+            document.getElementById("search-overlay").style.display = "block";
+        }
+
+        function closeSearch() {
+            document.getElementById("search-overlay").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>

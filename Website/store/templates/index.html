@@ -65,272 +65,10 @@
 </head>
 
 <body>
-    <!-- loader start -->
-   <!-- <div class="loader_skeleton">
-        <header class="header-tools marketplace">
-            <div class="top-header d-none d-sm-block">
-                <div class="container-fluid custom-container">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="header-contact">
-                                <ul>
-                                    <li>Welcome To Our Store | SaveByClick</li>
-                                    <li><i class="fa fa-phone" aria-hidden="true"></i>Online Users: {{ countOnlineUsers }} </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 text-right">
-                            <ul class="header-dropdown">
-                                <li class="mobile-wishlist"><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>Wishlist ({{ count }})
-                                </li>
-                                <li class="onhover-dropdown mobile-account"> <i class="fa fa-user" aria-hidden="true"></i>
-                                    My Account
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid custom-container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="main-menu">
-                            <div class="menu-left">
-                                <div class="navbar">
-                                    <a href="javascript:void(0)" onclick="openNav()">
-                                        <div class="bar-style"><i class="fa fa-bars sidebar-bar" aria-hidden="true"></i>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="brand-logo">
-                                    <a href="/"><img src="{% static 'assets/images/icon/logo/18.png' %}"
-                                            class="img-fluid blur-up lazyload" alt="logo" height="130px" width="130px"></a>
-                                </div>
-                            </div>
-                            <div class="menu-right pull-right">
-                                <div>
-                                    <nav>
-                                        <div class="toggle-nav"><i class="fa fa-bars sidebar-bar"></i></div>
-                                        <ul class="sm pixelstrap sm-horizontal">
-                                            <li>
-                                                <div class="mobile-back text-right">Back<i class="fa fa-angle-right pl-2"
-                                                        aria-hidden="true"></i></div>
-                                            </li>
-                                            <li>
-                                                <a href="#">Home</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">shop</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">product</a>
-                                            </li>
-                                            <li class="mega"><a href="#">features
-                                                    <div class="lable-nav">new</div>
-                                                </a>
-                                            </li>
-                                            <li><a href="contactus">CONTACT US</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                                <div>
-                                    <div class="icon-nav d-none d-sm-block">
-                                        <ul>
-                                            <li class="onhover-div mobile-search">
-                                                <div><img src="{% static 'assets/images/icon/search.png' %}" onclick="openSearch()"
-                                                        class="img-fluid blur-up lazyload" alt=""> <i class="ti-search"
-                                                        onclick="openSearch()"></i></div>
-                                            </li>
-                                            <li class="onhover-div mobile-setting">
-                                                <div><img src="{% static 'assets/images/icon/setting.png' %}"
-                                                        class="img-fluid blur-up lazyload" alt=""> <i
-                                                        class="ti-settings"></i></div>
-                                            </li>
-                                            <li class="onhover-div mobile-cart">
-                                                <div><img src="{% static 'assets/images/icon/cart.png' %}"
-                                                        class="img-fluid blur-up lazyload" alt="">&ensp;({{ count_cart }})<i
-                                                        class="ti-shopping-cart"></i></div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <div class="home-slider">
-            <div class="home"></div>
-        </div>
-        <section class="collection-banner banner-padding banner-furniture ">
-            <div class="container-fluid">
-                <div class="row partition4">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="ldr-bg">
-                            <div class="contain-banner banner-4">
-                                <div>
-                                    <h4></h4>
-                                    <h2></h2>
-                                    <h6></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="ldr-bg">
-                            <div class="contain-banner banner-4">
-                                <div>
-                                    <h4></h4>
-                                    <h2></h2>
-                                    <h6></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="ldr-bg">
-                            <div class="contain-banner banner-4">
-                                <div>
-                                    <h4></h4>
-                                    <h2></h2>
-                                    <h6></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="ldr-bg">
-                            <div class="contain-banner banner-4">
-                                <div>
-                                    <h4></h4>
-                                    <h2></h2>
-                                    <h6></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <div class="container section-b-space">
-            <div class="row section-t-space">
-                <div class="col-lg-6 offset-lg-3">
-                    <div class="product-para">
-                        <p class="first"></p>
-                        <p class="second"></p>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class=" grid-products center-detail row">
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 product-box">
-                            <div class="img-wrapper"></div>
-                            <div class="product-detail">
-                                <h4></h4>
-                                <h5></h5>
-                                <h5 class="second"></h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --->
-    <!-- loader end -->
-
-
     <!-- header start -->
     <header class="header-tools marketplace">
-        {% if main_message.status == True %}
+                                         {% now "Y-m-d" as todays_date %}
+        {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d" %}
         <center><div style="background-color:#3e5067;" data-msg-iteration="7-36" class="container-fluid news-line-body">
 		<div class="message_title d-none d-md-block" style="color: rgb(252, 148, 3); font-weight: 600; font-size: 18px;">{{ main_message.title }} </div>
 		<div style="color:#ffffff;" class="text">{{ main_message.main_message }} {{ main_message.time|date:"d/m/Y" }} </div></div></center>
@@ -343,7 +81,10 @@
                         <div class="header-contact">
                             <ul>
                                 <li>Welcome To Our Store | SaveByClick</li>
+
+                             {% if user.is_superuser == True and user.is_staff == True %}
                                 <li><i class="fa fa-phone" aria-hidden="true"></i>Online Users: {{ countOnlineUsers }} </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -365,7 +106,6 @@
                                          </ul>
                                 {% else %}
                                     My Account
-
                                 <ul class="onhover-show-div">
                                     <li><a href="login/" data-lng="en">Login</a></li>
                                     <li><a href="register/" data-lng="en">Sign Up</a></li>
@@ -395,7 +135,7 @@
                                                     aria-hidden="true"></i> Back</div>
                                         </div>
                                         <ul id="sub-menu" class="sm pixelstrap sm-vertical">
-                                            <li> <a href="category/hot-deals"><p style="color:orangered">HOT DEALS</p></a></li>
+                                            <li> <a href="../../hot-deals"><p style="color:orangered">HOT DEALS</p></a></li>
                                             <li> <a href="category/Motors">Motors</a></li>
                                             <li> <a href="category/Books, Movies & Music">Books, Movies & Music</a></li>
                                             <li> <a href="category/Electronics">Electronics</a></li>
@@ -487,7 +227,7 @@
                                                 <h6>language</h6>
                                                 <ul>
                                                     <li><a href="http://savebyclick.online">English</a></li>
-                                                    <li><a href="https://translate.google.com/translate?hl=en&sl=he&tl=ar&u=http://savebyclick.online/">Hebrew</a></li>
+                                                    <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=he&u=http://savebyclick.online/">Hebrew</a></li>
                                                     <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=ar&u=http://savebyclick.online/">Arabic</a></li>
                                                     <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=de&u=http://savebyclick.online/">German</a></li>
                                                     <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=fr&u=http://savebyclick.online/">French</a></li>
@@ -557,7 +297,7 @@
                                     <div>
                                         <h4>Shop With Confidence</h4>
                                         <h1>Starting $9.99</h1>
-                                        <a href="#" class="btn btn-solid">shop now</a>
+                                        <a href="best-sellers" class="btn btn-solid">shop now</a>
                                     </div>
                                 </div>
                             </div>
@@ -593,12 +333,11 @@
         <div class="container-fluid">
             <div class="row partition4">
                 <div class="col-lg-3 col-md-6">
-                    <a href="#">
+                    <a href="category/Electronics">
                         <div class="collection-banner p-right text-right">
                             <div class="img-part">
 
-                                <img src="https://previews.123rf.com/images/incomible/incomible1708/incomible170800024/83650285-banner-with-home-appliances-household-items-for-sale-and-shopping-advertising-poster.jpg"
-                                    class="img-fluid blur-up lazyload bg-img">
+                              <img src="https://previews.123rf.com/images/incomible/incomible1708/incomible170800024/83650285-banner-with-home-appliances-household-items-for-sale-and-shopping-advertising-poster.jpg" class="img-fluid blur-up lazyload bg-img">
 
                             </div>
                             <div class="contain-banner banner-4">
@@ -610,10 +349,10 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="#">
+                    <a href="category/Home%20&%20Garden">
                         <div class="collection-banner p-right text-right">
                             <div class="img-part">
-                                <img src="https://i.pinimg.com/originals/7b/d2/58/7bd25856073ed3f413d5c612752c1a9c.jpg" class="img-fluid blur-up lazyload bg-img">
+                               <img src="https://i.pinimg.com/originals/7b/d2/58/7bd25856073ed3f413d5c612752c1a9c.jpg" class="img-fluid blur-up lazyload bg-img">
                             </div>
                             <div class="contain-banner banner-4">
                                 <div>
@@ -624,11 +363,10 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="#">
+                    <a href="category/Fashion">
                         <div class="collection-banner p-right">
                             <div class="img-part">
-                                <img src="https://previews.123rf.com/images/oberart/oberart1805/oberart180500037/100678964-fashion-shop-interior-illustration-clothes-store-image-for-banner-or-advertisement-with-new-collecti.jpg"
-                                    class="img-fluid blur-up lazyload bg-img">
+                               <img src="https://previews.123rf.com/images/oberart/oberart1805/oberart180500037/100678964-fashion-shop-interior-illustration-clothes-store-image-for-banner-or-advertisement-with-new-collecti.jpg" class="img-fluid blur-up lazyload bg-img" >
                             </div>
                             <div class="contain-banner banner-4">
                                 <div>
@@ -639,11 +377,10 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="#">
+                    <a href="category/Books,%20Movies%20&%20Music">
                         <div class="collection-banner p-left">
                             <div class="img-part">
-                                <img src="https://acloserlisten.files.wordpress.com/2020/01/games-banner-1140x400-1.png"
-                                    class="img-fluid blur-up lazyload bg-img">
+                               <img src="https://acloserlisten.files.wordpress.com/2020/01/games-banner-1140x400-1.png" class="img-fluid blur-up lazyload bg-img" >
                             </div>
                             <div class="contain-banner banner-4">
                                 <div>
@@ -689,19 +426,30 @@
                         </div>
                         <div class="cart-info cart-wrap">
                             <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart update-wishlist-js" data-product=" {{ product.id }} " data-action="add" aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View" tabindex="0"><i
-                                    class="ti-search" aria-hidden="true"></i></a>
-                            <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                    aria-hidden="true"></i></a>
                         </div>
                         <div class="add-button update-cart-js" data-toggle="modal" data-product="{{ product.id }}" data-action="add" >add to
                             cart</div>
                     </div>
                     <div class="product-detail">
-                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                        <a href="product-page(no-sidebar).html">
-                            <h6>{{ product.product_name }}</h6>
+                                       <div class="size-box">
+                                                <ul>
+                                                   {% if product.rating == 0 %}
+                                                     <li> <img src="{% static 'images/stars_rating/0_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif product.rating == 1 %}
+                                                     <li> <img src="{% static 'images/stars_rating/1_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif product.rating == 2 %}
+                                                     <li> <img src="{% static 'images/stars_rating/2_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif product.rating == 3 %}
+                                                     <li> <img src="{% static 'images/stars_rating/3_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif product.rating == 4 %}
+                                                     <li> <img src="{% static 'images/stars_rating/4_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif product.rating == 5 %}
+                                                     <li> <img src="{% static 'images/stars_rating/5_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                        <a href="product/{{ product.id }}">
+                            <h6>{{ product.product_name|truncatechars:50 }}</h6>
                         </a>
                         <h4>${{ product.price }}</h4>
                     </div>
@@ -740,178 +488,48 @@
             <div class="row multiple-slider">
                 <div class="col-xl-4 col-lg-4 col-md-12">
                     <div class="theme-card">
-                        <h5 class="title-border">Under $20 | Free delivery</h5>
+                        <h5 class="title-border">Sellers | Latest Joined</h5>
                         <div class="offer-slider slide-1">
                             <div>
-                                {% for product in product_list %}
-                                    {% if product.id == promoted.slideshow|add:"0" %}
+
+                                {% for feature_seller in featured_sellers %}
                                 <div class="media">
-                                    <a href=" product/{{ product.id }}"><img class="img-fluid blur-up lazyload"
-                                            src="{{ product.image1.url }}" alt=""></a>
+                                    <a href=" shop/{{ feature_seller.id }}"><img class="img-fluid blur-up lazyload"
+                                            src="{{ feature_seller.profile_image.url }}" alt=""></a>
                                     <div class="media-body align-self-center">
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <a href="product-page(no-sidebar).html">
-                                            <h6>{{ product.product_name }}</h6>
+                                        <a href="shop/{{ feature_seller.id }}">
+                                            <h6>{{ feature_seller.store_name }}</h6>
                                         </a>
-                                        <h4>${{ product.price }}</h4>
-                                         <h6 style="color: orangered;">Promoted Product</h6>
+                                        <h4>{{ feature_seller.store_category }}</h4>
                                     </div>
                                 </div>
-                                 {% endif %}
                                 {% endfor %}
 
-                                <div class="media">
-                                    <a href="product-page(no-sidebar).html"><img class="img-fluid blur-up lazyload"
-                                            src="{% static 'assets/images/marketplace/7.jpg' %}" alt=""></a>
-                                    <div class="media-body align-self-center">
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <a href="product-page(no-sidebar).html">
-                                            <h6>Slim Fit Cotton Shirt</h6>
-                                        </a>
-                                        <h4>$500.00</h4>
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <a href="product-page(no-sidebar).html"><img class="img-fluid blur-up lazyload"
-                                            src="{% static 'assets/images/marketplace/8.jpg' %}" alt=""></a>
-                                    <div class="media-body align-self-center">
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <a href="product-page(no-sidebar).html">
-                                            <h6>Slim Fit Cotton Shirt</h6>
-                                        </a>
-                                        <h4>$500.00</h4>
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <a href="product-page(no-sidebar).html"><img class="img-fluid blur-up lazyload"
-                                            src="{% static 'assets/images/marketplace/9.jpg' %}" alt=""></a>
-                                    <div class="media-body align-self-center">
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <a href="product-page(no-sidebar).html">
-                                            <h6>Slim Fit Cotton Shirt</h6>
-                                        </a>
-                                        <h4>$500.00</h4>
-                                    </div>
-                                </div>
+
                             </div>
-                            <div>
-                                <div class="media">
-                                    <a href="product-page(no-sidebar).html"><img class="img-fluid blur-up lazyload"
-                                            src="{% static 'assets/images/marketplace/9.jpg' %}" alt=""></a>
-                                    <div class="media-body align-self-center">
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <a href="product-page(no-sidebar).html">
-                                            <h6>Slim Fit Cotton Shirt</h6>
-                                        </a>
-                                        <h4>$500.00 <del>$600.00</del></h4>
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <a href="product-page(no-sidebar).html"><img class="img-fluid blur-up lazyload"
-                                            src="{% static 'assets/images/marketplace/10.jpg' %}" alt=""></a>
-                                    <div class="media-body align-self-center">
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <a href="product-page(no-sidebar).html">
-                                            <h6>Slim Fit Cotton Shirt</h6>
-                                        </a>
-                                        <h4>$500.00</h4>
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <a href="product-page(no-sidebar).html"><img class="img-fluid blur-up lazyload"
-                                            src="{% static 'assets/images/marketplace/14.jpg' %}" alt=""></a>
-                                    <div class="media-body align-self-center">
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <a href="product-page(no-sidebar).html">
-                                            <h6>Slim Fit Cotton Shirt</h6>
-                                        </a>
-                                        <h4>$500.00</h4>
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <a href="product-page(no-sidebar).html"><img class="img-fluid blur-up lazyload"
-                                            src="{% static 'assets/images/marketplace/3.jpg' %}" alt=""></a>
-                                    <div class="media-body align-self-center">
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <a href="product-page(no-sidebar).html">
-                                            <h6>Slim Fit Cotton Shirt</h6>
-                                        </a>
-                                        <h4>$500.00</h4>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-12">
                     <div class="theme-tab">
                         <div class="bg-title-part">
-                            <h5 class="title-border">RECOMMENDATIONS FOR YOU</h5>
-                            <ul class="tabs tab-title">
-                                <li class="current">
-                                    <a href="tab-4">New Products</a>
-                                </li>
-                                <li class="">
-                                    <a href="tab-5">Featured Products</a>
-                                </li>
-                            </ul>
+                            <h5 class="title-border">Best Discounts Found For You</h5>
+
                         </div>
                         <div class="tab-content-cls ratio_asos">
                             <div id="tab-4" class="tab-content active default">
                                 <div class="product-4 game-product product-m no-arrow">
+
+
+
                                     <div class="product-box">
+                                        {% for product in product_list_promoted %}
+                                            {% if product.id == promoted.slideshow|add:"0" %}
                                         <div class="img-wrapper">
                                             <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/2.jpg' %}"
+                                                <a href="product/{{ product.id }}"><img
+                                                        src="{{ product.image1.url }}"
                                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                             </div>
                                             <div class="cart-info cart-wrap">
@@ -933,17 +551,35 @@
                                                     class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                                     class="fa fa-star"></i></div>
                                             <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                <h6>{{ product.product_name }}</h6>
                                             </a>
-                                            <h4>$500.00</h4>
+                                            <h4>${{ product.price }}</h4>
+                                            <h6 style="color: orangered;">Promoted Product</h6>
                                         </div>
+                                        {% endif %}
+                                            {% endfor %}
                                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                {% for best_discounts in discounts %}
                                     <div class="product-box">
                                         <div class="img-wrapper">
                                             <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/5.jpg' %}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                <a href="product/{{best_discounts.id}}">
+                                                    <img src="{{ best_discounts.image1.url }}"
+                                                        class="img-fluid blur-up lazyload bg-img" alt="">
+                                                </a>
                                             </div>
                                             <div class="cart-info cart-wrap">
                                                 <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
@@ -958,311 +594,34 @@
                                                 cart</div>
                                         </div>
                                         <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
+                                            <div class="size-box">
+                                                <ul>
+                                                   {% if best_discounts.rating == 0 %}
+                                                     <li> <img src="{% static 'images/stars_rating/0_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif best_discounts.rating == 1 %}
+                                                     <li> <img src="{% static 'images/stars_rating/1_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif best_discounts.rating == 2 %}
+                                                     <li> <img src="{% static 'images/stars_rating/2_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif best_discounts.rating == 3 %}
+                                                     <li> <img src="{% static 'images/stars_rating/3_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif best_discounts.rating == 4 %}
+                                                     <li> <img src="{% static 'images/stars_rating/4_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% elif best_discounts.rating == 5 %}
+                                                     <li> <img src="{% static 'images/stars_rating/5_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                            <a href="product/{{best_discounts.id}}">
+                                                <h6>{{ best_discounts.product_name |slice:"30" }}</h6>
                                             </a>
-                                            <h4>$500.00</h4>
+                                            <h4>${{ best_discounts.price|floatformat:2 }}</h4>
                                         </div>
                                     </div>
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/7.jpg' %}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                            </div>
-                                            <div class="cart-info cart-wrap">
-                                                <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
-                                            </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                                                cart</div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/9.jpg' %}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                            </div>
-                                            <div class="cart-info cart-wrap">
-                                                <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
-                                            </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                                                cart</div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/1.jpg' %}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                            </div>
-                                            <div class="cart-info cart-wrap">
-                                                <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
-                                            </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                                                cart</div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/8.jpg' %}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                            </div>
-                                            <div class="cart-info cart-wrap">
-                                                <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
-                                            </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                                                cart</div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
+
+                                {% endfor %}
                                 </div>
                             </div>
-                            <div id="tab-5" class="tab-content">
-                                <div class="product-4 game-product product-m no-arrow">
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/6.jpg' %}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                            </div>
-                                            <div class="cart-info cart-wrap">
-                                                <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
-                                            </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                                                cart</div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/4.jpg' %}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                            </div>
-                                            <div class="cart-info cart-wrap">
-                                                <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
-                                            </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                                                cart</div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/15.jpg' %}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                            </div>
-                                            <div class="cart-info cart-wrap">
-                                                <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
-                                            </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                                                cart</div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/14.jpg' %}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                            </div>
-                                            <div class="cart-info cart-wrap">
-                                                <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
-                                            </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                                                cart</div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/12.jpg' %}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                            </div>
-                                            <div class="cart-info cart-wrap">
-                                                <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
-                                            </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                                                cart</div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                <a href="product-page(no-sidebar).html"><img
-                                                        src="{% static 'assets/images/marketplace/1.jpg' %}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                            </div>
-                                            <div class="cart-info cart-wrap">
-                                                <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
-                                            </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
-                                                cart</div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="banner-tools">
@@ -1271,7 +630,7 @@
             <hr role="tournament6">
         </div>
                          <center>
-                                             {% for product in product_list %}
+                                             {% for product in product_list_promoted %}
                                                 {% if product.id == promoted.banner|add:"0" %}
                                            <img src="{{ product.image1.url }}" alt="" class="img-fluid" style="width: 900px; width: 150px">
                                      <div class="product-detail">
@@ -1600,7 +959,7 @@
             <hr role="tournament6">
         </div>
                                         <center>
-                                             {% for product in product_list %}
+                                             {% for product in product_list_promoted %}
                                                 {% if product.id == promoted.popup|add:"0" %}
                                             <img src="{{ product.image1.url }}" style="height: 300px; width: 300px; ">
                                      <div class="product-detail">
@@ -1687,7 +1046,7 @@
     <!-- Quick-view modal popup end-->
 
 
-    <!-- theme setting -->
+    <!-- theme setting
     <a href="javascript:void(0)" onclick="openSetting()">
         <div class="setting-sidebar" id="setting-icon">
             <div>
@@ -2396,7 +1755,7 @@
             </div>
         </div>
     </div>
-    <!-- theme setting -->
+     theme setting -->
 
 
     <!-- tap to top -->
@@ -2447,6 +1806,7 @@
 
     <!-- Wishlist js-->
     <script src="{% static 'js/wishlist.js' %}"></script>
+
 
 
     <script>

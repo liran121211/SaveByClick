@@ -111,7 +111,7 @@ class shippingAdd(models.Model):
 
 class Seller(models.Model):
     user = models.OneToOneField(User, name = "User", on_delete=models.CASCADE)
-    store_name = models.CharField(name='store_name', max_length=200)
+    store_name = models.CharField(name='store_name', max_length=200, default='null')
     store_category = models.CharField(name='store_category', choices=Product_Categories, max_length=100, default='Others')
     profile_image = models.ImageField(name = 'profile_image', null=True, blank=True, default='null')
     background_image = models.ImageField(name = 'background_image',null=True, blank=True, default='null')
@@ -235,7 +235,7 @@ class mainMessage(models.Model):
     main_message = models.CharField(name='main_message', max_length=1000, default='null')
     status = models.BooleanField(name='status', default=False)
     title = models.CharField(name='title', max_length=100, default='null')
-    valid_till = models.DateTimeField(name='valid_till')
+    time = models.DateTimeField(name='time')
 
 
     def __str__(self):

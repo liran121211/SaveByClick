@@ -271,17 +271,17 @@
                                                     {{ messages.email }}
                                                 </td>
                                                     <td style="width: 70px;" class="jsgrid-cell jsgrid-control-field jsgrid-align-center">
-                                                        {% if messages.read_or_not == False %}
-                                                            <b>{{ messages.title }}</b>
-                                                         {% elif messages.read_or_not == True %}
-                                                            {{ messages.title }}
+                                                        {% if messages.read_or_not == True %}
+                                                           {{ messages.title }}
+                                                         {% elif messages.read_or_not == False %}
+                                                         <b>{{ messages.title|safe }} (Unread)</b>
                                                         {% endif %}
                                                     </td>
                                                     <td style="width: 15px;" class="jsgrid-cell jsgrid-control-field jsgrid-align-center">
                                                     {{ messages.message_category }}
                                                 </td>
                                                     <td style="width: 30px;" class="jsgrid-cell jsgrid-control-field jsgrid-align-center">
-                                                        {{ messages.time }}
+                                                        {{ messages.time|date:"d-m-Y H:i" }}
                                                     </td>
 
                                                    <td style="width: 15px;" class="jsgrid-cell">

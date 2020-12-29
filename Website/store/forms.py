@@ -18,7 +18,7 @@ class addCoupon(forms.ModelForm):
 class mainMessageForm(forms.ModelForm):
     class Meta:
         model = mainMessage
-        fields = ['title', 'main_message' , 'status', 'valid_till']
+        fields = ['title', 'main_message' , 'status', 'time']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' } ),
             'main_message': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' } ),

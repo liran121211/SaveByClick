@@ -89,7 +89,7 @@
                     </div>
                     <div class="col-lg-6 text-right">
                         <ul class="header-dropdown">
-                                   <li class="mobile-wishlist"><a href="../wishlist"><i class="fa fa-heart" aria-hidden="true"></i>Wishlist ({{ count }})</a>
+                                   <li class="mobile-wishlist"><a href="../../wishlist"><i class="fa fa-heart" aria-hidden="true"></i>Wishlist ({{ count }})</a>
                             </li>
                             <li class="onhover-dropdown mobile-account">
                                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -97,19 +97,19 @@
                                      {{ user.first_name }}'s Profile
                                     <ul class="onhover-show-div">
                                         {% if user.is_superuser == True and user.is_staff == True %}
-                                     <li><a href="../admin-panel/" data-lng="es">Admin Area</a></li>
-                                    <li><a href="../logoutnow/" data-lng="es">Logout</a></li>
+                                     <li><a href="../../admin-panel/" data-lng="es">Admin Area</a></li>
+                                    <li><a href="../../logoutnow/" data-lng="es">Logout</a></li>
                                         {% else %}
-                                        <li><a href="../profile/" data-lng="es">My Profile</a></li>
-                                    <li><a href="../logoutnow/" data-lng="es">Logout</a></li>
+                                        <li><a href="../../profile/" data-lng="es">My Profile</a></li>
+                                    <li><a href="../../logoutnow/" data-lng="es">Logout</a></li>
                                         {% endif %}
                                          </ul>
                                 {% else %}
                                     My Account
 
                                 <ul class="onhover-show-div">
-                                    <li><a href="../login/" data-lng="en">Login</a></li>
-                                    <li><a href="../register/" data-lng="en">Sign Up</a></li>
+                                    <li><a href="../../login/" data-lng="en">Login</a></li>
+                                    <li><a href="../../register/" data-lng="en">Sign Up</a></li>
                                 </ul>
                                 {% endif %}
                             </li>
@@ -139,21 +139,25 @@
                                         </div>
                                         <!-- Vertical Menu -->
                                        <ul id="sub-menu" class="sm pixelstrap sm-vertical">
-                                            <li> <a href="../category/hot-deals"><p style="color:orangered">HOT DEALS</p></a></li>
-                                            <li> <a href="../category/Motors">Motors</a></li>
-                                            <li> <a href="../category/Books, Movies & Music">Books, Movies & Music</a></li>
-                                            <li> <a href="../category/Electronics">Electronics</a></li>
-                                            <li><a href="../category/Collectibles & Art">Collectibles & Art</a></li>
-                                            <li> <a href="../category/Fashion">Fashion</a></li>
-                                            <li><a href="../category/Home & Garden">Home & Garden</a></li>
-                                            <li> <a href="../category/Sporting Goods">Sporting Goods</a></li>
-                                            <li><a href="../category/Toys & Hobbies">Toys & Hobbies</a></li>
-                                            <li><a href="../category/Business & Industrial">Business & Industrial</a></li>
-                                            <li><a href="../category/Health & Beauty">Health & Beauty</a></li>
-                                            <li><a href="../category/Others">Others</a></li>
+                                            <li> <a href="../../hot-deals"><p style="color:orangered">HOT DEALS</p></a></li>
+                                            <li> <a href="../../category/Motors">Motors</a></li>
+                                            <li> <a href="../../category/Books, Movies & Music">Books, Movies & Music</a></li>
+                                            <li> <a href="../../category/Electronics">Electronics</a></li>
+                                            <li><a href="../../category/Collectibles & Art">Collectibles & Art</a></li>
+                                            <li> <a href="../../category/Fashion">Fashion</a></li>
+                                            <li><a href="../../category/Home & Garden">Home & Garden</a></li>
+                                            <li> <a href="../../category/Sporting Goods">Sporting Goods</a></li>
+                                            <li><a href="../../category/Toys & Hobbies">Toys & Hobbies</a></li>
+                                            <li><a href="../../category/Business & Industrial">Business & Industrial</a></li>
+                                            <li><a href="../../category/Health & Beauty">Health & Beauty</a></li>
+                                            <li><a href="../../category/Others">Others</a></li>
                                         </ul>
+
+
                                     </nav>
+
                                 </div>
+
                             </div>
                             <div class="brand-logo">
                                 <a href="../../../../"> <img src="{%  static 'assets/images/icon/logo.png' %}"
@@ -173,18 +177,18 @@
                                                     aria-hidden="true"></i></div>
                                         </li>
                                         <li>
-                                            <a href="../best-sellers" style="color: red">Best Sellers</a>
+                                            <a href="../../best-sellers" style="color: red">Best Sellers</a>
                                         </li>
                                         <li>
-                                            <a href="../latest-products">Latest Products</a>
+                                            <a href="../../latest-products">Latest Products</a>
                                         </li>
-                                        <li class="mega" id="hover-cls"><a href="../../chat">Live Chat
+                                        <li class="mega" id="hover-cls"><a href="../../../chat">Live Chat
                                                 <div class="lable-nav">new</div>
                                             </a>
                                         </li>
-                                        <li><a href="../../contactus">Contact Us</a>
+                                        <li><a href="../../../contactus">Contact Us</a>
                                         </li>
-                                         <li class="mega" id="hover-cls"><a href="../../faq">FAQ
+                                         <li class="mega" id="hover-cls"><a href="../../../faq">FAQ
                                                 <div class="lable-nav">new</div>
                                             </a>
                                         </li>
@@ -252,7 +256,7 @@
                                                     {% for cart_item in items %}
                                                 <li>
                                                     <div class="media">
-                                                        <a href="../product/{{cart_item.product.id}}">
+                                                        <a href="../../product/{{cart_item.product.id}}">
                                                             <img alt="" class="mr-3" src="{{ cart_item.product.image1.url }}">
                                                         </a>
                                                         <div class="media-body">
@@ -296,14 +300,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="page-title">
-                        <h2>faq</h2>
+                        <h2>{{ product_category }}</h2>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">faq</li>
+                            <li class="breadcrumb-item"><a href="../../">home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ product_category }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -328,120 +332,110 @@
                                 <h3 class="collapse-block-title">Categories</h3>
                                 <div class="collection-collapse-block-content">
                                     <div class="collection-brand-filter">
-                                        <p></p>
-                                         <form action="/search" method="POST">
-                                             {% csrf_token %}
-                                                                        <div class="form-group">
-                                                                            <input type="text" class="form-control"
-                                                                                   name="LiranTheKing"
-                                                                                placeholder="Search a Product">
-                                                                        <p></p><button type="submit" class="btn btn-primary"><i
-                                                                                class="fa fa-search"></i></button>
-                                                                            </div>
-                                         </form>
-                                                     <form action="/search-category" method="POST">
-                                             {% csrf_token %}
+
+
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="Motors" name="searchCheckBox" value="Motors">
+                                            <input type="checkbox" class="custom-control-input" id="Motors" name="searchCheckBox" value="Motors" onclick="window.location.href='../../category/Motors';">
                                             <label class="custom-control-label" for="Motors">Motors</label>
                                         </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="Books, Movies & Music">
+                                            <input type="checkbox" class="custom-control-input" id="Books, Movies & Music" onclick="window.location.href='../../category/Books, Movies & Music';">
                                             <label class="custom-control-label" for="Books, Movies & Music">Books, Movies & Music</label>
                                         </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="Electronics" name="searchCheckBox" value="Electronics">
+                                            <input type="checkbox" class="custom-control-input" id="Electronics" name="searchCheckBox" value="Electronics" onclick="window.location.href='../../category/Books, Movies & Music';">
                                             <label class="custom-control-label" for="Electronics">Electronics</label>
                                         </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="Collectibles & Art">
+                                            <input type="checkbox" class="custom-control-input" id="Collectibles & Art" onclick="window.location.href='../../category/Collectibles & Art';">
                                             <label class="custom-control-label" for="Collectibles & Art">Collectibles & Art</label>
                                         </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="Fashion">
+                                            <input type="checkbox" class="custom-control-input" id="Fashion" onclick="window.location.href='../../category/Fashion';">
                                             <label class="custom-control-label" for="Fashion">Fashion</label>
                                         </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="Home & Garden">
+                                            <input type="checkbox" class="custom-control-input" id="Home & Garden" onclick="window.location.href='../../category/Home & Garden';">
                                             <label class="custom-control-label" for="Home & Garden">Home & Garden</label>
                                         </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="Sporting Goods">
+                                            <input type="checkbox" class="custom-control-input" id="Sporting Goods" onclick="window.location.href='../../category/Sporting Goods';">
                                             <label class="custom-control-label" for="Sporting Goods">Sporting Goods</label>
                                         </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="Toys & Hobbies">
+                                            <input type="checkbox" class="custom-control-input" id="Toys & Hobbies" onclick="window.location.href='../../category/Toys & Hobbies';">
                                             <label class="custom-control-label" for="Toys & Hobbies">Toys & Hobbies</label>
                                         </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="Business & Industrial">
+                                            <input type="checkbox" class="custom-control-input" id="Business & Industrial" onclick="window.location.href='../../category/Business & Industrial';">
                                             <label class="custom-control-label" for="Business & Industrial">Business & Industrial</label>
                                             </div>
                                                <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="Health & Beauty">
+                                            <input type="checkbox" class="custom-control-input" id="Health & Beauty" onclick="window.location.href='../../category/Health & Beauty';">
                                             <label class="custom-control-label" for="Health & Beauty">Health & Beauty</label>
                                                </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="Others">
+                                            <input type="checkbox" class="custom-control-input" id="Others" onclick="window.location.href='../../category/Others';">
                                             <label class="custom-control-label" for="Others">Others</label>
                                         </div>
-                                             <button value="submit"></button>
-                                        </form>
+
                                     </div>
                                 </div>
-                            </div>
-                            <!-- color filter start here -->
-                            <div class="collection-collapse-block open">
-                                <h3 class="collapse-block-title">colors</h3>
-                                <div class="collection-collapse-block-content">
-                                    <div class="color-selector">
-                                        <ul>
-                                            <li class="color-1 active"></li>
-                                            <li class="color-2"></li>
-                                            <li class="color-3"></li>
-                                            <li class="color-4"></li>
-                                            <li class="color-5"></li>
-                                            <li class="color-6"></li>
-                                            <li class="color-7"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- size filter start here -->
-                            <div class="collection-collapse-block border-0 open">
-                                <h3 class="collapse-block-title">size</h3>
+                                <h3 class="collapse-block-title">Categories</h3>
                                 <div class="collection-collapse-block-content">
                                     <div class="collection-brand-filter">
+
+
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="hundred">
-                                            <label class="custom-control-label" for="hundred">s</label>
+                                            <input type="checkbox" class="custom-control-input" id="Motors" name="searchCheckBox" value="Motors" onclick="window.location.href='../../category/Motors';">
+                                            <label class="custom-control-label" for="Motors">Motors</label>
                                         </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="twohundred">
-                                            <label class="custom-control-label" for="twohundred">m</label>
+                                            <input type="checkbox" class="custom-control-input" id="Books, Movies & Music" onclick="window.location.href='../../category/Books, Movies & Music';">
+                                            <label class="custom-control-label" for="Books, Movies & Music">Books, Movies & Music</label>
                                         </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="threehundred">
-                                            <label class="custom-control-label" for="threehundred">l</label>
+                                            <input type="checkbox" class="custom-control-input" id="Electronics" name="searchCheckBox" value="Electronics" onclick="window.location.href='../../category/Books, Movies & Music';">
+                                            <label class="custom-control-label" for="Electronics">Electronics</label>
                                         </div>
                                         <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="fourhundred">
-                                            <label class="custom-control-label" for="fourhundred">xl</label>
+                                            <input type="checkbox" class="custom-control-input" id="Collectibles & Art" onclick="window.location.href='../../category/Collectibles & Art';">
+                                            <label class="custom-control-label" for="Collectibles & Art">Collectibles & Art</label>
                                         </div>
+                                        <div class="custom-control custom-checkbox collection-filter-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="Fashion" onclick="window.location.href='../../category/Fashion';">
+                                            <label class="custom-control-label" for="Fashion">Fashion</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox collection-filter-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="Home & Garden" onclick="window.location.href='../../category/Home & Garden';">
+                                            <label class="custom-control-label" for="Home & Garden">Home & Garden</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox collection-filter-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="Sporting Goods" onclick="window.location.href='../../category/Sporting Goods';">
+                                            <label class="custom-control-label" for="Sporting Goods">Sporting Goods</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox collection-filter-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="Toys & Hobbies" onclick="window.location.href='../../category/Toys & Hobbies';">
+                                            <label class="custom-control-label" for="Toys & Hobbies">Toys & Hobbies</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox collection-filter-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="Business & Industrial" onclick="window.location.href='../../category/Business & Industrial';">
+                                            <label class="custom-control-label" for="Business & Industrial">Business & Industrial</label>
+                                            </div>
+                                               <div class="custom-control custom-checkbox collection-filter-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="Health & Beauty" onclick="window.location.href='../../category/Health & Beauty';">
+                                            <label class="custom-control-label" for="Health & Beauty">Health & Beauty</label>
+                                               </div>
+                                        <div class="custom-control custom-checkbox collection-filter-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="Others" onclick="window.location.href='../../category/Others';">
+                                            <label class="custom-control-label" for="Others">Others</label>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
-                            <!-- price filter start here -->
-                            <div class="collection-collapse-block border-0 open">
-                                <h3 class="collapse-block-title">price</h3>
-                                <div class="collection-collapse-block-content">
-                                    <div class="wrapper mt-3">
-                                        <div class="range-slider">
-                                            <input type="text" class="js-range-slider" value="" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+
                         </div>
                         <!-- silde-bar colleps block end here -->
 
@@ -462,6 +456,8 @@
                                          <a href="#"><img src="https://cdn11.bigcommerce.com/s-49q8ybhro3/images/stencil/1280w/carousel/8/banner01__39751.jpg" class="img-fluid blur-up lazyload" alt=""></a>
                                         {% elif product_category == 'Books, Movies & Music' %}
                                          <a href="#"><img src="https://wearesecondunion.com/wp-content/uploads/2018/01/2018-movie-banner.jpg" class="img-fluid blur-up lazyload" alt=""></a>
+                                        {% elif product_category == 'hot-deals' %}
+                                         <a href="#"><img src="https://sportsmallgh.com/wp-content/uploads/2018/05/hot-deals-banner.jpg" class="img-fluid blur-up lazyload" alt=""></a>
                                         {% elif product_category == 'Electronics' %}
                                          <a href="#"><img src="https://www.electronicsrus.co.uk/wp-content/uploads/2017/03/Banner-1.jpg" class="img-fluid blur-up lazyload" alt=""></a>
                                         {% elif product_category == 'Collectibles & Art' %}
@@ -481,11 +477,7 @@
                                         {% endif %}
                                         <div class="top-banner-content small-section">
                                             <h4>{{ product_category }}</h4>
-                                            <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            </h5>
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-                                                it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release
-                                                of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                            <p>Here You Will Find Products Related to {{ product_category }} Category</p>
                                         </div>
                                     </div>
                                     <div class="collection-product-wrapper">
@@ -544,10 +536,10 @@
                                                     <div class="product-box">
                                                         <div class="img-wrapper">
                                                             <div class="front">
-                                                                <a href="#"><img src="{{ product.image1.url }}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                                <a href="../../product/{{product.id}}"><img src="{{ product.image1.url }}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                             </div>
                                                             <div class="back">
-                                                                <a href="#"><img src="{{ product.image2.url }}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                                <a href="../../product/{{product.id}}"><img src="{{ product.image2.url }}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                             </div>
                                                             <div class="cart-info cart-wrap">
                                                                 <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
@@ -717,7 +709,7 @@
     <!-- footer end -->
 
 
-    <!-- theme setting -->
+ <!-- theme setting
     <a href="javascript:void(0)" onclick="openSetting()">
         <div class="setting-sidebar" id="setting-icon">
             <div>
@@ -1394,7 +1386,7 @@
                 <div class="setting-contant">
                     <ul class="color-box">
                         <li>
-                            <input id="ColorPicker1" type="color" value="#ff4c3b" name="Background">
+                            <input id="ColorPicker1" type="color" value="#3e5067" name="Background">
                             <span>theme deafult color</span>
                         </li>
                     </ul>
@@ -1414,20 +1406,19 @@
                         target="_blank" class="btn btn-block purchase_btn"><i class="fa fa-shopping-cart"
                             aria-hidden="true"></i> purchase Multikart now!</a>
                     <a href="https://themeforest.net/item/multikart-responsive-angular-ecommerce-template/22905358?s_rank=3"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="{%  static 'assets/images/icon/angular.png' %}"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/angular.png' %}"
                             alt="" class="img-fluid"> Multikart Angular</a>
                     <a href="https://themeforest.net/item/multikart-responsive-react-ecommerce-template/23067773?s_rank=2"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="{%  static 'assets/images/icon/react.png' %}"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/react.png' %}"
                             alt="" class="img-fluid"> Multikart React</a>
                     <a href="https://themeforest.net/item/multikart-multipurpose-shopify-sections-theme/23093831?s_rank=1"
-                        target="_blank" class="btn btn-block purchase_btn"><img src="{%  static 'assets/images/icon/shopify.png' %}"
+                        target="_blank" class="btn btn-block purchase_btn"><img src="{% static 'assets/images/icon/shopify.png' %}"
                             alt="" class="img-fluid"> Multikart Shopify</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- theme setting -->
-
+     theme setting -->
 
     <!-- tap to top start -->
     <div class="tap-top">
