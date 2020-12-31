@@ -43,7 +43,6 @@
 
 <!-- page-wrapper Start-->
 <div class="page-wrapper">
-
     <!-- Page Header Start-->
     <div class="page-main-header">
         <div class="main-header-right row">
@@ -204,6 +203,13 @@
             <!-- Container-fluid starts-->
             <div class="container-fluid">
                 <div class="page-header">
+                                                                        {% if messages %}
+            {% for message in messages %}
+   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         		<center>{{ message }}</center>
+        	</div>
+            {% endfor %}
+    	{% endif %}
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="page-header-left">
@@ -483,5 +489,12 @@
 <!--script admin-->
 <script src="{% static 'assets/js/admin-script.js' %}"></script>
 
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },2000)
+    </script>
 </body>
 </html>

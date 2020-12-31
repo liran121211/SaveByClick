@@ -43,6 +43,13 @@
 
     <!-- header start -->
     <header>
+                {% if messages %}
+            {% for message in messages %}
+   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         		<center>{{ message }}</center>
+        	</div>
+            {% endfor %}
+    	{% endif %}
                                             {% now "Y-m-d" as todays_date %}
                                     {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
                                 <center>
@@ -324,9 +331,6 @@
                                         {{ form.phone }}
                                    </div>
                             </div>
-                                {% if request.GET.next %}
-                            <input type="hidden" name="next" value="{{ request.GET.next }}" />
-                                    {% endif %}
                              <input type="submit" value="Update" class="btn btn-solid"/>
                     </form>
                 </div>
@@ -1207,6 +1211,13 @@
         }
     </script>
 
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },2000)
+    </script>
 </body>
 
 </html>

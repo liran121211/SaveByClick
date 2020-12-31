@@ -46,6 +46,14 @@
 
     <!-- header start -->
     <header>
+                {% if messages %}
+            {% for message in messages %}
+   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         		<center>{{ message }}</center>
+        	</div>
+            {% endfor %}
+    	{% endif %}
+
                                             {% now "Y-m-d" as todays_date %}
                                     {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
                                 <center>
@@ -360,9 +368,6 @@
                                       {{ form.email }}
                                   </p>
                                 {{ form.body_text }}
-                                        {% if request.GET.next %}
-                            <input type="hidden" name="next" value="{{ request.GET.next }}" />
-                                    {% endif %}
                                         <p></p>
                                      <div class="product-buttons text-center">
                                          <input type="submit" value="Reply" class="btn btn-solid"/>
@@ -381,7 +386,7 @@
                                         <input class="form-control" type="text" required="" value= "{{ details_buyer.first_name }} {{ details_buyer.last_name }}" disabled = True>
                                     <div class="form-group">
                                         <label class="col-form-label pt-0"><span>*</span> Message: </label>
-                                        <p></p><textarea rows="13" cols="120" disabled = True>{{ details_buyer.body_text }}</textarea>
+                                        <p></p><textarea rows="13" cols="120" disabled = True>{{ details_buyer.body_text|safe }}</textarea>
                                      </div>
                                              </div>
                     {% endif %}
@@ -1263,6 +1268,14 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+    </script>
+
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },2000)
     </script>
 </body>
 {% endblock %}

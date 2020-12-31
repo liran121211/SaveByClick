@@ -90,30 +90,33 @@ def adminSettings(request): # count items in wishlist of logged in user
         return redirect('http://savebyclick.online/unauthorized')
     else:
         advertise = Product.objects.all()
-        form = mainMessageForm(request.POST or None, initial={'main_message': '', 'title': '' })
-        PromotedProduct = PromotedProductsForm(request.POST, request.FILES, instance= PromotedProducts.objects.filter(unique_save=999).first())
+        instance_promotion = PromotedProducts.objects.filter(id=1).first()
+        instance_main_message = mainMessage.objects.all().order_by('-id').first()
+        main_message = mainMessageForm(request.POST or None, instance= instance_main_message )
+        PromotedProduct = PromotedProductsForm(request.POST, request.FILES, instance= instance_promotion )
         if request.method == 'POST':
-            if form.is_valid():
-                m = form.save(commit=False)
-                m.save()
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../')
+            if main_message.is_valid():
+                main_message = main_message.save(commit=False)
+                main_message.save()
+                messages.success(request, ' Message Posted Successfully! ')
+                return redirect('../settings')
+
 
             elif PromotedProduct.is_valid():
                 m2 = PromotedProduct.save(commit=False)
                 m2.save()
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../')
+                messages.success(request, ' Products Promoted Successfully! ')
+                return redirect('../settings')
+
+            else:
+                messages.error(request, 'Settings could not be saved...')
+                return redirect('../settings')
         else:
-            form = mainMessageForm(initial={'main_message': '', 'title': '' })
-            PromotedProduct = PromotedProductsForm(request.POST, request.FILES, instance= PromotedProducts.objects.filter(unique_save=999).first() )
+            main_message = mainMessageForm(initial={'main_message': instance_main_message.main_message, 'status': instance_main_message.status, 'title': instance_main_message.title, 'time': instance_main_message.time })
+            PromotedProduct = PromotedProductsForm(initial={'banner': instance_promotion.banner, 'slideshow': instance_promotion.slideshow, 'popup': instance_promotion.popup })
 
             context = {
-                'form': form,
+                'form': main_message,
                 'advertise_Products': advertise,
                 'PromotedProduct': PromotedProduct
 
@@ -224,18 +227,23 @@ def sellerStoreRate(request,pk):
         return redirect('http://savebyclick.online/unauthorized')
     else:
         seller_info = Seller.objects.filter(id=pk).first()
-        form = storeRatingForm(request.POST or None, initial={'Seller': seller_info } )
+        form = storeRatingForm(request.POST or None, initial={'Seller': seller_info, 'name': ' ', 'email': ' ', 'Description': ' ' } )
         if request.method == 'POST':
             if form.is_valid():
                 m = form.save(commit=False)
                 m.save()
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../../')
+                messages.success(request, 'Review Sent Successfully!')
+                return redirect('../'+str(pk))
+            else:
+                messages.error(request, 'Review could not be sent...')
+                return redirect('../'+str(pk)+'/rate')
         else:
-            form = storeRatingForm(initial={'Seller': seller_info } )
-        return render(request,'seller_shop_rate.html', {'form': form, 'seller_info': seller_info, 'main_message': mainMessage.objects.all().order_by('-id').first() } )
+            form = storeRatingForm(initial={'Seller': seller_info, 'name': ' ', 'email': ' ', 'Description': ' ' } )
+
+        return render(request,'buyer_shop_rate.html', {'form': form,
+                                                       'seller_info': seller_info,
+                                                       'main_message': mainMessage.objects.all().order_by('-id').first()
+                                                       } )
 
 def all_rooms(request): #twilto chat
     rooms = Room.objects.all()
@@ -253,8 +261,8 @@ def userMessages(request):
         messageBySeller = Seller.objects.filter(User_id=request.user.id).first()
         seller_info = Seller.objects.filter(User_id=request.user.id).first()
         messageByBuyer = Buyer.objects.filter(User_id=request.user.id).first()
-        Messages_List_Seller = contactSeller.objects.all()
-        Messages_List_Buyer = contactBuyer.objects.all()
+        Messages_List_Seller = contactSeller.objects.all().order_by('-id')
+        Messages_List_Buyer = contactBuyer.objects.all().order_by('-id')
         return render(request, 'user_messages.html', {'Messages_List_Buyer': Messages_List_Buyer,
                                                       'Messages_List_Seller': Messages_List_Seller,
                                                       'user_info': request.user,
@@ -281,39 +289,45 @@ def sellerContact(request,pk):
     else:
         seller_info = Seller.objects.filter(id=pk).first()
         user_info = shippingAdd.objects.filter(User_id=seller_info.User_id).first()
-        form = ContactSellerForm(request.POST, initial={'User': request.user.id, 'body_text': '', 'title': '', 'first_name': '', 'last_name': '', 'email': '', 'receiver': pk })
+        form = ContactSellerForm(request.POST, initial={'User': request.user.id, 'title': '', 'first_name': '', 'last_name': '', 'email': '', 'receiver': pk })
         if request.method == 'POST':
             if form.is_valid():
                 m = form.save(commit=False)
                 m.save()
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../../../profile')
+                messages.success(request, 'Message Sent Successfully!')
+                return redirect('../../../shop/'+str(pk))
+            else:
+                messages.error(request, 'Message could not be sent...')
+                return redirect('../contact')
         else:
-            form = ContactSellerForm(initial={'User': request.user.id, 'body_text': '', 'title': '', 'first_name': '', 'last_name': '', 'email': '', 'receiver': pk })
-        return render(request, "contact_seller.html", {'form': form,
-                                                       'main_message': mainMessage.objects.all().order_by('-id').first(),
-                                                       'seller_info': seller_info,
-                                                       'user_info': user_info,
-                                                       'items': cart_scroll_view(request)[0],
-                                                       'order': cart_scroll_view(request)[1],
-                                                       'count': count_wishlist(request),
-                                                       'count_cart': count_cart_items(request),
-                                                       })
+            form = ContactSellerForm(initial={'User': request.user.id, 'title': '', 'first_name': '', 'last_name': '', 'email': '', 'receiver': pk })
+
+        context = {
+            'form': form,
+            'main_message': mainMessage.objects.all().order_by('-id').first(),
+            'seller_info': seller_info,
+            'user_info': user_info,
+            'items': cart_scroll_view(request)[0],
+            'order': cart_scroll_view(request)[1],
+            'count': count_wishlist(request),
+            'count_cart': count_cart_items(request),
+                }
+        return render(request, "contact_seller.html",context)
 
 def contactUs(request):
-    form = contactSiteForm(request.POST, request.FILES, initial={'body_text': '', 'title': '', 'first_name': '', 'last_name': '', 'email': ''})
+    form = contactSiteForm(request.POST, request.FILES, initial={'title': '', 'first_name': '', 'last_name': '', 'last_name': '', 'email': ''})
     if request.method == 'POST':
         if form.is_valid():
             m = form.save(commit=False)
             m.save()
-            if 'next' in request.POST:
-                return redirect(request.POST.get('next'))
-            else:
-                return redirect('../')
+            messages.success(request, 'Message Sent Successfully!')
+            return redirect('../')
+        else:
+            messages.error(request, 'Message could not be sent...')
+            return redirect('../contactus')
     else:
-        form = contactSiteForm()
+        form = contactSiteForm(initial={'title': '', 'first_name': '', 'last_name': '', 'last_name': '', 'email': ''})
+
     return render(request, "contact_site.html", {'form': form,
                                                  'main_message': mainMessage.objects.all().order_by('-id').first(),
                                                  'items': cart_scroll_view(request)[0],
@@ -352,17 +366,18 @@ def sellerAddCoupon(request):
         return redirect('http://savebyclick.online/unauthorized')
     else:
         seller_info = Seller.objects.filter(User_id=request.user.id).first()
-        form = addCoupon(request.POST or None, initial={'Seller': Seller.objects.filter(User_id=request.user.id).first()})
+        form = addCoupon(request.POST or None, initial={'Seller': Seller.objects.filter(User_id=request.user.id).first(), 'title': '' })
         if request.method == 'POST':
             if form.is_valid():
                 m = form.save(commit=False)
                 m.save()
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../coupons')
+                messages.success(request, 'Coupon Added Successfully!')
+                return redirect('../coupons')
+            else:
+                messages.error(request, 'Coupon could not be added...')
+                return redirect('../coupons/add')
         else:
-            form = addCoupon(initial={'Seller': Seller.objects.filter(User_id=request.user.id).first() })
+            form = addCoupon(initial={'Seller': Seller.objects.filter(User_id=request.user.id).first(), 'title': '' })
         return render(request, "seller_coupon_add.html", {'form': form,
                                                           'main_message': mainMessage.objects.all().order_by('-id').first(),
                                                           'seller_info': seller_info,
@@ -407,10 +422,11 @@ def sellerReviewProduct(request,pk):
             if form.is_valid():
                 m = form.save(commit=False)
                 m.save()
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../')
+                messages.success(request, 'Product Updated Successfully!')
+                return redirect('../')
+            else:
+                messages.error(request, 'Product could not be updated...')
+                return redirect(str(pk)+'/review')
         else:
             form = UpdateProductForm(instance= Product.objects.filter(id=pk).first() )
         return render(request, "seller_product_review.html", {
@@ -438,29 +454,33 @@ def userMessageReview(request,pk):
     if request.user.is_staff == True or request.user.is_authenticated == False:
         return redirect('http://savebyclick.online/unauthorized')
     else:
-        details_seller = contactSeller.objects.filter(id=pk).first()
-        details_buyer = contactBuyer.objects.filter(id=pk).first()
         if request.user.is_superuser == True and request.user.is_staff == False:
+            details_seller = contactSeller.objects.filter(id=pk).first()
+            details_buyer = contactBuyer.objects.filter(id=pk).first()
             details_seller.read_or_not = True
             details_seller.save()
+
+            form = ContactBuyerForm(request.POST, initial={'User': request.user.id, 'first_name': request.user.first_name, 'body_text': details_seller.body_text +'<p>----------------------------------------------------------------------------------------------------</p>' + 'Write Your Message Here' , 'title': 'Reply: '+details_seller.title, 'last_name': request.user.last_name, 'email': request.user.email, 'receiver': details_seller.User_id })
+            if request.method == 'POST':
+                if form.is_valid():
+                    m = form.save(commit=False)
+                    m.save()
+                    messages.success(request, 'Message Sent Successfully!')
+                    return redirect('../inbox')
+                else:
+                    messages.error(request, 'Message could not be sent...')
+                    return redirect('../inbox'+str(pk))
+            else:
+                form = ContactBuyerForm(initial={'User': request.user.id, 'first_name': request.user.first_name, 'body_text': details_seller.body_text +'<p>----------------------------------------------------------------------------------------------------</p>' + 'Write Your Message Here', 'title': 'Reply: '+details_seller.title, 'last_name': request.user.last_name, 'email': request.user.email, 'receiver': details_seller.User_id })
+
         elif request.user.is_superuser == False and request.user.is_staff == False:
+            details_seller = None
+            form = None
+            details_buyer = contactBuyer.objects.filter(id=pk).first()
             details_buyer.read_or_not = True
             details_buyer.save()
-        form = ContactBuyerForm(request.POST, initial={'User': request.user.id, 'first_name': request.user.first_name, 'body_text': details_seller.body_text +'<p>----------------------------------------------------------------------------------------------------</p>' + 'Write Your Message Here' , 'title': 'Write Your Subject Here', 'last_name': request.user.last_name, 'email': request.user.email, 'receiver': details_seller.User_id })
-        if request.method == 'POST':
-            if form.is_valid():
-                m = form.save(commit=False)
-                m.save()
-                messages.success(request, 'Review Added Successfully!')
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../')
-        else:
-            form = ContactBuyerForm(initial={'User': request.user.id, 'first_name': request.user.first_name, 'body_text': details_seller.body_text +'<p>----------------------------------------------------------------------------------------------------</p>' + 'Write Your Message Here', 'title': 'Write Your Subject Here', 'last_name': request.user.last_name, 'email': request.user.email, 'receiver': details_seller.User_id })
 
         return render(request, "user_message_review.html", {'form': form,
-                                                            'messages': messages,
                                                             'user_info': request.user,
                                                             'details_seller': details_seller,
                                                             'details_buyer': details_buyer,
@@ -476,17 +496,18 @@ def sellerAddProduct(request):
         return redirect('http://savebyclick.online/unauthorized')
     else:
         seller_info = Seller.objects.filter(User_id=request.user.id).first()
-        form = addProductForm(request.POST or None, request.FILES, initial={'Seller': Seller.objects.filter(User_id=request.user.id).first()})
+        form = addProductForm(request.POST or None, request.FILES, initial={'Seller': Seller.objects.filter(User_id=request.user.id).first(), 'product_name': '' })
         if request.method == 'POST':
             if form.is_valid():
                 m = form.save(commit=False)
                 m.save()
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../../my-products')
+                messages.success(request, 'Product Added Successfully!')
+                return redirect('../')
+            else:
+                messages.error(request, 'Product could not be added...')
+                return redirect('/add')
         else:
-            form = addProductForm(initial={'Seller': Seller.objects.filter(User_id=request.user.id).first() })
+            form = addProductForm(initial={'Seller': Seller.objects.filter(User_id=request.user.id).first(), 'product_name': '' })
         return render(request, "seller_product_add.html", {'form': form,
                                                            'user_info': request.user,
                                                            'main_message': mainMessage.objects.all().order_by('-id').first(),
@@ -620,7 +641,7 @@ def adminActivityLogs(request):
     if request.user.is_staff == True or request.user.is_authenticated == False:
         user_info = User.objects.all()
 
-        data = {'logs': lastLogin.objects.all(),
+        data = {'logs': lastLogin.objects.all().order_by('-id'),
                 'user_info': user_info,
                 }
     else:
@@ -757,17 +778,18 @@ def productDetails(request,pk):
     rating_to_product_table.rating = item_rating_avg
     rating_to_product_table.save()
 
-    form = productRatingForm(request.POST or None, initial={'Product': product })
+    form = productRatingForm(request.POST or None, initial={'Product': product, 'name': '', 'email': '' })
     if request.method == 'POST':
         if form.is_valid():
             m = form.save(commit=False)
             m.save()
-            if 'next' in request.POST:
-                return redirect(request.POST.get('next'))
-            else:
-                return redirect('../../')
+            messages.success(request, 'Review Added Successfully!')
+            return redirect('../../product/'+str(pk))
+        else:
+            messages.error(request, 'Review could not be Added...')
+            return redirect('../../product/'+str(pk))
     else:
-        form = productRatingForm(initial={'Product': product } )
+        form = productRatingForm(initial={'Product': product, 'name': '', 'email': '' })
 
 # ---------------------------End Rating Product Section ------------------------------------
     return render(request, 'product.html', {
@@ -797,10 +819,11 @@ def reviewProduct(request,pk):
             if form.is_valid():
                 m = form.save(commit=False)
                 m.save()
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../../../product-list')
+                messages.success(request, 'Product Updated Successfully!')
+                return redirect('../../../product-list')
+            else:
+                messages.error(request, 'Product could not be updated...')
+                return redirect('../../../product/'+str(pk)+'/review')
         else:
             form = UpdateProductForm(instance=Product.objects.filter(id=pk).first())
         return render(request, "admin_product_review.html", {'form': form , 'product_id': pk, 'user_info': request.user })
@@ -860,9 +883,15 @@ def sellerSales(request):
                 }
         return render(request, 'seller_sales.html', context )
 
-def adminOrders(request):
-    context = { }
-    return render(request, 'admin_orders.html', context )
+def adminTransactions(request):
+    if request.user.is_staff == False:
+        return redirect('http://savebyclick.online/unauthorized')
+    else:
+        data_user = {
+            'order_info': Order.objects.all(),
+
+                    }
+        return render(request,'admin_transactions.html', data_user)
 
 def loginPage(request):
     if request.user.is_authenticated:
@@ -874,6 +903,7 @@ def loginPage(request):
                 # log the user in
                 user = form.get_user()
                 login(request, user)
+                messages.success(request, 'You Logged In Successfully!')
                 if 'next' in request.POST:
                     return redirect(request.POST.get('next'))
                 else:
@@ -882,6 +912,8 @@ def loginPage(request):
                    if (request.user.is_superuser == True and request.user.is_staff == True):
                        return redirect('/admin-panel')
                 return redirect('/')
+            else:
+                messages.error(request, 'Please check the login details again...')
         else:
             form = UserLoginForm()
         return render(request, 'login.html', { 'form': form,
@@ -923,16 +955,18 @@ def userUpdateInfo(request):
                 m = userForm.save(commit=False)
                 m.user = request.user
                 m.save()
+                messages.success(request, 'User Information Updated Successfully!')
+                return redirect('../')
 
             elif storeForm.is_valid():
                 m2 = storeForm.save(commit=False)
                 m2.user = request.user
                 m2.save()
-
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../profile')
+                messages.success(request, 'Shop Information Updated Successfully!')
+                return redirect('../')
+            else:
+                messages.error(request, 'details could not be updated...')
+                return redirect('../profile/update-info')
         else:
             form = UpdateUserForm(instance=request.user)
             form2 = UpdateSellerForm(instance=Seller.objects.filter(User_id=request.user.id).first())
@@ -956,10 +990,11 @@ def userUpdateShipping(request):
                 m = form.save(commit=False)
                 m.user = request.user
                 m.save()
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../profile')
+                messages.success(request, 'Shipping Information Updated Successfully!')
+                return redirect('../profile')
+            else:
+                messages.error(request, 'Shipping Information could not be updated...')
+                return redirect('../update-shipping')
         else:
             form = UpdateShippingForm(instance=shippingAdd.objects.filter(User_id=current_user.id).first())
         return render(request, "user_update_shipping.html", {
@@ -1002,7 +1037,7 @@ def buyerShopList(request):
         return render(request, 'buyer_shop_list.html', context)
 
 def orderCompleted(request,pk):
-    if request.user.is_staff == True or request.user.is_superuser == True or request.user.is_authenticated == False:
+    if (request.user.is_superuser == True and request.user.is_staff == False) or request.user.is_authenticated == False:
         return redirect('http://savebyclick.online/unauthorized')
     else:
         buyer = Buyer.objects.filter(User_id=request.user.id).first()
@@ -1152,17 +1187,18 @@ def addProduct(request):
     if request.user.is_staff == False:
         return redirect('http://savebyclick.online/unauthorized')
     else:
-        form = addProductForm(request.POST or None, request.FILES, initial={'Seller': Seller.objects.filter(User_id=request.user.id).first() })
+        form = addProductForm(request.POST or None, request.FILES, initial={'product_name': 'NA', 'Seller': 1 })
         if request.method == 'POST':
             if form.is_valid():
                 m = form.save(commit=False)
                 m.save()
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
-                else:
-                    return redirect('../../product-list')
+                messages.success(request, 'Product Added Successfully!')
+                return redirect('../../product-list')
+            else:
+                messages.error(request, 'Product could not be added...')
+                return redirect('../../product/add')
         else:
-            form = addProductForm(initial={'Seller': Seller.objects.filter(User_id=request.user.id).first() })
+            form = addProductForm(initial={'product_name': 'NA', 'Seller': 1 } )
         return render(request, "admin_product_add.html", {'form': form  , 'user_info': request.user, } )
 
 # © 2020 Liran Smadja (First Real-World Project) ©

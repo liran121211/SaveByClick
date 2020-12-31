@@ -224,17 +224,14 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5>Product Lists</h5>
+        {% if messages %}
+            {% for message in messages %}
+   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         		<center>{{ message }}</center>
+        	</div>
+            {% endfor %}
+    	{% endif %}
                             </div>
-
-
-
-
-
-
-
-
-
-
 
                                 <div class="card-body">
                                 	<div id="basicScenario" class="product-list digital-product jsgrid" style="position: relative; height: auto; width: 100%;">
@@ -274,13 +271,13 @@
                                                 </td>
                                                     <td style="width: 30px;" class="jsgrid-cell jsgrid-align-center">
                                                         {% if list.image1 %}
-                                                             <img src="{{ list.image1.url }}" style="height: 50px; width: 50px;">
+                                                             <center><img src="{{ list.image1.url }}" style="height: 50px; width: 60px;"></center>
                                                         {% else %}
                                                              <img src="{% static '/imageUploads/ImageNotAvailable.jpg' %}" style="height: 50px; width: 50px;">
                                                         {% endif %}
                                                     </td>
                                                     <td style="width: 120px;" class="jsgrid-cell">
-                                                        {{ list.product_name }}
+                                                       <u> <a href="../../../../product/{{ list.id }}" style="color:darkblue;"> {{ list.product_name }}</a></u>
                                                     </td>
                                                     <td style="width: 50px;" class="jsgrid-cell">
                                                         {% if list.status == True %}
@@ -368,5 +365,12 @@
 <!--script admin-->
 <script src="{% static 'assets/js/admin-script.js' %}"></script>
 
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },2000)
+    </script>
 </body>
 </html>

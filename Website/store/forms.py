@@ -32,7 +32,6 @@ class PromotedProductsForm(forms.ModelForm):
             'banner': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' } ),
             'slideshow': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px' } ),
             'popup': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px'}),
-            'unique_save': forms.HiddenInput()
         }
 
 class ContactSellerForm(forms.ModelForm):

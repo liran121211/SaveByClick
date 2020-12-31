@@ -286,7 +286,7 @@
                                              {{ list.email }}
                                         </td>
                                         <td style="width: 100px;" class="jsgrid-cell">
-                                             {{ list.last_login }}
+                                             {{ list.last_login|date:"Y-m-d H:i" }}
                                         </td>
                                         <td style="width: 100px;" class="jsgrid-cell">
                                             {% if list.is_staff == False and list.is_superuser == False %}

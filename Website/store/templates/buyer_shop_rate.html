@@ -43,6 +43,13 @@
 
     <!-- header start -->
     <header>
+                {% if messages %}
+            {% for message in messages %}
+   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         		<center>{{ message }}</center>
+        	</div>
+            {% endfor %}
+    	{% endif %}
                                             {% now "Y-m-d" as todays_date %}
                                     {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
                                 <center>
@@ -696,21 +703,24 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-
-
                                          <form class="theme-form" method="POST" enctype="multipart/form-data">
                                                 {% csrf_token %}
-                                             {{  form.media }}
+                                             {{ form.media }}
                                                     {{ form }}
-                                                {% if request.GET.next %}
-                                                    <input type="hidden" name="next" value="{{ request.GET.next }}" />
-                                                {% endif %}
-
-                                                    <P></P>
-                                                    <input type="submit" value="Send Review" class="btn btn-primary"/>
-                                            </form>
-                    </div>
-
+                                             {% if form.errors %}
+                                            <ul>
+                                                {% for key,value in form.errors.items %}
+                                                    <b><li STYLE="color: #ff0000">{{ value|escape }}</li></b>
+                                                {% endfor %}
+                                            </ul>
+                                            {% endif %}
+                                                   <P></P>
+                                                <div class="media-body">
+                                                      <p>&nbsp;</p>
+                                                    <button formmethod="post"  class="btn btn-solid" >Send Review</button>
+                                                </div>
+                                         </form>
+                             </div>
             </div>
         </div>
     </section>
@@ -1597,6 +1607,14 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+    </script>
+
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },2000)
     </script>
 
 </body>

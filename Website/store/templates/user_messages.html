@@ -46,6 +46,13 @@
 
     <!-- header start -->
     <header>
+                {% if messages %}
+            {% for message in messages %}
+   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         		<center>{{ message }}</center>
+        	</div>
+            {% endfor %}
+    	{% endif %}
                                             {% now "Y-m-d" as todays_date %}
                                     {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
                                 <center>
@@ -371,9 +378,9 @@
                                                     </td>
                                                     <td style="width: 120px;" class="jsgrid-cell">
                                                         {% if messages.read_or_not == False %}
-                                                        <b>{{ messages.title|safe }} (Unread)</b>
+                                                        <b>{{ messages.title|safe }}</b> <b style="color: red">(Unread)</b>
                                                          {% else %}
-                                                            {{ messages.title }}
+                                                            {{ messages.title|safe }}
                                                         {% endif %}
                                                     </td>
                                                     <td style="width: 50px;" class="jsgrid-cell">
@@ -405,13 +412,13 @@
                                                     </td>
                                                     <td style="width: 120px;" class="jsgrid-cell">
                                                         {% if messages.read_or_not == False %}
-                                                           {{ messages.title }}
+                                                           <b>{{ messages.title }}</b> <b style="color: red">(Unread)</b>
                                                          {% else %}
-                                                            <b>{{ messages.title|safe }} (Unread)</b>
+                                                            {{ messages.title|safe }}
                                                         {% endif %}
                                                     </td>
                                                     <td style="width: 50px;" class="jsgrid-cell">
-                                                        {{ messages.time }}
+                                                        {{ messages.time|date:"d/m/Y H:i" }}
                                                     </td>
                                                     <td style="width: 50px;" class="jsgrid-cell jsgrid-control-field jsgrid-align-center">
                                                         <form action="">
@@ -1311,6 +1318,14 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+    </script>
+
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },2000)
     </script>
 </body>
 {% endblock %}

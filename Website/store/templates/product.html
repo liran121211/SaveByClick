@@ -69,6 +69,13 @@
 
     <!-- header start -->
     <header>
+                {% if messages %}
+            {% for message in messages %}
+   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         		<center>{{ message }}</center>
+        	</div>
+            {% endfor %}
+    	{% endif %}
                                             {% now "Y-m-d" as todays_date %}
                                     {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
                                 <center>
@@ -466,7 +473,7 @@
                     <ul class="comment-section">
                         <li>
                             {% if not comments %}
-                            <h5>No Comments Has Been Found!</h5>
+                            <h5 style="color:dimgrey">No Comments Has Been Found!</h5>
                             {% else %}
                              {% for comment in comments %}
                             <div class="media">
@@ -516,18 +523,21 @@
                                         </div>
                                         <div class="tab-pane fade" id="top-review" role="tabpanel"
                                             aria-labelledby="review-top-tab">
+                                            {% if request.user.is_staff == True or request.user.is_superuser == True %}
+
+                                            <p>&nbsp;</p>
+                                            <h5 style="color:dimgrey">Sorry, Only Buyers Can Rate Products!</h5>
+                                            {% else %}
                                             <form class="theme-form" method="POST" enctype="multipart/form-data">
                                                 {% csrf_token %}
 
                                                     {{ form.media }}
                                                     {{ form }}
-                                                {% if request.GET.next %}
-                                                    <input type="hidden" name="next" value="{{ request.GET.next }}" />
-                                                {% endif %}
 
                                                     <P></P>
                                                     <input type="submit" value="Send Review" class="btn btn-primary"/>
                                             </form>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -1553,6 +1563,14 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+    </script>
+
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },2000)
     </script>
 </body>
 

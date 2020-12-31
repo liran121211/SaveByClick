@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-{% block content %}
 <head>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,8 @@
     <!-- Flag icon-->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/flag-icon.css' %}">
 
-    <!-- Dropzone css-->
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/dropzone.css' %}">
+    <!-- jsgrid css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/jsgrid.css' %}">
 
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.css' %}">
@@ -59,13 +59,13 @@
                     </li>
                     <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize-2"></i></a></li>
 
-                    <li><a href="../../../chat">Live Chat &nbsp;<i class="right_side_toggle" data-feather="message-square"></i><span class="dot"></span></a></li>
+                    <li><a href="../../chat">Live Chat &nbsp;<i class="right_side_toggle" data-feather="message-square"></i><span class="dot"></span></a></li>
                     <li class="onhover-dropdown">
                         <div class="media align-items-center"><img class="align-self-center pull-right img-50 rounded-circle blur-up lazyloaded" src="https://image.freepik.com/free-vector/man-profile-cartoon_18591-58482.jpg" alt="header-user">
                             <div class="dotted-animation"><span class="animate-circle"></span><span class="main-circle"></span></div>
                         </div>
                         <ul class="profile-dropdown onhover-show-div p-20 profile-dropdown-hover">
-                            <li><a href="../../../../logoutnow"><i data-feather="log-out"></i>Logout</a></li>
+                            <li><a href="../../logoutnow"><i data-feather="log-out"></i>Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -81,7 +81,7 @@
         <!-- Page Sidebar Start-->
         <div class="page-sidebar">
             <div class="main-header-left d-none d-lg-block">
-                <div class="logo-wrapper"><a href="../../../"><img class="blur-up lazyloaded" src="{% static 'assets/images/dashboard/multikart-logo.png' %}" alt="" height="50px" width="150px"></a></div>
+                <div class="logo-wrapper"><a href="../../"><img class="blur-up lazyloaded" src="{% static 'assets/images/dashboard/multikart-logo.png' %}" alt="" height="50px" width="150px"></a></div>
             </div>
             <div class="sidebar custom-scrollbar">
                 <div class="sidebar-user text-center">
@@ -91,26 +91,26 @@
                     <p>Administrator</p>
                 </div>
                 <ul class="sidebar-menu">
-                    <li><a class="sidebar-header" href="../../"><i data-feather="home"></i><span>Dashboard</span></a></li>
-                    <li><a class="sidebar-header" href="../../product-list"><i data-feather="box"></i> <span>Products</span></a>
+                    <li><a class="sidebar-header" href="../"><i data-feather="home"></i><span>Dashboard</span></a></li>
+                    <li><a class="sidebar-header" href="../product-list"><i data-feather="box"></i> <span>Products</span></a>
 
                     </li>
-                    <li><a class="sidebar-header" href="../../transactions"><i data-feather="dollar-sign"></i><span>Transactions</span></i></a>
+                    <li><a class="sidebar-header" href="../transactions"><i data-feather="dollar-sign"></i><span>Transactions</span></i></a>
                     </li>
-                    <li><a class="sidebar-header" href="../../coupons"><i data-feather="tag"></i><span>Coupons</span></i></a>
+                    <li><a class="sidebar-header" href="../coupons"><i data-feather="tag"></i><span>Coupons</span></i></a>
                     </li>
                     <li><a class="sidebar-header" href=""><i data-feather="user-plus"></i><span>Users</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="sidebar-submenu">
-                            <li><a href="../../users/"><i class="fa fa-circle"></i>User List</a></li>
-                            <li><a href="../../users/add"><i class="fa fa-circle"></i>Create User</a></li>
+                            <li><a href="../users/"><i class="fa fa-circle"></i>User List</a></li>
+                            <li><a href="../users/add"><i class="fa fa-circle"></i>Create User</a></li>
                         </ul>
                     </li>
-                    <li><a class="sidebar-header" href="../../settings"><i data-feather="settings"></i><span>Settings</span></a></li>
-                    <li><a class="sidebar-header" href="../../activity-logs"><i data-feather="bar-chart" ></i><span>Activity Logs</span></a>
+                    <li><a class="sidebar-header" href="../settings"><i data-feather="settings"></i><span>Settings</span></a></li>
+                    <li><a class="sidebar-header" href="../activity-logs"><i data-feather="bar-chart" ></i><span>Activity Logs</span></a>
                     </li>
-                    <li><a class="sidebar-header" href="../../inbox/"><i data-feather="archive"></i><span>Inbox</span></a>
+                    <li><a class="sidebar-header" href="../inbox/"><i data-feather="archive"></i><span>Inbox</span></a>
                     </li>
-                    <li><a class="sidebar-header" href="../../../logoutnow"><i data-feather="log-in"></i><span>Logout</span></a>
+                    <li><a class="sidebar-header" href="../../logoutnow"><i data-feather="log-in"></i><span>Logout</span></a>
                     </li>
                 </ul>
             </div>
@@ -193,30 +193,23 @@
         <!-- Right sidebar Ends-->
 
         <div class="page-body">
-                            {% if messages %}
-            {% for message in messages %}
-   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
-         		<center>{{ message }}</center>
-        	</div>
-            {% endfor %}
-    	{% endif %}
+
             <!-- Container-fluid starts-->
             <div class="container-fluid">
                 <div class="page-header">
-
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="page-header-left">
-                                <h3>Add Product
+                                <h3>Transactions
                                     <small>Multikart Admin panel</small>
                                 </h3>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <ol class="breadcrumb pull-right">
-                                <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-                                <li class="breadcrumb-item">Digital</li>
-                                <li class="breadcrumb-item active">Add Product</li>
+                                <li class="breadcrumb-item"><a href="../../../../"><i data-feather="home"></i></a></li>
+                                <li class="breadcrumb-item">Transactions</li>
+                                <li class="breadcrumb-item active">Transactions List</li>
                             </ol>
                         </div>
                     </div>
@@ -226,101 +219,63 @@
 
             <!-- Container-fluid starts-->
             <div class="container-fluid">
-                <form method="POST" enctype="multipart/form-data" >
-                <div class="row product-adding">
-                    <div class="col-xl-6">
-                        <div class="card">
-                             <p hidden>{{ form }}</p>
-                            <div class="card-body">
-                                <div class="digital-add needs-validation">
-                                    <div class="form-group">
-                                        {% csrf_token %}
-                                    <div class="form-group">
-                                        <label  class="col-form-label pt-0"><span>*</span> Product Name:</label>
-                                        {{ form.product_name   }}
-                                            </div>
-                                    <div class="form-group">
-                                    <label class="col-form-label pt-0"><span>*</span> Seller ID:</label>
-                                       {{ form.Seller }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label"><span>*</span> Category:</label>
-                                            {{ form.category }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Quantity:</label>
-                                         {{ form.quantity }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label  class="col-form-label"><span>*</span>Price:</label>
-                                         {{ form.price }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label  class="col-form-label"><span>*</span>Discount:</label>
-                                         {{ form.discount }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label"><span>*</span> Status</label>
-                                            {{ form.status }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label"><span>*</span> Promotion</label>
-                                            {{ form.advertise }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label"><span>*</span> Image 1: </label>
-                                     <p>{{ form.image1 }}</p>
-                                         <label class="col-form-label"><span>*</span> Image 2: </label>
-                                    <p>{{ form.image2 }}</p>
-                                         <label class="col-form-label"><span>*</span> Image 3: </label>
-                                    <p>{{ form.image3 }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Transactions Details</h5>
                     </div>
-                        </div>
-                    <div class="col-xl-6">
-                        <div class="card">
+                    <div class="card">
                             <div class="card-header">
-                                <h5>Add Description</h5>
-                                {{ form.media }}
-                                {{ form.product_description }}
+                                                   <div  class="category-table order-table jsgrid" style="position: relative; height: auto; width: 100%;">
+                                        <div class="jsgrid-grid-header jsgrid-header-scrollbar"><table class="jsgrid-table">
+                                                <th style="width: 50px;" class="jsgrid-header-cell jsgrid-align-center">
+                                                    Date Ordered
+                                                </th>
+                                                <th style="width: 50px;" class="jsgrid-header-cell jsgrid-align-center">
+                                                    Transaction ID
+                                                </th>
+                                            <th style="width: 30px;" class="jsgrid-header-cell jsgrid-align-center">
+                                                    Total Amount
+                                                </th>
+                                                <th style="width: 50px;" class="jsgrid-header-cell jsgrid-align-center">
+                                                    Action
+                                                </th>
+                                            </tr>
+                                        </table>
+                                        </div>
+                            </div>
 
+                                <div class="jsgrid-grid-body"><table class="jsgrid-table">
+                                    <tbody>
+                                    {% for order in order_info %}
+                                        {% if order.complete != False %}
+                                    <tr class="jsgrid-row">
+                                        <td style="width: 50px;" class="jsgrid-cell jsgrid-align-center">
+                                            {{ order.date_ordered|date:"d/m/Y H:i " }}
+                                        </td>
+                                        <td style="width: 50px;" class="jsgrid-cell jsgrid-align-center">
+                                            <a href="../../order/{{ order.transaction_id }}/success">{{ order.transaction_id }}</a>
+                                        </td>
+                                        <td style="width: 30px;" class="jsgrid-cell jsgrid-align-center">
+                                            ${{order.get_cart_total|floatformat:2 }}
+                                        </td>
+                                        <td style="width: 50px;" class="jsgrid-cell jsgrid-align-center">
+                                        <img src="https://www.iconexperience.com/_img/g_collection_png/standard/16x16/delivery_man_parcel.png" alt="View Shop" onclick="window.location.href='../../order/{{ order.transaction_id }}/success';">
+                                    </td>
+
+                                    </tr>
+
+                                        {% endif %}
+                                     {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                </div>
 
                             </div>
-                                 <div class="form-group mb-0">
-                                     <div class="product-buttons text-center">
-                                         <input type="submit" value="Update" class="btn btn-primary"/>
-                                        </div>
+                            <div class="card-body">
+                                <div id="batchDelete" class="category-table order-table"></div>
+                            </div>
                         </div>
-                        </div>
-                    </div>
-                </div>
-                </form>
-            </div>
-            <!-- Container-fluid Ends-->
-
-        </div>
-
-        <!-- footer start-->
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6 footer-copyright">
-                        <p class="mb-0">Copyright 2019 © Multikart All rights reserved.</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p class="pull-right mb-0">Hand crafted & made with<i class="fa fa-heart"></i></p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- footer end-->
-
-    </div>
-
-</div>
 
 <!-- latest jquery-->
 <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
@@ -336,34 +291,20 @@
 <!-- Sidebar jquery-->
 <script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
 
-<!--dropzone js-->
-<script src="{% static 'assets/js/dropzone/dropzone.js' %}"></script>
-<script src="{% static 'assets/js/dropzone/dropzone-script.js' %}"></script>
+<!-- Jsgrid js-->
 
-<!--ckeditor js-->
-<link href="{% static 'django_ckeditor_5/dist/styles.css' %}" type="text/css" media="all" rel="stylesheet">
-<script type="text/javascript" src="{% static 'django_ckeditor_5/dist/bundle.js' %}"></script>
 
 <!--Customizer admin-->
-<script src="{% static 'assets/js/admin-customizer.js' %}"></script>
+<script src="{% static 'assets/js/admin-customizer.js"></script>
 
 <!-- lazyload js-->
-<script src="{% static 'assets/js/lazysizes.min.js' %}"></script>
+<script src="{% 'assets/js/lazysizes.min.js"></script>
 
 <!--right sidebar js-->
-<script src="{% static 'assets/js/chat-menu.js' %}"></script>
+<script src="{% 'assets/js/chat-menu.js"></script>
 
 <!--script admin-->
-<script src="{% static 'assets/js/admin-script.js' %}"></script>
-
-    <script>
-    setTimeout(function (){
-        if ($('#msg').length > 0){
-            $('#msg').remove();
-        }
-    },2000)
-    </script>
+<script src="{% 'assets/js/admin-script.js"></script>
 
 </body>
-{% endblock %}
 </html>

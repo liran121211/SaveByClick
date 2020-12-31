@@ -258,6 +258,5 @@ class PromotedProducts(models.Model):
     banner = models.CharField(name='banner', max_length=10)
     slideshow = models.CharField(name='slideshow', max_length=10)
     popup = models.CharField(name='popup', max_length=10)
-    unique_save = models.IntegerField(name='unique_save', default=999)
 
 # © 2020 Liran Smadja (First Real-World Project) ©

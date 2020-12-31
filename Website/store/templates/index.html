@@ -62,6 +62,16 @@
 
     <!-----END CSRF TOKEN BUILT-IN AJAX FUNCTION AS JS ----------------->
 
+
+
+        {% if messages %}
+    {% for message in messages %}
+   <div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         <center>{{ message }}</center>
+        </div>
+    {% endfor %}
+{% endif %}
+
 </head>
 
 <body>
@@ -399,7 +409,7 @@
     <!-- Paragraph-->
     <div class="title1 section-t-space">
         <h4>Find The Hottest Products</h4>
-        <h2 class="title-inner1">Most Viewed</h2>
+        <h2 class="title-inner1">Randomly Selected</h2>
     </div>
     <div class="container">
         <div class="row">
@@ -1822,6 +1832,14 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+    </script>
+
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },1500)
     </script>
 
 </body>

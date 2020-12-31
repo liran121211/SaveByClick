@@ -42,6 +42,13 @@
 
     <!-- header start -->
     <header>
+                {% if messages %}
+            {% for message in messages %}
+   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         		<center>{{ message }}</center>
+        	</div>
+            {% endfor %}
+    	{% endif %}
                                             {% now "Y-m-d" as todays_date %}
                                     {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
                                 <center>
@@ -316,7 +323,7 @@
                                     }
                                     </script>
                                 {% else %}
-                                                                    <script>
+                                <script>
                                     var phone_number = "Not Available";
                                     function myFunction() {
                                       alert("Phone: " + phone_number);
@@ -1281,6 +1288,14 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+    </script>
+
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },1500)
     </script>
 </body>
 

@@ -193,14 +193,20 @@
         <!-- Right sidebar Ends-->
 
         <div class="page-body">
-
             <!-- Container-fluid starts-->
             <div class="container-fluid">
                 <div class="page-header">
+                    {% if messages %}
+            {% for message in messages %}
+   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         		<center>{{ message }}</center>
+        	</div>
+                        {% endfor %}
+    	{% endif %}
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="page-header-left">
-                                <h3>Add Products
+                                <h3>Review Products
                                     <small>Multikart Admin panel</small>
                                 </h3>
                             </div>
@@ -284,9 +290,6 @@
 
 
                             </div>
-                                    {% if request.GET.next %}
-                            <input type="hidden" name="next" value="{{ request.GET.next }}" />
-                                    {% endif %}
                                  <div class="form-group mb-0">
                                      <div class="product-buttons text-center">
                                          <input type="submit" value="Update" class="btn btn-primary"/>
@@ -363,6 +366,13 @@
 <!--script admin-->
 <script src="{% static 'assets/js/admin-script.js' %}"></script>
 
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },2000)
+    </script>
 </body>
 {% endblock %}
 </html>

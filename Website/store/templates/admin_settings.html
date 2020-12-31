@@ -38,6 +38,7 @@
 <div class="page-wrapper">
 
     <!-- Page Header Start-->
+
     <div class="page-main-header">
         <div class="main-header-right row">
             <div class="main-header-left d-lg-none">
@@ -222,6 +223,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
+                                        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+                <center>{{ message }}</center>
+                </div>
+            {% endfor %}
+    {% endif %}
                             <div class="card-header">
                                 <h5>Administration Settings</h5>
                             </div>
@@ -347,5 +355,13 @@
 <!--script admin-->
 <script src="{% static 'assets/js/admin-script.js' %}"></script>
 
+
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },2500)
+    </script>
 </body>
 </html>
