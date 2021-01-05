@@ -68,6 +68,13 @@
 
     <!-- header start -->
     <header>
+                                {% if messages %}
+            {% for message in messages %}
+   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         		<center>{{ message }}</center>
+        	</div>
+            {% endfor %}
+    	{% endif %}
                                             {% now "Y-m-d" as todays_date %}
                                     {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
                                 <center>
@@ -334,15 +341,16 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="#"><img src="{{ user.product.image1.url }}" alt=""></a>
+                                    <a href="../product/{{user.product.id}}"><img src="{{ user.product.image1.url }}" alt=""></a>
                                 </td>
-                                <td><a href="#">{{user.product.product_name }}</a>
+                                <td><u><a href="../product/{{user.product.id}}">{{user.product.product_name }}</a></u>
                                 </td>
 
                                 <td>
                                     {% for selleron in seller %}
                                         {% if selleron.id == user.product.Seller_id %}
-                                                {{ selleron.store_name }}
+
+                                               <u> <a href="../shop/{{selleron.id}}">{{ selleron.store_name }}</a></u>
                                         {% endif %}
                                     {% endfor %}
                                 </td>
@@ -1250,6 +1258,14 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+    </script>
+
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },1500)
     </script>
 </body>
 {% endblock %}

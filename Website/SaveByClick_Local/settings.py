@@ -27,6 +27,7 @@ SECRET_KEY = 'd56d95ef0d6f9620aea583c741b6b45f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 # Find out what the IP addresses are at run time
 # This is necessary because otherwise Gunicorn will reject the connections
 

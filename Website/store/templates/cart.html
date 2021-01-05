@@ -68,6 +68,13 @@
 
     <!-- header start -->
     <header>
+                        {% if messages %}
+            {% for message in messages %}
+   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         		<center>{{ message }}</center>
+        	</div>
+            {% endfor %}
+    	{% endif %}
                                             {% now "Y-m-d" as todays_date %}
                                     {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
                                 <center>
@@ -184,7 +191,7 @@
                                         </li>
                                         <li><a href="../contactus">Contact Us</a>
                                         </li>
-                                         <li class="mega" id="hover-cls"><a href="../faq">FAQ
+                                         <li class="mega" id="hover-cls"><a href="../cart">Cart
                                                 <div class="lable-nav">new</div>
                                             </a>
                                         </li>
@@ -296,14 +303,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="page-title">
-                        <h2>faq</h2>
+                        <h2>Cart</h2>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="../">home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">faq</li>
+                            <li class="breadcrumb-item active" aria-current="page">Cart</li>
                         </ol>
                     </nav>
                 </div>
@@ -316,6 +323,7 @@
     <!--section start-->
    <section class="cart-section section-b-space">
         <div class="container">
+            {% if count_cart > 0 %}
             <div class="row">
                 <div class="col-sm-12">
                     <table class="table cart-table table-responsive-xs">
@@ -335,7 +343,7 @@
                                 <td>
                                     <a href="../product/{{ cart_item.product.id }}"><img src="{{ cart_item.product.image1.url }}" alt=""></a>
                                 </td>
-                                <td><a href="#">{{ cart_item.product.product_name }}</a>
+                                <td><u><a href="../product/{{ cart_item.product.id }}">{{ cart_item.product.product_name }}</a></u>
                                     <div class="mobile-cart-content row">
 
                                         <div class="col-xs-3">
@@ -376,6 +384,10 @@
                 <div class="col-6"><a href="../" class="btn btn-solid">continue shopping</a></div>
                 <div class="col-6"><a href="../checkout" class="btn btn-solid">check out</a></div>
             </div>
+            {% else %}
+            <center><img src="{%  static 'imageUploads/empty-cart.png' %}" alt="">
+            <p><h2 style="color: grey; font: tabular-nums;">Your Shopping Cart Is Empty...</h2></p></center>
+            {% endif %}
         </div>
     </section>
     <!--Section ends-->
@@ -1255,6 +1267,14 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+    </script>
+
+    <script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },1500)
     </script>
 </body>
 

@@ -16,6 +16,10 @@ from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import ChatGrant
 
 fake = Faker()
+
+def countdown(request):
+    return render(request, 'temp_index.html', None)
+
 def shopReviews(request, pk):
     storerating = storeRating.objects.filter(Seller_id=pk).order_by('-time')
     context = {
@@ -579,16 +583,28 @@ def updateItem(request):
     orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 
     if action == 'add':
-        orderItem.quantity = (orderItem.quantity + 1)
+        if request.user.is_staff == True:
+            messages.error(request, 'Administrator cannot add items to the cart...')
+        elif request.user.is_superuser == True:
+            messages.error(request, 'Seller cannot add items to the cart...')
+        elif request.user.is_staff == False and request.user.is_staff == False:
+            orderItem.quantity = (orderItem.quantity + 1)
+            orderItem.save()
+            messages.success(request, 'Product Added Successfully!')
+
     elif action == 'decrease':
         orderItem.quantity = (orderItem.quantity - 1)
-    orderItem.save()
+        orderItem.save()
+        messages.info(request, 'Product Decreased Successfully!')
 
-    if action == 'remove':
-        orderItem.delete()
 
-    if orderItem.quantity <= 0:
+    elif action == 'remove':
         orderItem.delete()
+        messages.info(request, 'Product Removed Successfully!')
+
+    elif orderItem.quantity <= 0:
+        orderItem.delete()
+        messages.info(request, 'Product Removed Successfully!')
 
     return JsonResponse('Item was added to cart', safe=False)
 
@@ -605,16 +621,27 @@ def updateWishlist(request):
     items, created = wishlist.objects.get_or_create(buyer_id=buyer_info.id, product=product)
 
     if action == 'add':
-        items.quantity = (items.quantity + 1)
+        if request.user.is_staff == True:
+            messages.error(request, 'Administrator cannot add items to the wishlist...')
+        elif request.user.is_superuser == True:
+            messages.error(request, 'Seller cannot add items to the wishlist...')
+        elif request.user.is_superuser == False and request.user.is_staff == False:
+            items.quantity = (items.quantity + 1)
+            items.save()
+            messages.success(request, 'Wish Added Successfully!')
+
     elif action == 'decrease':
         items.quantity = (items.quantity - 1)
-    items.save()
+        items.save()
+        messages.success(request, 'Wish Added Successfully!')
 
-    if action == 'remove':
+    elif action == 'remove':
         items.delete()
+        messages.info(request, 'Product Removed Successfully!')
 
-    if items.quantity <= 0:
+    elif items.quantity <= 0:
         items.delete()
+        messages.info(request, 'Product Removed Successfully!')
 
     return JsonResponse('Item was added to wishlist', safe=False)
 

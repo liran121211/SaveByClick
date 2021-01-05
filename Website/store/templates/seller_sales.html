@@ -291,7 +291,8 @@
     <!-- breadcrumb End -->
 
 
-    <!-- section start -->
+        {% if 1 is not 1 %}
+        <!-- section start -->
     <section class="section-b-space">
         <div class="container">
             <div class="row">
@@ -412,6 +413,57 @@
     </section>
     <!-- section end -->
 
+    {% else %}
+  <section class="section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="account-sidebar"><a class="popup-btn">my account</a></div>
+                    <div class="dashboard-left">
+                        <div class="collection-mobile-back"><span class="filter-back"><i class="fa fa-angle-left"
+                                    aria-hidden="true"></i> back</span></div>
+                                <div class="block-content">
+                            <ul>
+                                       {% if request.user.is_staff == False and request.user.is_superuser == False  %}
+                                <li class="active"><a href="../profile">Account Info</a></li>
+                                <li><a href="../../update-shipping">Address Book</a></li>
+                                <li><a href="../my-orders">My Orders</a></li>
+                                <li><a href="../../wishlist">My Wishlist</a></li>
+                                <li><a href="../inbox">My Inbox</a></li>
+                                <li><a href="../../update-info">Update Information</a></li>
+                                <li><a href="../my-shops">My Store List</a></li>
+                                <li class="last"><a href="../../logoutnow">Log Out</a></li>
+                                {% endif %}
+                                {% if request.user.is_staff == False and request.user.is_superuser == True  %}
+                                <li class="active"><a href="../">Account Info</a></li>
+                                <li><a href="../../update-shipping">Warehouse Address</a></li>
+                                <li><a href="../my-products">My Products</a></li>
+                                <li><a href="../my-sales">My Sales</a></li>
+                                <li><a href="../coupons">My Coupons</a></li>
+                                <li><a href="../../update-info">Update Information</a></li>
+                                <li><a href="../inbox">My Inbox</a></li>
+                                <li><a href="../../shop/{{ seller.id }}">Visit My Shop</a></li>
+                                <li class="last"><a href="../../../logoutnow">Log Out</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="dashboard-right">
+                        <div class="dashboard">
+                                  <div class="title1 title5">
+                                        <h2 class="title-inner1">My Sales</h2>
+                                        <hr role="tournament6">
+                                 </div>
+               <center><h3>Not Available Yet...</h3></center> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        {% endif %}
 
     <!-- footer start -->
     <footer class="footer-light">

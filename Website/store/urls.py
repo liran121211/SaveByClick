@@ -7,9 +7,9 @@ from django.conf.urls import url
 from . import views
 from django.contrib.auth.views import LogoutView
 urlpatterns = [
+path('', views.homePage, name='home'),
 path('shop/<int:pk>/reviews', views.shopReviews, name= 'shop-reviews'),
 path('hot-deals/', views.hotDeals, name= 'hotDeals'),
-path('', views.homePage, name='home'),
 path('profile/', views.userPanel, name= 'userPanel'),
 path('update-info/', views.userUpdateInfo, name= 'user-update-info'),
 path("update-shipping/", views.userUpdateShipping, name="update-shipping"),

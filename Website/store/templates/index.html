@@ -2,8 +2,9 @@
 {% load static %}
 {% block content %}
 <html lang="en">
-
 <head>
+    <script src="{% static 'js/timer.js' %}"></script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -80,7 +81,7 @@
                                          {% now "Y-m-d" as todays_date %}
         {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d" %}
         <center><div style="background-color:#3e5067;" data-msg-iteration="7-36" class="container-fluid news-line-body">
-		<div class="message_title d-none d-md-block" style="color: rgb(252, 148, 3); font-weight: 600; font-size: 18px;">{{ main_message.title }} </div>
+		<div class="message_title d-none d-md-block" style="color: rgb(252, 148, 3); font-weight: 600; font-size: 18px;"><div id="timer" STYLE="direction: rtl; animation: ease-in"></div></div>
 		<div style="color:#ffffff;" class="text">{{ main_message.main_message }} {{ main_message.time|date:"d/m/Y" }} </div></div></center>
             {% endif %}
         <div class="mobile-fix-option"></div>
@@ -91,7 +92,6 @@
                         <div class="header-contact">
                             <ul>
                                 <li>Welcome To Our Store | SaveByClick</li>
-
                              {% if user.is_superuser == True and user.is_staff == True %}
                                 <li><i class="fa fa-phone" aria-hidden="true"></i>Online Users: {{ countOnlineUsers }} </li>
                                 {% endif %}
@@ -437,8 +437,7 @@
                         <div class="cart-info cart-wrap">
                             <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i class="ti-heart update-wishlist-js" data-product=" {{ product.id }} " data-action="add" aria-hidden="true"></i></a>
                         </div>
-                        <div class="add-button update-cart-js" data-toggle="modal" data-product="{{ product.id }}" data-action="add" >add to
-                            cart</div>
+                        <div class="add-button update-cart-js" data-toggle="modal" data-product="{{ product.id }}" data-action="add" >add to cart</div>
                     </div>
                     <div class="product-detail">
                                        <div class="size-box">
@@ -952,7 +951,8 @@
 
 
     <!--modal popup start-->
-    <div class="modal fade bd-example-modal-lg theme-modal" id="exampleModal" tabindex="-1" role="dialog"
+
+<div class="modal fade bd-example-modal-lg theme-modal" id="exampleModal" tabindex="-1" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -993,6 +993,7 @@
             </div>
         </div>
     </div>
+
     <!--modal popup end-->
 
 
@@ -1817,14 +1818,17 @@
     <!-- Wishlist js-->
     <script src="{% static 'js/wishlist.js' %}"></script>
 
-
-
-    <script>
-        $(window).on('load', function () {
+    <script> //check if popup already showed once
+    if (!sessionStorage.getItem('popup_once') === '1' || sessionStorage.getItem('popup_once') === null )
+    {
+              $(window).on('load', function () {
             setTimeout(function () {
                 $('#exampleModal').modal('show');
             }, 2500);
         });
+    }
+    sessionStorage.setItem('popup_once', '1');
+
         function openSearch() {
             document.getElementById("search-overlay").style.display = "block";
         }
@@ -1835,13 +1839,17 @@
     </script>
 
     <script>
+
+        window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+}
+
     setTimeout(function (){
         if ($('#msg').length > 0){
             $('#msg').remove();
         }
     },1500)
     </script>
-
 </body>
 {% endblock content %}
 </html>

@@ -354,14 +354,14 @@
                                             {% for item in items_info %}
                                             <tr>
                                              <td style="width: 350px;"><li>{{ item.product.product_name }} × {{ item.quantity }}</li></td>
-                                             <td> <li><span>${{ item.get_total }}</span></li></td>
+                                             <td> <li><span>${{ item.get_total|floatformat:2 }}</span></li></td>
                                             </tr>
                                             {% endfor %}
                                                 </tbody>
                                             </table>
                                         </ul>
                                         <ul class="sub-total">
-                                            <li>Subtotal <span class="count">${{ order_info.get_cart_total }}</span></li>
+                                            <li>Subtotal <span class="count">${{ order_info.get_cart_total|floatformat:2 }}</span></li>
                                             <li>Shipping Method
 
 
@@ -378,7 +378,7 @@
                                             </li>
                                         </ul>
                                         <ul class="total">
-                                            <li>Total <span class="count">${{ order_info.get_cart_total }}</span></li>
+                                            <li>Total <span class="count">${{ order_info.get_cart_total|floatformat:2 }}</span></li>
                                         </ul>
                                     </div>
                                     <div class="payment-box">
