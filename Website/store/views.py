@@ -190,7 +190,7 @@ def token(request):
 
 def searchPage(request):
     query = request.GET.get('LiranTheKing')
-    products = Product.objects.filter(product_description__icontains=query)
+    products = Product.objects.filter(product_description__icontains=query).order_by('-price')
     return render(request,'search.html', {
         'searched_items': products,
         'items': cart_scroll_view(request)[0],
@@ -895,14 +895,19 @@ def sellerSales(request):
         return redirect('http://savebyclick.online/unauthorized')
     else:
         seller = Seller.objects.filter(User_id=request.user.id).first()
-        orderitem = OrderItem.objects.filter(seller_id=seller.id)
+        orderitem = seller.orderitem_set.all()  # [ _set.all() ] lets you navigate backward between linked Table ForgienKeys (example: buyer exist in wishlist as ForgienKey ] ( tableName_set.all() )
         order = Order.objects.all()
+        saler_sales_filtered = []
+        for orders in order:
+            for item in orderitem:
+                if item.order_id == orders.id:
+                    saler_sales_filtered.append(orders)
+
 
         context = {
-            'orderitem': orderitem,
+            'orderitem': saler_sales_filtered,
             'main_message': mainMessage.objects.all().order_by('-id').first(),
             'items': cart_scroll_view(request)[0],
-            'order': order,
             'order_cart': cart_scroll_view(request)[1],
             'count': count_wishlist(request),
             'count_cart': count_cart_items(request),

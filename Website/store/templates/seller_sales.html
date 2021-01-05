@@ -291,7 +291,7 @@
     <!-- breadcrumb End -->
 
 
-        {% if 1 is not 1 %}
+        {% if 1 is not 2 %}
         <!-- section start -->
     <section class="section-b-space">
         <div class="container">
@@ -340,20 +340,20 @@
                                         <div class="jsgrid-grid-header jsgrid-header-scrollbar">
                                             <table class="jsgrid-table">
                                                 <tr class="jsgrid-header-row">
-                                                    <th style="width: 50px;" class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable">
+                                                    <th style="width: 70px;" class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable">
                                                         Date Created
                                                     </th>
                                                     <th style="width: 100px;" class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable">
                                                       Order ID
                                                     </th>
                                                     <th style="width: 50px;" class="jsgrid-header-cell jsgrid-header-sortable">
-                                                         Billed To
+                                                         Shipment Type
+                                                    </th>
+                                                    <th style="width: 70px;" class="jsgrid-header-cell jsgrid-header-sortable">
+                                                        Order Status
                                                     </th>
                                                     <th style="width: 50px;" class="jsgrid-header-cell jsgrid-header-sortable">
-                                                        Grand Total
-                                                    </th>
-                                                    <th style="width: 50px;" class="jsgrid-header-cell jsgrid-header-sortable">
-                                                        Status
+                                                        Total
                                                     </th>
                                                     <th style="width: 50px;" class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center">
                                                         <input class="jsgrid-button jsgrid-mode-button jsgrid-insert-mode-button" input type="button" onclick="window.location.href='../product/add';"/>
@@ -363,25 +363,31 @@
                                         </div>
                                         <div class="jsgrid-grid-body">
                                             {% for order_item in orderitem %}
-                                                {% for orders in order %}
-                                                    {% if order_item.order_id == orders.id %}
                                             <table class="jsgrid-table">
                                                 <tbody>
                                                 <tr class="jsgrid-row">
-                                                    <td style="width: 50px;" class="jsgrid-cell jsgrid-align-right">
-                                                    {{ orders.date_ordered }}
+                                                    <td style="width: 70px;" class="jsgrid-cell jsgrid-align-right">
+                                                    {{ order_item.date_ordered|date:"Y-m-d H:i" }}
                                                 </td>
                                                     <td style="width: 100px;" class="jsgrid-cell jsgrid-align-center">
-                                                    {{ orders.transaction_id }}
+                                                            {{ order_item.transaction_id }}
                                                     </td>
                                                     <td style="width: 50px;" class="jsgrid-cell">
-                                                        ${{ order_item.get_total }}
+                                                        {% if order_item.pickup is True %}
+                                                            Local Pickup
+                                                        {% else %}
+                                                            Israel Post
+                                                        {% endif %}
+                                                    </td>
+                                                    <td style="width: 70px;" class="jsgrid-cell">
+                                                            {% if order_item.pickup is True %}
+                                                            Shipped
+                                                        {% else %}
+                                                            Waiting For Payment
+                                                        {% endif %}
                                                     </td>
                                                     <td style="width: 50px;" class="jsgrid-cell">
-                                                            {{ order.product_name }}
-                                                    </td>
-                                                    <td style="width: 50px;" class="jsgrid-cell">
-                                                        ${{ list.price }}
+                                                        ${{ order_item.total|floatformat:2 }}
                                                     </td>
                                                     <td style="width: 50px;" class="jsgrid-cell jsgrid-control-field jsgrid-align-center">
                                                         <form action="">
@@ -390,10 +396,9 @@
                                                         </form>
 
                                                     </td>
+
                                                 </tr>
                                             </table>
-                                                    {% endif %}
-                                                 {% endfor %}
                                             {% endfor %}
                                             </div>
 

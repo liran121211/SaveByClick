@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='wishlist',
             name='date_added',
-            field=models.DateTimeField(default='2020-12-06 08:38:54.793849 +00:00'),
+            field=models.DateTimeField(auto_now_add=True),
         ),
         migrations.AlterField(
             model_name='productrating',

@@ -81,7 +81,7 @@
                                          {% now "Y-m-d" as todays_date %}
         {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d" %}
         <center><div style="background-color:#3e5067;" data-msg-iteration="7-36" class="container-fluid news-line-body">
-		<div class="message_title d-none d-md-block" style="color: rgb(252, 148, 3); font-weight: 600; font-size: 18px;"><div id="timer" STYLE="direction: rtl; animation: ease-in"></div></div>
+		<div class="message_title d-none d-md-block" style="color: rgb(252, 148, 3); font-weight: 600; font-size: 18px;">{{ main_message.title }}</div>
 		<div style="color:#ffffff;" class="text">{{ main_message.main_message }} {{ main_message.time|date:"d/m/Y" }} </div></div></center>
             {% endif %}
         <div class="mobile-fix-option"></div>
@@ -543,16 +543,9 @@
                                             </div>
                                             <div class="cart-info cart-wrap">
                                                 <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-
-
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
+                                                        class="ti-heart update-wishlist-js" data-product=" {{ product.id }} " data-action="add" aria-hidden="true"></i></a>
                                             </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
+                                            <div class="add-button update-cart-js" data-product=" {{ product.id }} " data-action="add" data-toggle="modal" data-target="#addtocart">add to
                                                 cart</div>
                                         </div>
                                         <div class="product-detail">
@@ -592,14 +585,9 @@
                                             </div>
                                             <div class="cart-info cart-wrap">
                                                 <a href="javascript:void(0)" title="Add to Wishlist" tabindex="0"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a>
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View" tabindex="0"><i class="ti-search"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="compare.html" title="Compare" tabindex="0"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a>
+                                                        class="ti-heart update-wishlist-js" data-product=" {{ best_discounts.id }} " data-action="add" aria-hidden="true"></i></a>
                                             </div>
-                                            <div class="add-button" data-toggle="modal" data-target="#addtocart">add to
+                                            <div class="add-button update-cart-js" data-product=" {{ best_discounts.id }} " data-action="add" data-toggle="modal" data-target="#addtocart">add to
                                                 cart</div>
                                         </div>
                                         <div class="product-detail">

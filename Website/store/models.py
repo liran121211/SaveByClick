@@ -140,6 +140,9 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
 
+    @property
+    def priceWithDiscount(self):
+        return self.price * (1 - (self.discount / 100))
 
 class Order(models.Model):
     Buyer = models.ForeignKey(Buyer, on_delete=models.SET_NULL, null=True, blank=True)
@@ -173,7 +176,7 @@ class OrderItem(models.Model):
 
     @property  # Make function behave like attribute (of class) and not function
     def get_total(self):
-        total = self.product.price * self.quantity
+        total = self.product.priceWithDiscount * self.quantity
         return total
 
 class wishlist(models.Model):

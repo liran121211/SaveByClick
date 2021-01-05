@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import sys
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -91,7 +92,7 @@ DATABASES = {
         'PASSWORD': 'c4yx5t9g8lnzhqo7',
         'HOST': 'save-by-click-db-nov-25-backup-do-user-8284622-0.b.db.ondigitalocean.com',
         'PORT': '25060',
-    }
+    },
 }
 
 # Password validation
