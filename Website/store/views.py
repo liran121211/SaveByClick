@@ -34,7 +34,7 @@ def shopReviews(request, pk):
     return render(request, "user_shop_reviews.html", context)
 
 def hotDeals(request):
-    product_info = Product.objects.all().order_by('-discount')[:10]
+    product_info = Product.objects.all().order_by('-discount')[:10] #top 10 with the most discount
     context = {
         'product_info': product_info,
         'product_count': product_info.count(),
@@ -204,16 +204,11 @@ def categories(request,pk):
     product_info = Product.objects.filter(category=pk)
     product_count = Product.objects.filter(category=pk).count()
 
-    #query = request.GET.get('LiranTheKing')
-    #products = Product.objects.filter(product_description__icontains=query)
-    #return render(request,'search.html', {'searched_items': products } )
-
     if request.method == 'POST':
         searchCheckBox = request.POST.get("searchCheckBox", None)
         if searchCheckBox in ["Electronics"]:
             products = Product.objects.filter(product_category__icontains='Electronics')
             return render(request, 'search.html', {'searched_items': products})
-
     context = {
         'product_info': product_info,
         'product_count': product_count,
@@ -835,6 +830,7 @@ def productDetails(request,pk):
         'count': count_wishlist(request),
         'count_cart': count_cart_items(request),
         'latest_products': Product.objects.all().order_by('?')[:3],
+        'pk': pk,
     } )
 
 def reviewProduct(request,pk):
@@ -1016,7 +1012,7 @@ def userUpdateShipping(request):
         return redirect('http://savebyclick.online/unauthorized')
     else:
         current_user = request.user
-        form = UpdateShippingForm(request.POST, instance=shippingAdd.objects.filter(User_id=current_user.id).first())
+        form = UpdateShippingForm(request.POST, instance= shippingAdd.objects.filter(User_id= request.user.id).first() )
         if request.method == 'POST':
             if form.is_valid():
                 m = form.save(commit=False)
@@ -1028,7 +1024,7 @@ def userUpdateShipping(request):
                 messages.error(request, 'Shipping Information could not be updated...')
                 return redirect('../update-shipping')
         else:
-            form = UpdateShippingForm(instance=shippingAdd.objects.filter(User_id=current_user.id).first())
+            form = UpdateShippingForm(instance= shippingAdd.objects.filter(User_id= request.user.id).first(), initial={'User': request.user.id })
         return render(request, "user_update_shipping.html", {
             'form': form,
             'main_message': mainMessage.objects.all().order_by('-id').first(),
@@ -1185,6 +1181,7 @@ def sellerShop(request,pk):
         'order': cart_scroll_view(request)[1],
         'count': count_wishlist(request),
         'count_cart': count_cart_items(request),
+        'count_products': seller_products.count(),
               }
     return render(request, 'seller_shop.html', context)
 

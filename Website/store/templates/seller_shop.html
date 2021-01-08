@@ -39,15 +39,17 @@
 </head>
 
 
-<!-- header start -->
-<header>
-             {% if messages %}
+    <!-- header start -->
+    <header>
+
+        {% if messages %}
             {% for message in messages %}
-   		<div class="alert {{ message.tags }} m-2" id="msg" role="alert">
-         		<center>{{ message }}</center>
-        	</div>
+   <div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+         <center>{{ message }}</center>
+        </div>
             {% endfor %}
-    	{% endif %}
+    {% endif %}
+
                                             {% now "Y-m-d" as todays_date %}
                                     {% if main_message.status == True and todays_date < main_message.time|date:"Y-m-d"  %}
                                 <center>
@@ -69,7 +71,7 @@
                     </div>
                     <div class="col-lg-6 text-right">
                         <ul class="header-dropdown">
-                                   <li class="mobile-wishlist"><a href="../../wishlist"><i class="fa fa-heart" aria-hidden="true"></i>Wishlist ({{ count }})</a>
+                                   <li class="mobile-wishlist"><a href="../wishlist"><i class="fa fa-heart" aria-hidden="true"></i>Wishlist ({{ count }})</a>
                             </li>
                             <li class="onhover-dropdown mobile-account">
                                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -77,19 +79,19 @@
                                      {{ user.first_name }}'s Profile
                                     <ul class="onhover-show-div">
                                         {% if user.is_superuser == True and user.is_staff == True %}
-                                     <li><a href="../../admin-panel/" data-lng="es">Admin Area</a></li>
-                                    <li><a href="../../logoutnow/" data-lng="es">Logout</a></li>
+                                     <li><a href="../admin-panel/" data-lng="es">Admin Area</a></li>
+                                    <li><a href="../logoutnow/" data-lng="es">Logout</a></li>
                                         {% else %}
-                                        <li><a href="../../profile/" data-lng="es">My Profile</a></li>
-                                    <li><a href="../../logoutnow/" data-lng="es">Logout</a></li>
+                                        <li><a href="../profile/" data-lng="es">My Profile</a></li>
+                                    <li><a href="../logoutnow/" data-lng="es">Logout</a></li>
                                         {% endif %}
                                          </ul>
                                 {% else %}
                                     My Account
 
                                 <ul class="onhover-show-div">
-                                    <li><a href="../../login/" data-lng="en">Login</a></li>
-                                    <li><a href="../../register/" data-lng="en">Sign Up</a></li>
+                                    <li><a href="../login/" data-lng="en">Login</a></li>
+                                    <li><a href="../register/" data-lng="en">Sign Up</a></li>
                                 </ul>
                                 {% endif %}
                             </li>
@@ -120,17 +122,17 @@
                                         <!-- Vertical Menu -->
                                        <ul id="sub-menu" class="sm pixelstrap sm-vertical">
                                             <li> <a href="../../hot-deals"><p style="color:orangered">HOT DEALS</p></a></li>
-                                            <li> <a href="../../category/Motors">Motors</a></li>
-                                            <li> <a href="../../category/Books, Movies & Music">Books, Movies & Music</a></li>
-                                            <li> <a href="../../category/Electronics">Electronics</a></li>
-                                            <li><a href="../../category/Collectibles & Art">Collectibles & Art</a></li>
-                                            <li> <a href="../../category/Fashion">Fashion</a></li>
-                                            <li><a href="../../category/Home & Garden">Home & Garden</a></li>
-                                            <li> <a href="../../category/Sporting Goods">Sporting Goods</a></li>
-                                            <li><a href="../../category/Toys & Hobbies">Toys & Hobbies</a></li>
-                                            <li><a href="../../category/Business & Industrial">Business & Industrial</a></li>
-                                            <li><a href="../../category/Health & Beauty">Health & Beauty</a></li>
-                                            <li><a href="../../category/Others">Others</a></li>
+                                            <li> <a href="../category/Motors">Motors</a></li>
+                                            <li> <a href="../category/Books, Movies & Music">Books, Movies & Music</a></li>
+                                            <li> <a href="../category/Electronics">Electronics</a></li>
+                                            <li><a href="../category/Collectibles & Art">Collectibles & Art</a></li>
+                                            <li> <a href="../category/Fashion">Fashion</a></li>
+                                            <li><a href="../category/Home & Garden">Home & Garden</a></li>
+                                            <li> <a href="../category/Sporting Goods">Sporting Goods</a></li>
+                                            <li><a href="../category/Toys & Hobbies">Toys & Hobbies</a></li>
+                                            <li><a href="../category/Business & Industrial">Business & Industrial</a></li>
+                                            <li><a href="../category/Health & Beauty">Health & Beauty</a></li>
+                                            <li><a href="../category/Others">Others</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -153,18 +155,18 @@
                                                     aria-hidden="true"></i></div>
                                         </li>
                                         <li>
-                                            <a href="../../best-sellers" style="color: red">Best Sellers</a>
+                                            <a href="../best-sellers" style="color: red">Best Sellers</a>
                                         </li>
                                         <li>
                                             <a href="#">Latest Products</a>
                                         </li>
-                                        <li class="mega" id="hover-cls"><a href="../../chat">Live Chat
+                                        <li class="mega" id="hover-cls"><a href="../chat">Live Chat
                                                 <div class="lable-nav">new</div>
                                             </a>
                                         </li>
-                                        <li><a href="../../contactus">Contact Us</a>
+                                        <li><a href="../contactus">Contact Us</a>
                                         </li>
-                                         <li class="mega" id="hover-cls"><a href="../../faq">FAQ
+                                         <li class="mega" id="hover-cls"><a href="../faq">FAQ
                                                 <div class="lable-nav">new</div>
                                             </a>
                                         </li>
@@ -210,15 +212,12 @@
                                                 <h6>language</h6>
                                                 <ul>
                                                     <li><a href="#">english</a> </li>
-                                                    <li><a href="#">french</a> </li>
+                                                  <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=he&u=http://savebyclick.online/contactus/">Hebrew</a></li>
+                                                    <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=ar&u=http://savebyclick.online/contactus/">Arabic</a></li>
+                                                    <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=de&u=http://savebyclick.online/contactus/">German</a></li>
+                                                    <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=fr&u=http://savebyclick.online/contactus/">French</a></li>
                                                 </ul>
-                                                <h6>currency</h6>
-                                                <ul class="list-inline">
-                                                    <li><a href="#">euro</a> </li>
-                                                    <li><a href="#">rupees</a> </li>
-                                                    <li><a href="#">pound</a> </li>
-                                                    <li><a href="#">doller</a> </li>
-                                                </ul>
+
                                             </div>
                                         </li>
                                         <li class="onhover-div mobile-cart">
@@ -232,7 +231,7 @@
                                                     {% for cart_item in items %}
                                                 <li>
                                                     <div class="media">
-                                                        <a href="../../product/{{cart_item.product.id}}">
+                                                        <a href="../product/{{cart_item.product.id}}">
                                                             <img alt="" class="mr-3" src="{{ cart_item.product.image1.url }}">
                                                         </a>
                                                         <div class="media-body">
@@ -253,8 +252,8 @@
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <div class="buttons"><a href="../../cart" class="view-cart">view
-                                                            cart</a> <a href="../../checkout" class="checkout">checkout</a></div>
+                                                    <div class="buttons"><a href="../cart" class="view-cart">view
+                                                            cart</a> <a href="../checkout" class="checkout">checkout</a></div>
                                                 </li>
                                             </ul>
                                         </li>
@@ -267,7 +266,7 @@
             </div>
         </div>
     </header>
-<!-- header end -->
+    <!-- header end -->
 
 
 <!-- vendor cover start -->
@@ -399,23 +398,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- color filter start here -->
-                    <div class="collection-collapse-block open">
-                        <h3 class="collapse-block-title">colors</h3>
-                        <div class="collection-collapse-block-content">
-                            <div class="color-selector">
-                                <ul>
-                                    <li class="color-1 active"></li>
-                                    <li class="color-2"></li>
-                                    <li class="color-3"></li>
-                                    <li class="color-4"></li>
-                                    <li class="color-5"></li>
-                                    <li class="color-6"></li>
-                                    <li class="color-7"></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+
                     <!-- price filter start here -->
                     <div class="collection-collapse-block border-0 open">
                         <h3 class="collapse-block-title">price</h3>
@@ -445,10 +428,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="collection-sidebar-banner">
-                    <a href="#"><img src="{% static 'assets/images/side-banner.png' %}" class="img-fluid blur-up lazyload"
-                            alt=""></a>
-                </div>
+
                 <!-- silde-bar colleps block end here -->
             </div>
             <div class="col">
@@ -467,7 +447,7 @@
                                         <div class="col-12">
                                             <div class="product-filter-content">
                                                 <div class="search-count">
-                                                    <h5>Showing Products 1-24 of 10 Result</h5>
+                                                    <h5>Showing Products 1-{{ count_products }}</h5>
                                                 </div>
                                                 <div class="collection-view">
                                                     <ul>
@@ -604,8 +584,8 @@
 <!-- collection section end -->
 
 
-<!-- footer start -->
-   <footer class="footer-light">
+  <!-- footer start -->
+    <footer class="footer-light">
         <div class="light-layout">
             <div class="container">
                 <section class="small-section border-section border-top-0">
@@ -657,11 +637,11 @@
                             </div>
                             <div class="footer-contant">
                                 <ul>
-                                   <li><a href="../../profile">Manage Account</a></li>
-                                    <li><a href="../../update-shipping">Address Book</a></li>
-                                    <li><a href="../../update-info">Update Information</a></li>
-                                    <li><a href="../../profile/inbox">My Inbox</a></li>
-                                    <li><a href="../../logoutnow">Log Out</a></li>
+                                   <li><a href="../profile">Manage Account</a></li>
+                                    <li><a href="../update-info">Address Book</a></li>
+                                    <li><a href="../update-info">Update Information</a></li>
+                                    <li><a href="../profile/inbox">My Inbox</a></li>
+                                    <li><a href="../logoutnow">Log Out</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -673,9 +653,9 @@
                             </div>
                             <div class="footer-contant">
                                 <ul>
-                                    <li><a href="../../contactus">Contact Us</a></li>
-                                    <li><a href="../../faq">F.A.Q</a></li>
-                                    <li><a href="../../chat">Live Chat</a></li>
+                                    <li><a href="../contactus">Contact Us</a></li>
+                                    <li><a href="../faq">F.A.Q</a></li>
+                                    <li><a href="../chat">Live Chat</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -718,7 +698,7 @@
             </div>
         </div>
     </footer>
-<!-- footer end -->
+    <!-- footer end -->
 
 
 <!-- tap to top -->

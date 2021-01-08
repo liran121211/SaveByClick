@@ -238,15 +238,13 @@
                                                 <h6>language</h6>
                                                 <ul>
                                                     <li><a href="#">english</a> </li>
-                                                    <li><a href="#">french</a> </li>
+                                                     <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=he&u=http://savebyclick.online/product/{{pk}}/">Hebrew</a></li>
+                                                     <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=ar&u=http://savebyclick.online/product/{{pk}}/">Arabic</a></li>
+                                                     <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=de&u=http://savebyclick.online/product/{{pk}}/">German</a></li>
+                                                     <li><a href="https://translate.google.com/translate?hl=en&sl=en&tl=fr&u=http://savebyclick.online/product/{{pk}}/">French</a></li>
                                                 </ul>
-                                                <h6>currency</h6>
-                                                <ul class="list-inline">
-                                                    <li><a href="#">euro</a> </li>
-                                                    <li><a href="#">rupees</a> </li>
-                                                    <li><a href="#">pound</a> </li>
-                                                    <li><a href="#">doller</a> </li>
-                                                </ul>
+
+                                              
                                             </div>
                                         </li>
                                         <li class="onhover-div mobile-cart">
@@ -378,7 +376,7 @@
                                              <h4> Sold By: <a href="../../shop/{{ seller_info.id }}">{{ seller_info.store_name }}</a></h4>
                                         </ul>
                                         <div class="product-description border-product">
-                                            <h6 class="product-title size-text">Rating: <span></span></h6>
+                                            <h6 class="product-title size-text">Rating: <span></span></h6>  <!---show rating--->
                                             <div class="modal fade" id="sizemodal" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -398,7 +396,7 @@
                                             </div>
                                             <div class="size-box">
                                                 <ul>
-                                                   {% if avg_rating == 0 %}
+                                                   {% if avg_rating == 0 %} <!---get rating-->
                                                      <li> <img src="{% static 'images/stars_rating/0_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
                                                     {% elif avg_rating == 1 %}
                                                      <li> <img src="{% static 'images/stars_rating/1_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
@@ -492,7 +490,7 @@
                                     <ul class="comnt-sec">
                   <div class="size-box">
                                                 <ul>
-                                                   {% if comment.rating == '0' %}
+                                                   {% if comment.rating == '0' %} <!---show rating in comments--->
                                                      <li> <img src="{% static 'images/stars_rating/0_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>
                                                     {% elif comment.rating == '1' %}
                                                      <li> <img src="{% static 'images/stars_rating/1_stars.png' %}" alt="0 stars" style="width:101px;height:21px;"> </li>

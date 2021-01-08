@@ -85,13 +85,15 @@ class UpdateUserForm(UserCreationForm):
 class UpdateShippingForm(forms.ModelForm):
     class Meta:
         model = shippingAdd
-        fields = [ 'address', 'city', 'country','zipcode', 'phone']
+        fields = [ 'User', 'address', 'city', 'country','zipcode', 'phone']
         widgets = {
+            'User': forms.HiddenInput(),
             'address': forms.TextInput(attrs={'class': 'form-control'}),
             'city': forms.TextInput(attrs={'class': 'form-control'}),
             'country': forms.Select(attrs={'class': 'form-control'}),
             'zipcode': forms.TextInput(attrs={'class': 'form-control'}),
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
+
         }
 
 class UpdateProductForm(forms.ModelForm):

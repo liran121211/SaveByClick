@@ -1,13 +1,12 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
-# Pרroject SaveByClick - Online Ecommerce
-#© 2020 Liran Smadja (First Real-Word Project) ©
 import os
 import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_project.settings')
+    """Run administrative tasks."""
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SaveByClick_Local.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

@@ -250,13 +250,13 @@
                                 <p>&nbsp;</p>
                                                     <table class="jsgrid-table">
                                                 <tbody>
-                                                <tr class="jsgrid-row"><td style="width: 30px;" class="jsgrid-cell jsgrid-align-right">
+                                                <tr class="jsgrid-row"><td style="width: 100px;" class="jsgrid-cell jsgrid-align-right">
                                                     Product Name
                                                 </td>
                                                     <td style="width: 30px;" class="jsgrid-cell jsgrid-align-center">
                                                     Product ID
                                                 </td>
-                                                    <td style="width: 30px;" class="jsgrid-cell jsgrid-align-center">
+                                                    <td style="width: 10px;" class="jsgrid-cell jsgrid-align-center">
                                                         Seller ID
                                                     </td>
                                                     <td style="width: 30px;" class="jsgrid-cell">
@@ -272,13 +272,13 @@
                                                 <tbody>
                                                     {% for product in advertise_Products %}
                                                         {% if product.advertise != 'Not Promoted' %}
-                                                <tr class="jsgrid-row"><td style="width: 30px;" class="jsgrid-cell jsgrid-align-right">
-                                                    {{ product.product_name }}
+                                                <tr class="jsgrid-row"><td style="width: 100px;" class="jsgrid-cell jsgrid-align-right">
+                                                   <a href="../../../../product/{{ product.id }}" style="color: black; "><u>{{ product.product_name }}</u></a>
                                                 </td>
                                                     <td style="width: 30px;" class="jsgrid-cell jsgrid-align-center">
                                                         {{ product.id }}
                                                     </td>
-                                                    <td style="width: 30px;" class="jsgrid-cell jsgrid-align-center">
+                                                    <td style="width: 10px;" class="jsgrid-cell jsgrid-align-center">
                                                         {{ product.Seller_id }}
                                                     </td>
                                                     <td style="width: 30px;" class="jsgrid-cell">
@@ -300,8 +300,12 @@
                                         <p></p>
                                         <button type="submit" class="btn btn-primary">Promote</button>
                                     </form>
-
+                                <p>&nbsp;</p>
+                                                        <h5> Database Managment:</h5>
+                                <p>&nbsp;</p>
+                            <button  class="btn btn-primary" onclick="window.location.href='http://46.101.54.34/pgadmin4/';" style="width: 200px;">Manage</button>
                                 </div>
+
                     </div>
                 </div>
             </div>

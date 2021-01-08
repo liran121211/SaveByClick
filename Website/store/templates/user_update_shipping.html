@@ -305,29 +305,30 @@
                                                   {% csrf_token %}
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="email">Address</label>
+                                    <label  >Address</label>
                                         {{ form.address }}
+                                    {{ form.User }}
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="review">City</label>
+                                    <label  >City</label>
                                         {{ form.city }}
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="email">Country</label>
+                                    <label  >Country</label>
                                         {{ form.country }}
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="review">Zipcode</label>
+                                    <label  >Zipcode</label>
                                         {{ form.zipcode }}
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="email">Phone</label>
+                                    <label  >Phone</label>
                                         {{ form.phone }}
                                    </div>
                             </div>
