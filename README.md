@@ -1,18 +1,18 @@
 # SaveByClick
 SaveByClick Ecommerce
-**כל ההנחיות הן על פי פרוייקט DJANGO שנוצר ב PYCHARM בלבד!**
-סיסמא לחילוץ ה-ZIP: 
-%$savebyclick@!
+** All guidelines are according to the DJANGO project created in PYCHARM only! **
+ZIP extraction password:
+% $ savebyclick @!
 
-הפרויקט פותח ותואם גרסת Django 2.2.12 ומעלה.
-על מנת להפעיל את הפרוייקט יש לפתוח פרויקט DJANGO חדש ואת כל הקבצים להעביר לתיקיית האם של הפרויקט, לדוגמא אם תיקיית הפרויקט החדש היא :
-C:\Users\XXX\PycharmProjects\DJANGO-PROJECT
-יש להעביר את כל הקבצים הנמצאים בארכיון אל תוך תיקיית DJANGO-PROJECT
+The project is developed and compatible with Django version 2.2.12 and above.
+In order to start the project, a new DJANGO project must be opened and all the files transferred to the project's parent folder, for example if the new project folder is:
+C: \ Users \ XXX \ PycharmProjects \ DJANGO-PROJECT
+All archived files should be moved to the DJANGO-PROJECT folder
 
-אילוצים:
-אין אפשרות לגשת למסד נתונים ישירות ללא הוספת כתובת IP של המחשב ממנו ניגשים אליו מאחר והוא מאוחסן פרוטוקולי אבטחה של חברת DigitalOcean, לכן כדי לגשת למסד נתונים יש לבקש מאיתנו להוסיף את כתובת ה-IP שלכם
+Constraints:
+It is not possible to access a database directly without adding the IP address of the computer from which it is accessed because it is stored by DigitalOcean security protocols, so in order to access the database you must ask us to add your IP address
 
-כדי להפעיל את המערכת הלוקאלית נדרשת התקנת התוספים הבאים ע"י הכנסת הפקודות הבאות לטרמינל:
+To activate the local system, the following plugins must be installed by entering the following commands in the terminal:
 pip install django-ckeditor-5
 pip install django-countries
 pip install Faker
@@ -21,19 +21,17 @@ pip install psycopg2
 pip install django-twilio
 pip install Pillow
 
-על מנת להפעיל את הפרויקט יש לכתוב את הפקודה הבאה במדויק ללא שינוי בטרמינל:
+In order to start the project, the following command must be written exactly without change in the terminal:
 manage.py runserver --insecure
 
-במידה והפקודה לא מפעילה את השרת המקומי היא מכיוון שהכתובת IP שלכם לא מורשית להתחבר למסד נתונים
+If the command does not run the local server it is because your IP address is not allowed to connect to a database
 
-חשבונות משתמשים:
-כתובת להתחברות: לחץ כאן
+User accounts:
+Login address: Click here
 
-מוכר: 
-toysrus:u5uWBLM34hGyLev
-קונה:
-rich_buyer:u5uWBLM34hGyLev
-אדמיניסטרטור:
-Administrator:u5uWBLM34hGyLev
-
-
+Familiar:
+toysrus: u5uWBLM34hGyLev
+buyer:
+rich_buyer: u5uWBLM34hGyLev
+Administrator:
+Administrator: u5uWBLM34hGyLev
