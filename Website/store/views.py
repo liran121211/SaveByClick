@@ -574,9 +574,10 @@ def updateItem(request):
 
     buyer = Buyer.objects.filter(User_id=request.user.id).first()
     product = Product.objects.get(id=productId)
+    seller_info = Seller.objects.filter(id=product.Seller_id).first()
     order, created = Order.objects.get_or_create(Buyer=buyer, complete=False)
-    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 
+    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product, seller=seller_info)
     if action == 'add':
         if request.user.is_staff == True:
             messages.error(request, 'Administrator cannot add items to the cart...')
@@ -902,6 +903,7 @@ def sellerSales(request):
 
         context = {
             'orderitem': saler_sales_filtered,
+            'seller_info': seller,
             'main_message': mainMessage.objects.all().order_by('-id').first(),
             'items': cart_scroll_view(request)[0],
             'order_cart': cart_scroll_view(request)[1],
