@@ -1,8 +1,7 @@
 # SaveByClick
 SaveByClick Ecommerce
 ** All guidelines are according to the DJANGO project created in PYCHARM only! **
-ZIP extraction password:
-% $ savebyclick @!
+
 
 The project is developed and compatible with Django version 2.2.12 and above.
 In order to start the project, a new DJANGO project must be opened and all the files transferred to the project's parent folder, for example if the new project folder is:
