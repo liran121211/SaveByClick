@@ -26,12 +26,3 @@ manage.py runserver --insecure
 
 If the command does not run the local server it is because your IP address is not allowed to connect to a database
 
-User accounts:
-Login address: Click here
-
-Familiar:
-toysrus: u5uWBLM34hGyLev
-buyer:
-rich_buyer: u5uWBLM34hGyLev
-Administrator:
-Administrator: u5uWBLM34hGyLev
